@@ -3,12 +3,12 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     string mainMenuScene = "MainMenu";
-    string levelOne = "IntroLevelOneAnimation";
+    string Level1 = "Level1";
     string levelTwo = "LvlTwoProto";
     string levelThree = "LevelOneActual";
     string levelBoss = "LEVEL2TESTSCENE";
-    string creditsScene = "Credits";
-    string helpScene = "Controls";
+    string Credits = "Credits";
+    string Help = "Help";
     string winScene = "WIN";
     string levelThreeActual = "LevelThree";
 
@@ -30,7 +30,7 @@ public class UIManager : MonoBehaviour
 
         Time.timeScale = 1.0f; //sets time scale
 
-        if ((SceneManager.GetActiveScene().name == levelOne) || (SceneManager.GetActiveScene().name == levelBoss)
+        if ((SceneManager.GetActiveScene().name == Level1) || (SceneManager.GetActiveScene().name == levelBoss)
             || (SceneManager.GetActiveScene().name == levelTwo) || (SceneManager.GetActiveScene().name == levelThree)|| (SceneManager.GetActiveScene().name == levelThreeActual))
         {
             Debug.Log("Open Pause Close");
@@ -67,7 +67,7 @@ public class UIManager : MonoBehaviour
     {
         
 
-        {
+        /*{
             if (Input.GetKeyDown(KeyCode.Escape) && !isDead)
             {
                 if (!Paused)
@@ -84,7 +84,7 @@ public class UIManager : MonoBehaviour
                     Cursor.visible = false;
                 }
             }
-        }
+        }*/
     }
 
     //--------------Functions----------------
@@ -92,7 +92,7 @@ public class UIManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(levelOne);
+        SceneManager.LoadScene(Level1);
     }
 
     public void GameOver()
@@ -106,13 +106,13 @@ public class UIManager : MonoBehaviour
     public void GetHelp()
     {
         Debug.Log("Help Scene");
-        SceneManager.LoadScene(helpScene);
+        SceneManager.LoadScene(Help);
     }
 
     public void GetCredits()
     {
         Debug.Log("Credit Scene");
-        SceneManager.LoadScene(creditsScene);
+        SceneManager.LoadScene(Credits);
     }
 
     public void QuitToMenu()
