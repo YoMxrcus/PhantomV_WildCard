@@ -8,6 +8,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MarcusTestScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 04808923d45182545ac97eed31cf34c0
+  - enabled: 1
+    path: Assets/Scenes/Help.unity
+    guid: e5857c6f07f9b494098dee3db5d6cdfc
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 1e3d0c7c691fc69489d1edd98e292e4d
+  - enabled: 1
+    path: Assets/Scenes/Level1.unity
+    guid: 472b341a2bf6edc44b5ead9592d1528f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
