@@ -17,6 +17,7 @@ public class ThirdPersonController : MonoBehaviour
     private Vector2 moveInput;
     private float verticalVelocity;
 
+    public bool aiming = false;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -28,9 +29,16 @@ public class ThirdPersonController : MonoBehaviour
         moveInput = value.Get<Vector2>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         HandleMovement();
+        if (Mouse.current.rightButton.isPressed)
+        {
+            aiming = true;
+            RotateTowardMouse();
+
+        }
+        else { aiming = false; }
     }
 
     private void HandleMovement()
@@ -59,18 +67,36 @@ public class ThirdPersonController : MonoBehaviour
             Vector3 moveDirection = forward * moveInput.y + right * moveInput.x;
 
             // Rotate toward movement direction
-            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                targetRotation,
-                rotationSpeed * Time.deltaTime
-            );
+            if (!aiming)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            }
+            else { }
 
-            controller.Move(moveDirection * moveSpeed * Time.deltaTime);
+                controller.Move(moveDirection * moveSpeed * Time.deltaTime);
         }
 
         // Apply gravity
         verticalVelocity += gravity * Time.deltaTime;
         controller.Move(Vector3.up * verticalVelocity * Time.deltaTime);
+    }
+
+    void RotateTowardMouse()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+        {
+            Vector3 lookPoint = hit.point;
+            lookPoint.y = transform.position.y;
+
+            Vector3 direction = (lookPoint - transform.position).normalized;
+
+            if (direction != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 15f * Time.deltaTime);
+            }
+        }
     }
 }
