@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
@@ -66,9 +67,7 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         
-
-        /*{
-            if (Input.GetKeyDown(KeyCode.Escape) && !isDead)
+            if (Keyboard.current.escapeKey.wasPressedThisFrame)
             {
                 if (!Paused)
                 {
@@ -84,7 +83,6 @@ public class UIManager : MonoBehaviour
                     Cursor.visible = false;
                 }
             }
-        }*/
     }
 
     //--------------Functions----------------
