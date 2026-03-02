@@ -43,8 +43,7 @@ public class UIManager : MonoBehaviour
             pauseMenu.SetActive(false);
             gameOverMenu.SetActive(false);
 
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+
         }
 
         else
@@ -54,8 +53,7 @@ public class UIManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "WIN")
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+
         }
 
         
@@ -73,14 +71,12 @@ public class UIManager : MonoBehaviour
                 {
 
                     PauseGame();
-                    Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
+ 
                 }
                 else
                 {
                     UnpauseGame();
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
+
                 }
             }
     }
@@ -97,8 +93,7 @@ public class UIManager : MonoBehaviour
     {
         isDead = true;
         GameOverMenu();
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+
     }
 
     public void GetHelp()
