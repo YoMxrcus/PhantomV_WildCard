@@ -1219,12 +1219,12 @@ GameObject:
   - component: {fileID: 616726773}
   - component: {fileID: 616726772}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: WireMinigame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &616726771
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1241,10 +1241,10 @@ RectTransform:
   - {fileID: 1876766214}
   - {fileID: 173404367}
   - {fileID: 582884328}
-  - {fileID: 152514244}
   - {fileID: 471031080}
-  - {fileID: 1554965648}
   - {fileID: 305608369}
+  - {fileID: 152514244}
+  - {fileID: 1554965648}
   - {fileID: 1770495333}
   m_Father: {fileID: 1426239473}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1410,6 +1410,7 @@ GameObject:
   - component: {fileID: 794750514}
   - component: {fileID: 794750513}
   - component: {fileID: 794750512}
+  - component: {fileID: 794750516}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -1510,6 +1511,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &794750516
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794750511}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.1, y: 1.1, z: 1.1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2153,6 +2175,7 @@ MonoBehaviour:
   redWire: {fileID: 1373437231}
   blueWire: {fileID: 1876766213}
   yellowWire: {fileID: 173404366}
+  wireMinigame: {fileID: 616726770}
   redConnected: 0
   blueConnected: 0
   yellowConnected: 0
