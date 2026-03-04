@@ -43,9 +43,9 @@ public class OxygenLevelsPuzzle : MonoBehaviour
 
     void HandleOxygenDecay()
     {
-        if (oxygen > 0 && !complete) oxygen -= 0.15f;
-        if (oxygen2 > 0 && !complete2) oxygen2 -= 0.15f;
-        if (oxygen3 > 0 && !complete3) oxygen3 -= 0.15f;
+        if (oxygen > 0 && !complete) oxygen -= 0.25f;
+        if (oxygen2 > 0 && !complete2) oxygen2 -= 0.25f;
+        if (oxygen3 > 0 && !complete3) oxygen3 -= 0.25f;
     }
 
     void HandleTimerLogic()
