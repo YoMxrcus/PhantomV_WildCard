@@ -12,20 +12,12 @@ public class OxygenLevelsPuzzle : MonoBehaviour
     public Image fillImage, fillImage2, fillImage3;
 
     public TMP_Text timer, timer2, timer3;
-    public float time, time2, time3 = 3;
+    public float time = 3, time2 = 3, time3 = 3;
 
     public bool complete = false;
     public bool complete2 = false;
     public bool complete3 = false;
 
-    public bool CoStarted1= false;
-    public bool CoStarted2 = false;
-    public bool CoStarted3 = false;
-
-    public Coroutine Cor1;
-    public Coroutine Cor2;
-    public Coroutine Cor3;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         oxygen = Random.Range(10, 101); oxygen2 = Random.Range(10, 101); oxygen3 = Random.Range(10, 101);
@@ -34,113 +26,63 @@ public class OxygenLevelsPuzzle : MonoBehaviour
         UpdateUI();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        //Adding Oxygen
-
-        if (Keyboard.current[Key.Digit1].isPressed && oxygen < 100 && !complete)
-        { oxygen++; time -= Time.deltaTime * .5f; }
-
-        if (!complete)
-        { time -= Time.deltaTime * .5f; }
-
-        if (oxygen > min && oxygen < max && CoStarted1 == false)
-        { CoStarted1 = true; Cor1 = StartCoroutine(CompleteValues()); }
-
-        else if (oxygen > min && oxygen < max) { }
-
-        else
-        {
-            CoStarted1 = false;
-            if (Cor1 != null)
-            {
-                StopCoroutine(Cor1);
-            }
-        }
-
-        if (Keyboard.current[Key.Digit2].isPressed && oxygen2 < 100 && !complete2)
-        { oxygen2++; }
-
-
-        if (oxygen2 > min2 && oxygen2 < max2 && CoStarted2 == false)
-        { CoStarted2 = true; Cor2 = StartCoroutine(CompleteValues2());  }
-
-        else if (oxygen2 > min2 && oxygen2 < max2) { }
-
-        else
-        {
-            CoStarted2 = false;
-            if (Cor2 != null)
-            {
-                StopCoroutine(Cor2);
-            }
-        }
-
-        if (Keyboard.current[Key.Digit3].isPressed && oxygen3 < 100 && !complete3)
-        { oxygen3++;}
-
-        if (!complete3)
-        { time3 -= Time.deltaTime * .5f; }
-
-        if (oxygen3 > min3 && oxygen3 < max3 && CoStarted3 == false)
-        { CoStarted3 = true; Cor3 = StartCoroutine(CompleteValues3());  }
-
-        else if (oxygen3 > min3 && oxygen3 < max3 ) {  }
-
-        else
-        {
-            CoStarted3 = false;
-            if (Cor3 != null)
-            {
-                StopCoroutine(Cor3);
-                time = 3;
-            }
-        }
-
-        //Update Bars
+        HandleOxygenInput();
+        HandleOxygenDecay();
+        HandleTimerLogic();
         UpdateUI();
-        if (oxygen > 0 && !complete)
-        { oxygen -= .25f; }
-        else {}
-        if (oxygen2 > 0 && !complete2)
-        { oxygen2 -= .25f; }
-        else {}
-        if (oxygen3 > 0 && !complete3)
-        { oxygen3 -= .25f; }
-        else {}
     }
+
+    void HandleOxygenInput()
+    {
+        if (Keyboard.current[Key.Digit1].isPressed && oxygen < 100 && !complete) oxygen++;
+        if (Keyboard.current[Key.Digit2].isPressed && oxygen2 < 100 && !complete2) oxygen2++;
+        if (Keyboard.current[Key.Digit3].isPressed && oxygen3 < 100 && !complete3) oxygen3++;
+    }
+
+    void HandleOxygenDecay()
+    {
+        if (oxygen > 0 && !complete) oxygen -= 0.15f;
+        if (oxygen2 > 0 && !complete2) oxygen2 -= 0.15f;
+        if (oxygen3 > 0 && !complete3) oxygen3 -= 0.15f;
+    }
+
+    void HandleTimerLogic()
+    {
+        // Oxygen 1
+        if (oxygen > min && oxygen < max && !complete)
+        {
+            time -= Time.deltaTime;
+            if (time <= 0) { complete = true; time = 0; fillImage.color = Color.green; }
+        }
+        else if (!complete) { time = 3; }
+
+        // Oxygen 2
+        if (oxygen2 > min2 && oxygen2 < max2 && !complete2)
+        {
+            time2 -= Time.deltaTime;
+            if (time2 <= 0) { complete2 = true; time2 = 0; fillImage2.color = Color.green; }
+        }
+        else if (!complete2) { time2 = 3; }
+
+        // Oxygen 3
+        if (oxygen3 > min3 && oxygen3 < max3 && !complete3)
+        {
+            time3 -= Time.deltaTime;
+            if (time3 <= 0) { complete3 = true; time3 = 0; fillImage3.color = Color.green; }
+        }
+        else if (!complete3) { time3 = 3; }
+    }
+
     void UpdateUI()
     {
         oxygenBar.value = oxygen;
         oxygenBar2.value = oxygen2;
         oxygenBar3.value = oxygen3;
 
-        timer.text = "" + time;
-        timer2.text = "" + time2;
-        timer3.text = "" + time3;
-    }
-
-
-    IEnumerator CompleteValues()
-    {
-        yield return new WaitForSeconds(3f);
-        complete = true;
-        time = 0;
-        fillImage.color = Color.green;
-    }
-    IEnumerator CompleteValues2()
-    {
-        yield return new WaitForSeconds(3f);
-        complete2 = true;
-        time2 = 0;
-        fillImage2.color = Color.green;
-    }
-    IEnumerator CompleteValues3()
-    {
-        yield return new WaitForSeconds(3f);
-        complete3 = true;
-        time3 = 0;
-        fillImage3.color = Color.green;
+        timer.text = time.ToString("F1");
+        timer2.text = time2.ToString("F1");
+        timer3.text = time3.ToString("F1");
     }
 }
