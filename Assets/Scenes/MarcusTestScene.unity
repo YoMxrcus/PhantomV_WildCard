@@ -3179,12 +3179,12 @@ MonoBehaviour:
   fillImage: {fileID: 497074261}
   fillImage2: {fileID: 930372639}
   fillImage3: {fileID: 1248673689}
-  timer: {fileID: 43522329}
-  timer2: {fileID: 1186095651}
-  timer3: {fileID: 594567517}
-  time: 0
-  time2: 0
-  time3: 0
+  timer: {fileID: 43522331}
+  timer2: {fileID: 1186095653}
+  timer3: {fileID: 594567518}
+  time: 3
+  time2: 3
+  time3: 3
   complete: 0
   complete2: 0
   complete3: 0
