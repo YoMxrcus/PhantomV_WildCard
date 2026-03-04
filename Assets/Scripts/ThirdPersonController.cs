@@ -18,6 +18,8 @@ public class ThirdPersonController : MonoBehaviour
     private float verticalVelocity;
 
     public bool aiming = false;
+
+    public GameObject PuzzleManager;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -99,4 +101,19 @@ public class ThirdPersonController : MonoBehaviour
             }
         }
     }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        switch (other.gameObject.tag)
+
+        {
+            case "TestTrigger":
+                PuzzleManager.GetComponent<Puzzles>().BeginMinigame();
+                return;
+        }
+    }
+
+  
+
 }

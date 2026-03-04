@@ -131,9 +131,10 @@ GameObject:
   - component: {fileID: 122096236}
   - component: {fileID: 122096237}
   - component: {fileID: 122096238}
+  - component: {fileID: 122096239}
   m_Layer: 0
   m_Name: ThirdPersonTEST
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -228,6 +229,34 @@ MonoBehaviour:
   jumpHeight: 1.5
   cameraTransform: {fileID: 787687460}
   aiming: 0
+  PuzzleManager: {fileID: 1676040632}
+--- !u!54 &122096239
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122096234}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &152514243
 GameObject:
   m_ObjectHideFlags: 0
@@ -1224,7 +1253,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &616726771
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1413,7 +1442,7 @@ GameObject:
   - component: {fileID: 794750516}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: TestTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

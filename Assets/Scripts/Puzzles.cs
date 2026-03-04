@@ -9,18 +9,25 @@ public class Puzzles : MonoBehaviour
     [SerializeField] Sprite[] wires;
 
     [SerializeField] string currentButton,lastClickedButton;
-    [SerializeField] GameObject redWire, blueWire, yellowWire, wireMinigame;
+    public GameObject redWire, blueWire, yellowWire, wireMinigame;
     [SerializeField] bool redConnected, blueConnected, yellowConnected;
 
     [SerializeField] List<int> positions = new List<int>();
     [SerializeField] List<int> positions2 = new List<int>();
 
     // TEMPORARY
-   
 
+    private void Start()
+    {
+        BeginMinigame();
+    }
     public void BeginMinigame()
     {
         // Wires inactive, buttons active
+        ResetPositions();
+        redConnected = false;
+        blueConnected = false;
+        yellowConnected = false;
 
         wireMinigame.SetActive(true);
 
@@ -36,15 +43,13 @@ public class Puzzles : MonoBehaviour
         GameObject.Find("YellowButton2").GetComponent<Button>().interactable = true;
 
         RandomizeButtonsLeft();
-       // RandomizeButtonsRight();
+       
 
         redWire.GetComponent<Image>().sprite = CalculateConnection(GameObject.Find("RedButton1"), GameObject.Find("RedButton2"));
         blueWire.GetComponent<Image>().sprite = CalculateConnection(GameObject.Find("BlueButton1"), GameObject.Find("BlueButton2"));
         yellowWire.GetComponent<Image>().sprite = CalculateConnection(GameObject.Find("YellowButton1"), GameObject.Find("YellowButton2"));
 
-        redConnected = false;
-        blueConnected = false;
-        yellowConnected = false;
+       
     }
 
     private void RandomizeButtonsLeft()
@@ -181,6 +186,9 @@ public class Puzzles : MonoBehaviour
         if (redConnected && yellowConnected && blueConnected)
         {
             Debug.Log("All Connected!");
+            redConnected = false;
+            blueConnected = false;
+            yellowConnected = false;
             Invoke("CloseMinigame", 1f);
         }
     }
@@ -210,8 +218,18 @@ public class Puzzles : MonoBehaviour
         return wires[0];
     }
 
-    void CloseMinigame()
+    public void CloseMinigame()
     {
         wireMinigame.SetActive(false);
+    }
+
+    public void ResetPositions()
+    {
+        positions[0] = 540;
+        positions[1] = 840;
+        positions[2] = 240;
+        positions2[0] = 540;
+        positions2[1] = 840;
+        positions2[2] = 240;
     }
 }
