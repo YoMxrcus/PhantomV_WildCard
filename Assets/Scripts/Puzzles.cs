@@ -13,17 +13,17 @@ public class Puzzles : MonoBehaviour
     [SerializeField] bool redConnected, blueConnected, yellowConnected;
 
     [SerializeField] List<int> positions = new List<int>();
-    
+    [SerializeField] List<int> positions2 = new List<int>();
 
     // TEMPORARY
-    private void Start()
-    {
-        BeginMinigame();
-    }
+   
 
     public void BeginMinigame()
     {
         // Wires inactive, buttons active
+
+        wireMinigame.SetActive(true);
+
         redWire.SetActive(false);
         blueWire.SetActive(false);
         yellowWire.SetActive(false);
@@ -36,7 +36,7 @@ public class Puzzles : MonoBehaviour
         GameObject.Find("YellowButton2").GetComponent<Button>().interactable = true;
 
         RandomizeButtonsLeft();
-        RandomizeButtonsRight();
+       // RandomizeButtonsRight();
 
         redWire.GetComponent<Image>().sprite = CalculateConnection(GameObject.Find("RedButton1"), GameObject.Find("RedButton2"));
         blueWire.GetComponent<Image>().sprite = CalculateConnection(GameObject.Find("BlueButton1"), GameObject.Find("BlueButton2"));
@@ -50,6 +50,7 @@ public class Puzzles : MonoBehaviour
     private void RandomizeButtonsLeft()
     {
         List<int> positionsBackup = positions;
+        List<int> positionsBackup2 = positions2;
 
         Debug.Log(positionsBackup[0] + " " + positionsBackup[1] + " " + positionsBackup[2]);
 
@@ -69,36 +70,75 @@ public class Puzzles : MonoBehaviour
 
         positionsBackup.RemoveAt(yPosition);
 
-        yPosition = UnityEngine.Random.Range(0, positionsBackup.Count);
-
-        GameObject yellowButton = GameObject.Find("YellowButton1");
-        yellowButton.transform.position = new Vector3(yellowButton.transform.position.x, positionsBackup[yPosition], yellowButton.transform.position.z);
-    }
-
-    private void RandomizeButtonsRight()
-    {
-        List<int> positionsBackup = positions;
-
-        int yPosition = UnityEngine.Random.Range(0, positionsBackup.Count);
-
-        GameObject redButton = GameObject.Find("RedButton2");
-        redButton.transform.position = new Vector3(redButton.transform.position.x, positionsBackup[yPosition], redButton.transform.position.z);
-
-        positionsBackup.RemoveAt(yPosition);
-
         Debug.Log("Keep going!");
 
         yPosition = UnityEngine.Random.Range(0, positionsBackup.Count);
 
+        GameObject yellowButton = GameObject.Find("YellowButton1");
+        yellowButton.transform.position = new Vector3(yellowButton.transform.position.x, positionsBackup[yPosition], yellowButton.transform.position.z);
+
+        Debug.Log("Finished with First");
+
+        //RESET positionsBackup TO INTIAL positions
+      
+
+        Debug.Log(positions[0]);
+
+        Debug.Log( "sec" + positionsBackup2[0] + " " + positionsBackup2[1] + " " + positionsBackup2[2]);
+
+         int yPosition2 = UnityEngine.Random.Range(0, positionsBackup2.Count);
+
+        GameObject redButton2 = GameObject.Find("RedButton2");
+        redButton2.transform.position = new Vector3(redButton2.transform.position.x, positionsBackup2[yPosition2], redButton2.transform.position.z);
+
+        positionsBackup2.RemoveAt(yPosition2);
+
+        Debug.Log("Keep going!");
+
+        yPosition2 = UnityEngine.Random.Range(0, positionsBackup2.Count);
+
+        GameObject blueButton2 = GameObject.Find("BlueButton2");
+        blueButton2.transform.position = new Vector3(blueButton2.transform.position.x, positionsBackup2[yPosition2], blueButton2.transform.position.z);
+
+        positionsBackup2.RemoveAt(yPosition2);
+
+        Debug.Log("Keep going!");
+
+        yPosition2 = UnityEngine.Random.Range(0, positionsBackup2.Count);
+
+        GameObject yellowButton2 = GameObject.Find("YellowButton2");
+        yellowButton2.transform.position = new Vector3(yellowButton2.transform.position.x, positionsBackup2[yPosition2], yellowButton2.transform.position.z);
+
+        Debug.Log("Finished with First");
+
+    }
+
+    private void RandomizeButtonsRight()
+    {
+        List<int> positionsBackup2 = positions;
+
+        Debug.Log(positionsBackup2[0] + " " + positionsBackup2[1] + " " + positionsBackup2[2]);
+
+        int yPosition = UnityEngine.Random.Range(0, positionsBackup2.Count);
+
+        GameObject redButton = GameObject.Find("RedButton2");
+        redButton.transform.position = new Vector3(redButton.transform.position.x, positionsBackup2[yPosition], redButton.transform.position.z);
+
+        positionsBackup2.RemoveAt(yPosition);
+
+        Debug.Log("Keep going!");
+
+        yPosition = UnityEngine.Random.Range(0, positionsBackup2.Count);
+
         GameObject blueButton = GameObject.Find("BlueButton2");
-        blueButton.transform.position = new Vector3(blueButton.transform.position.x, positionsBackup[yPosition], blueButton.transform.position.z);
+        blueButton.transform.position = new Vector3(blueButton.transform.position.x, positionsBackup2[yPosition], blueButton.transform.position.z);
 
-        positionsBackup.RemoveAt(yPosition);
+        positionsBackup2.RemoveAt(yPosition);
 
-        yPosition = UnityEngine.Random.Range(0, positionsBackup.Count);
+        yPosition = UnityEngine.Random.Range(0, positionsBackup2.Count);
 
         GameObject yellowButton = GameObject.Find("YellowButton2");
-        yellowButton.transform.position = new Vector3(yellowButton.transform.position.x, positionsBackup[yPosition], yellowButton.transform.position.z);
+        yellowButton.transform.position = new Vector3(yellowButton.transform.position.x, positionsBackup2[yPosition], yellowButton.transform.position.z);
     }
 
     public void ClickButton(string button)
