@@ -8,6 +8,11 @@ public class OxygenLevelsPuzzle : MonoBehaviour
     public float oxygen, oxygen2, oxygen3;
     public float min, min2, min3, max, max2, max3;
     public Slider oxygenBar, oxygenBar2, oxygenBar3;
+    public Image fillImage, fillImage2, fillImage3;
+
+    public GameObject timer, timer2, timer3;
+    public float time, time2, time3;
+
     public bool complete = false;
     public bool complete2 = false;
     public bool complete3 = false;
@@ -24,7 +29,7 @@ public class OxygenLevelsPuzzle : MonoBehaviour
     {
         oxygen = Random.Range(10, 101); oxygen2 = Random.Range(10, 101); oxygen3 = Random.Range(10, 101);
         min = Random.Range(20, 80); min2 = Random.Range(20, 80); min3 = Random.Range(20, 80);
-        max = min + 30; max2 = min2 + 10; max3 = min3 + 10;
+        max = min + 30; max2 = min2 + 30; max3 = min3 + 30;
         UpdateUI();
     }
 
@@ -37,7 +42,7 @@ public class OxygenLevelsPuzzle : MonoBehaviour
         { oxygen++; }
 
         if(oxygen > min && oxygen < max && CoStarted1 == false)
-        { CoStarted1 = true; Cor1 = StartCoroutine(CompleteValues(1)); }
+        { CoStarted1 = true; Cor1 = StartCoroutine(CompleteValues()); }
         else if (oxygen > min && oxygen < max) { }
         else
         {
@@ -46,14 +51,37 @@ public class OxygenLevelsPuzzle : MonoBehaviour
             {
                 StopCoroutine(Cor1);
             }
-
         }
 
-        if (Keyboard.current[Key.Digit2].isPressed && oxygen2 < 100)
+        if (Keyboard.current[Key.Digit2].isPressed && oxygen2 < 100 && !complete2)
         { oxygen2++; }
 
-        if (Keyboard.current[Key.Digit3].isPressed && oxygen3 < 100)
+        if (oxygen2 > min2 && oxygen2 < max2 && CoStarted2 == false)
+        { CoStarted2 = true; Cor2 = StartCoroutine(CompleteValues2()); }
+        else if (oxygen2 > min2 && oxygen2 < max2) { }
+        else
+        {
+            CoStarted2 = false;
+            if (Cor2 != null)
+            {
+                StopCoroutine(Cor2);
+            }
+        }
+
+        if (Keyboard.current[Key.Digit3].isPressed && oxygen3 < 100 && !complete3)
         { oxygen3++; }
+
+        if (oxygen3 > min3 && oxygen3 < max3 && CoStarted3 == false)
+        { CoStarted3 = true; Cor3 = StartCoroutine(CompleteValues3()); }
+        else if (oxygen3 > min3 && oxygen3 < max3) { }
+        else
+        {
+            CoStarted3 = false;
+            if (Cor3 != null)
+            {
+                StopCoroutine(Cor3);
+            }
+        }
 
         //Update Bars
         UpdateUI();
@@ -72,12 +100,29 @@ public class OxygenLevelsPuzzle : MonoBehaviour
         oxygenBar.value = oxygen;
         oxygenBar2.value = oxygen2;
         oxygenBar3.value = oxygen3;
+
+
+
+
     }
 
 
-    IEnumerator CompleteValues(int num)
+    IEnumerator CompleteValues()
     {
         yield return new WaitForSeconds(3f);
         complete = true;
+        fillImage.color = Color.green;
+    }
+    IEnumerator CompleteValues2()
+    {
+        yield return new WaitForSeconds(3f);
+        complete2 = true;
+        fillImage2.color = Color.green;
+    }
+    IEnumerator CompleteValues3()
+    {
+        yield return new WaitForSeconds(3f);
+        complete3 = true;
+        fillImage3.color = Color.green;
     }
 }
