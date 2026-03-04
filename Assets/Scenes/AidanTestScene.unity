@@ -2179,6 +2179,7 @@ MonoBehaviour:
   redConnected: 0
   blueConnected: 0
   yellowConnected: 0
+  positions: 1c02000052030000f0000000
 --- !u!4 &1676040634
 Transform:
   m_ObjectHideFlags: 0
