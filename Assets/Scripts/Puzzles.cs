@@ -3,8 +3,9 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Linq;
 
-public class Puzzles : MonoBehaviour
+public class WireMinigameManager : MonoBehaviour
 {
     [SerializeField] Sprite[] wires;
 
@@ -17,14 +18,11 @@ public class Puzzles : MonoBehaviour
 
     // TEMPORARY
 
-    private void Start()
-    {
-        BeginMinigame();
-    }
     public void BeginMinigame()
     {
         // Wires inactive, buttons active
         ResetPositions();
+
         redConnected = false;
         blueConnected = false;
         yellowConnected = false;
@@ -116,35 +114,11 @@ public class Puzzles : MonoBehaviour
 
         Debug.Log("Finished with First");
 
+
+
     }
 
-    private void RandomizeButtonsRight()
-    {
-        List<int> positionsBackup2 = positions;
-
-        Debug.Log(positionsBackup2[0] + " " + positionsBackup2[1] + " " + positionsBackup2[2]);
-
-        int yPosition = UnityEngine.Random.Range(0, positionsBackup2.Count);
-
-        GameObject redButton = GameObject.Find("RedButton2");
-        redButton.transform.position = new Vector3(redButton.transform.position.x, positionsBackup2[yPosition], redButton.transform.position.z);
-
-        positionsBackup2.RemoveAt(yPosition);
-
-        Debug.Log("Keep going!");
-
-        yPosition = UnityEngine.Random.Range(0, positionsBackup2.Count);
-
-        GameObject blueButton = GameObject.Find("BlueButton2");
-        blueButton.transform.position = new Vector3(blueButton.transform.position.x, positionsBackup2[yPosition], blueButton.transform.position.z);
-
-        positionsBackup2.RemoveAt(yPosition);
-
-        yPosition = UnityEngine.Random.Range(0, positionsBackup2.Count);
-
-        GameObject yellowButton = GameObject.Find("YellowButton2");
-        yellowButton.transform.position = new Vector3(yellowButton.transform.position.x, positionsBackup2[yPosition], yellowButton.transform.position.z);
-    }
+    
 
     public void ClickButton(string button)
     {
@@ -225,11 +199,29 @@ public class Puzzles : MonoBehaviour
 
     public void ResetPositions()
     {
+        positions.Clear();
+        positions2.Clear();
+
+        lastClickedButton = null;
+        currentButton = null;
+        
+        
+
+        for (int i = 0; i < 3; i++)
+        {
+            positions.Add(0);
+            positions2.Add(0);
+        }
+
         positions[0] = 540;
         positions[1] = 840;
         positions[2] = 240;
         positions2[0] = 540;
         positions2[1] = 840;
         positions2[2] = 240;
+
+        
     }
+
+
 }
