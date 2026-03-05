@@ -18,11 +18,6 @@ public class Puzzles : MonoBehaviour
 
     // TEMPORARY
 
-    private void Start()
-    {
-        BeginMinigame();
-        
-    }
     public void BeginMinigame()
     {
         // Wires inactive, buttons active
@@ -123,33 +118,7 @@ public class Puzzles : MonoBehaviour
 
     }
 
-    private void RandomizeButtonsRight()
-    {
-        List<int> positionsBackup2 = positions;
-
-        Debug.Log(positionsBackup2[0] + " " + positionsBackup2[1] + " " + positionsBackup2[2]);
-
-        int yPosition = UnityEngine.Random.Range(0, positionsBackup2.Count);
-
-        GameObject redButton = GameObject.Find("RedButton2");
-        redButton.transform.position = new Vector3(redButton.transform.position.x, positionsBackup2[yPosition], redButton.transform.position.z);
-
-        positionsBackup2.RemoveAt(yPosition);
-
-        Debug.Log("Keep going!");
-
-        yPosition = UnityEngine.Random.Range(0, positionsBackup2.Count);
-
-        GameObject blueButton = GameObject.Find("BlueButton2");
-        blueButton.transform.position = new Vector3(blueButton.transform.position.x, positionsBackup2[yPosition], blueButton.transform.position.z);
-
-        positionsBackup2.RemoveAt(yPosition);
-
-        yPosition = UnityEngine.Random.Range(0, positionsBackup2.Count);
-
-        GameObject yellowButton = GameObject.Find("YellowButton2");
-        yellowButton.transform.position = new Vector3(yellowButton.transform.position.x, positionsBackup2[yPosition], yellowButton.transform.position.z);
-    }
+    
 
     public void ClickButton(string button)
     {
@@ -232,6 +201,10 @@ public class Puzzles : MonoBehaviour
     {
         positions.Clear();
         positions2.Clear();
+
+        lastClickedButton = null;
+        currentButton = null;
+        
         
 
         for (int i = 0; i < 3; i++)
