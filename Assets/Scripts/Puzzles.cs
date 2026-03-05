@@ -3,6 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Puzzles : MonoBehaviour
 {
@@ -20,11 +21,13 @@ public class Puzzles : MonoBehaviour
     private void Start()
     {
         BeginMinigame();
+        
     }
     public void BeginMinigame()
     {
         // Wires inactive, buttons active
         ResetPositions();
+
         redConnected = false;
         blueConnected = false;
         yellowConnected = false;
@@ -115,6 +118,8 @@ public class Puzzles : MonoBehaviour
         yellowButton2.transform.position = new Vector3(yellowButton2.transform.position.x, positionsBackup2[yPosition2], yellowButton2.transform.position.z);
 
         Debug.Log("Finished with First");
+
+
 
     }
 
@@ -225,11 +230,23 @@ public class Puzzles : MonoBehaviour
 
     public void ResetPositions()
     {
+        positions.Clear();
+        positions2.Clear();
+        
+
+        for (int i = 0; i < 3; i++)
+        {
+            positions.Add(0);
+            positions2.Add(0);
+        }
+
         positions[0] = 540;
         positions[1] = 840;
         positions[2] = 240;
         positions2[0] = 540;
         positions2[1] = 840;
         positions2[2] = 240;
+
+        
     }
 }
