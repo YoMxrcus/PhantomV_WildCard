@@ -2171,7 +2171,7 @@ GameObject:
   - component: {fileID: 1676040634}
   - component: {fileID: 1676040633}
   m_Layer: 0
-  m_Name: PuzzlesLogic
+  m_Name: WirePuzzleLogic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

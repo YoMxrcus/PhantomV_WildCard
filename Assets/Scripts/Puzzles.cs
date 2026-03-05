@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Puzzles : MonoBehaviour
+public class WireMinigameManager : MonoBehaviour
 {
     [SerializeField] Sprite[] wires;
 
@@ -222,4 +222,6 @@ public class Puzzles : MonoBehaviour
 
         
     }
+
+
 }
