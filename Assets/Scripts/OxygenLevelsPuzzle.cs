@@ -18,8 +18,13 @@ public class OxygenLevelsPuzzle : MonoBehaviour
     public bool complete2 = false;
     public bool complete3 = false;
 
-    void Start()
+    public GameObject OxygenMinigame;
+    public GameObject Player;
+    public void BeginMinigame()
     {
+
+        OxygenMinigame.SetActive(true);
+
         oxygen = Random.Range(10, 101); oxygen2 = Random.Range(10, 101); oxygen3 = Random.Range(10, 101);
         min = Random.Range(20, 80); min2 = Random.Range(20, 80); min3 = Random.Range(20, 80);
         max = min + 30; max2 = min2 + 30; max3 = min3 + 30;
@@ -54,7 +59,7 @@ public class OxygenLevelsPuzzle : MonoBehaviour
         if (oxygen > min && oxygen < max && !complete)
         {
             time -= Time.deltaTime;
-            if (time <= 0) { complete = true; time = 0; fillImage.color = Color.green; }
+            if (time <= 0) { complete = true; time = 0; fillImage.color = Color.green; CheckWin(); }
         }
         else if (!complete) { time = 3; }
 
@@ -62,7 +67,7 @@ public class OxygenLevelsPuzzle : MonoBehaviour
         if (oxygen2 > min2 && oxygen2 < max2 && !complete2)
         {
             time2 -= Time.deltaTime;
-            if (time2 <= 0) { complete2 = true; time2 = 0; fillImage2.color = Color.green; }
+            if (time2 <= 0) { complete2 = true; time2 = 0; fillImage2.color = Color.green; CheckWin(); }
         }
         else if (!complete2) { time2 = 3; }
 
@@ -70,7 +75,7 @@ public class OxygenLevelsPuzzle : MonoBehaviour
         if (oxygen3 > min3 && oxygen3 < max3 && !complete3)
         {
             time3 -= Time.deltaTime;
-            if (time3 <= 0) { complete3 = true; time3 = 0; fillImage3.color = Color.green; }
+            if (time3 <= 0) { complete3 = true; time3 = 0; fillImage3.color = Color.green; CheckWin(); }
         }
         else if (!complete3) { time3 = 3; }
     }
@@ -84,5 +89,28 @@ public class OxygenLevelsPuzzle : MonoBehaviour
         timer.text = time.ToString("F1");
         timer2.text = time2.ToString("F1");
         timer3.text = time3.ToString("F1");
+    }
+
+    void CheckWin()
+    {
+        if (complete & complete2 & complete3)
+        {
+            Debug.Log("GameWon");
+            Invoke("EndMinigame", 1f);
+        }
+    }
+
+    void EndMinigame()
+    {
+        Player.GetComponent<ThirdPersonController>().InPuzzle = false;
+
+        complete = false;
+        complete2 = false;
+        complete3 = false;
+
+       
+        OxygenMinigame.SetActive(false);
+
+
     }
 }

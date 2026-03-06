@@ -22,6 +22,7 @@ public class ThirdPersonController : MonoBehaviour
     public GameObject PuzzleManager;
     public GameObject PasswordManager;
     public GameObject HeatMinigameManager;
+    public GameObject OxygenMinigameManager;
     public bool InPuzzle = false;
     private void Awake()
     {
@@ -113,7 +114,7 @@ public class ThirdPersonController : MonoBehaviour
         {
             case "TestTrigger":
 
-                int randomNum = Random.Range(1, 4);
+                int randomNum = Random.Range(1, 5);
 
                 switch (randomNum)
                 {
@@ -137,6 +138,14 @@ public class ThirdPersonController : MonoBehaviour
                         if (InPuzzle == false)
                         {
                         HeatMinigameManager.GetComponent<HeatMeter>().BeginMinigame();
+                            InPuzzle = true;
+                        }
+                        return;
+
+                    case 4:
+                        if (InPuzzle == false)
+                        {
+                            OxygenMinigameManager.GetComponent<OxygenLevelsPuzzle>().BeginMinigame();
                             InPuzzle = true;
                         }
                         return;
