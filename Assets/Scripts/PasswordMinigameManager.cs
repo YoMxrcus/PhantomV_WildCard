@@ -1,5 +1,7 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PasswordMinigameManager : MonoBehaviour
 {
@@ -7,11 +9,15 @@ public class PasswordMinigameManager : MonoBehaviour
     [SerializeField] string[] comboLetters = new string[4];
     public char PlayerInput;
     public string currentPassword;
+    public TMP_Text passwordText;
+    public GameObject correctOne, correctTwo, correctThree, correctFour, correctFive;
+    [SerializeField] int correctCounter = 0;
+    public GameObject PasswordMinigame;
+    public GameObject Player;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        BeginMinigame();
-        Debug.Log(currentPassword);
+       
     }
 
     // Update is called once per frame
@@ -50,13 +56,17 @@ public class PasswordMinigameManager : MonoBehaviour
         }
     }
 
-    void BeginMinigame()
+    public void BeginMinigame()
     {
+        PasswordMinigame.SetActive(true);
+
         for (int i = 0; i < 5; i++)
         {
             currentPassword += comboLetters[Random.Range(0, comboLetters.Length)];
-
+            
         }
+
+        passwordText.text = currentPassword.ToUpper();
     }
 
     void CheckPassword()
@@ -71,6 +81,32 @@ public class PasswordMinigameManager : MonoBehaviour
         {
             //plays first bell sound
 
+            correctCounter++;
+
+            if (correctCounter == 1)
+            {
+                correctOne.GetComponent<Image>().color = Color.green;
+            }
+
+            else if (correctCounter == 2)
+            {
+                correctTwo.GetComponent<Image>().color = Color.green;
+            }
+
+            else if (correctCounter == 3)
+            {
+                correctThree.GetComponent<Image>().color = Color.green;
+            }
+
+            else if (correctCounter == 4)
+            {
+                correctFour.GetComponent<Image>().color = Color.green;
+            }
+
+            else if (correctCounter == 5)
+            {
+                correctFive.GetComponent<Image>().color = Color.green;
+            }
 
             Debug.Log("OG:" + currentPassword);
 
@@ -86,9 +122,24 @@ public class PasswordMinigameManager : MonoBehaviour
             {
                 // If the player completes the combination, it tells the player what spell they casted and sets SpellHeld to true, changes CurrentSpell to the spell that the player is holding
                 Debug.Log("Password Correct");
+                Invoke("CloseMinigame", 1f);
             }
 
         }
 
+    }
+
+    void CloseMinigame()
+    {
+        PasswordMinigame.SetActive(false);
+        Player.GetComponent<ThirdPersonController>().InPuzzle = false;
+
+        correctOne.GetComponent<Image>().color = Color.red;
+        correctTwo.GetComponent<Image>().color = Color.red;
+        correctThree.GetComponent<Image>().color = Color.red;
+        correctFour.GetComponent<Image>().color = Color.red;
+        correctFive.GetComponent<Image>().color = Color.red;
+
+        correctCounter = 0;
     }
 }
