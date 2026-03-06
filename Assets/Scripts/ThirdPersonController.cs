@@ -17,10 +17,6 @@ public class ThirdPersonController : MonoBehaviour
     private Vector2 moveInput;
     private float verticalVelocity;
 
-    [Header("UI Variables")]
-    public float heat, health;
-    
-
     public bool aiming = false;
 
     public GameObject PuzzleManager;
