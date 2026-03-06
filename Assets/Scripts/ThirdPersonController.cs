@@ -20,6 +20,8 @@ public class ThirdPersonController : MonoBehaviour
     public bool aiming = false;
 
     public GameObject PuzzleManager;
+    public GameObject PasswordManager;
+    public bool InPuzzle = false;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -109,7 +111,29 @@ public class ThirdPersonController : MonoBehaviour
 
         {
             case "TestTrigger":
-                PuzzleManager.GetComponent<Puzzles>().BeginMinigame();
+
+                int randomNum = Random.Range(1, 3);
+
+                switch (randomNum)
+                {
+                    case 1:
+                        if (InPuzzle == false)
+                        {
+                        PuzzleManager.GetComponent<Puzzles>().BeginMinigame();
+                            InPuzzle = true;
+                        }
+                        return;
+
+                    case 2:
+                        if (InPuzzle == false)
+                        {
+                        PasswordManager.GetComponent<PasswordMinigameManager>().BeginMinigame();
+                            InPuzzle = true;
+                        }
+                        return;
+                }
+
+               
                 return;
         }
     }

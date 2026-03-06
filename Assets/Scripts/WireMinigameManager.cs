@@ -16,6 +16,7 @@ public class Puzzles : MonoBehaviour
     [SerializeField] List<int> positions = new List<int>();
     [SerializeField] List<int> positions2 = new List<int>();
 
+    public GameObject Player;
     // TEMPORARY
 
     public void BeginMinigame()
@@ -195,6 +196,7 @@ public class Puzzles : MonoBehaviour
     public void CloseMinigame()
     {
         wireMinigame.SetActive(false);
+        Player.GetComponent<ThirdPersonController>().InPuzzle = false;
     }
 
     public void ResetPositions()

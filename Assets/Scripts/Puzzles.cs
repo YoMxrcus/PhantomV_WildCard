@@ -10,11 +10,15 @@ public class WireMinigameManager : MonoBehaviour
     [SerializeField] Sprite[] wires;
 
     [SerializeField] string currentButton,lastClickedButton;
+    
     public GameObject redWire, blueWire, yellowWire, wireMinigame;
     [SerializeField] bool redConnected, blueConnected, yellowConnected;
 
     [SerializeField] List<int> positions = new List<int>();
     [SerializeField] List<int> positions2 = new List<int>();
+
+    public GameObject Player;
+    
 
     // TEMPORARY
 
@@ -195,6 +199,8 @@ public class WireMinigameManager : MonoBehaviour
     public void CloseMinigame()
     {
         wireMinigame.SetActive(false);
+        Player.GetComponent<ThirdPersonController>().InPuzzle = false;
+        
     }
 
     public void ResetPositions()
