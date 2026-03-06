@@ -837,10 +837,10 @@ MonoBehaviour:
   gravity: -9.81
   jumpHeight: 1.5
   cameraTransform: {fileID: 787687460}
-  heat: 0
-  health: 0
   aiming: 0
   PuzzleManager: {fileID: 0}
+  PasswordManager: {fileID: 0}
+  InPuzzle: 0
 --- !u!1 &138153276
 GameObject:
   m_ObjectHideFlags: 0
@@ -5966,6 +5966,7 @@ MonoBehaviour:
   heat2: 0
   heat3: 0
   tolerance: 5
+  HeatMinigame: {fileID: 0}
 --- !u!4 &1988644814
 Transform:
   m_ObjectHideFlags: 0

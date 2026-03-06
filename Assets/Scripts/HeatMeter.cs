@@ -12,9 +12,12 @@ public class HeatMeter : MonoBehaviour
     public float heat, heat2, heat3;
     bool max, complete, max2, complete2, max3, complete3;
     public float tolerance = 5f;
+    public GameObject HeatMinigame;
+    public GameObject Player;
 
-    void Start()
+   public void BeginMinigame()
     {
+        HeatMinigame.SetActive(true);
         // 1. FIXED: Get the correct component for each
         clickAreaPos = clickArea.GetComponent<RectTransform>();
         clickAreaPos2 = clickArea2.GetComponent<RectTransform>(); // Fixed this
@@ -89,6 +92,7 @@ public class HeatMeter : MonoBehaviour
                 Debug.Log("Bar 1 Success!");
                 clickArea.GetComponent<RawImage>().color = Color.green;
                 complete = true;
+                CheckWin();
             }
 
             // Bar 2
@@ -97,6 +101,7 @@ public class HeatMeter : MonoBehaviour
                 Debug.Log("Bar 2 Success!");
                 clickArea2.GetComponent<RawImage>().color = Color.green;
                 complete2 = true;
+                CheckWin();
             }
 
             // Bar 3
@@ -105,6 +110,7 @@ public class HeatMeter : MonoBehaviour
                 Debug.Log("Bar 3 Success!");
                 clickArea3.GetComponent<RawImage>().color = Color.green;
                 complete3 = true;
+                CheckWin();
             }
         }
     }
@@ -114,5 +120,31 @@ public class HeatMeter : MonoBehaviour
         heatBar.value = heat;
         heatBar2.value = heat2;
         heatBar3.value = heat3;
+    }
+
+    void CheckWin()
+    {
+        if (complete & complete2 & complete3)
+        {
+            Debug.Log("GameWon");
+            Invoke("EndMinigame", 1f);
+        }
+    }
+
+    void EndMinigame()
+    {
+        Player.GetComponent<ThirdPersonController>().InPuzzle = false;
+
+        complete = false;
+        complete2 = false;
+        complete3 = false;
+
+        clickArea.GetComponent<RawImage>().color = Color.yellow;
+        clickArea2.GetComponent<RawImage>().color = Color.yellow;
+        clickArea3.GetComponent<RawImage>().color = Color.yellow;
+
+        HeatMinigame.SetActive(false);
+
+
     }
 }
