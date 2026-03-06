@@ -18,16 +18,28 @@ public class OxygenLevelsPuzzle : MonoBehaviour
     public bool complete2 = false;
     public bool complete3 = false;
 
+    RectTransform clickAreaPos, clickAreaPos2, clickAreaPos3;
+    public GameObject clickArea, clickArea2, clickArea3;
     public GameObject OxygenMinigame;
     public GameObject Player;
     public void BeginMinigame()
     {
-
         OxygenMinigame.SetActive(true);
 
         oxygen = Random.Range(10, 101); oxygen2 = Random.Range(10, 101); oxygen3 = Random.Range(10, 101);
         min = Random.Range(20, 80); min2 = Random.Range(20, 80); min3 = Random.Range(20, 80);
         max = min + 30; max2 = min2 + 30; max3 = min3 + 30;
+
+        // 1. FIXED: Get the correct component for each
+        clickAreaPos = clickArea.GetComponent<RectTransform>();
+        clickAreaPos2 = clickArea2.GetComponent<RectTransform>(); // Fixed this
+        clickAreaPos3 = clickArea3.GetComponent<RectTransform>(); // Fixed this
+
+        // Apply it to the anchoredPosition (this stays within the UI Canvas)
+        clickAreaPos.anchoredPosition = new Vector2(0, (min+max)*.5f-50);
+        clickAreaPos2.anchoredPosition = new Vector2(0, (min2 + max2)*.5f-50);
+        clickAreaPos3.anchoredPosition = new Vector2(0, (min3 + max3)*.5f-50);
+
         UpdateUI();
     }
 
