@@ -477,7 +477,10 @@ MonoBehaviour:
   stamina: 100
   sprintDepletionRate: 20
   staminaRegenRate: 10
+  health: 100
+  canMove: 0
   allowSprint: 1
+  moveDirection: {x: 0, y: 0, z: 0}
   cameraTransform: {fileID: 787687460}
   dashSpeed: 15
   dashDuration: 0.35
@@ -5122,7 +5125,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 958afd18b499574469f6593299efeb0b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.61
+  m_Volume: 0.049
   m_Pitch: 1
   Loop: 1
   Mute: 0
