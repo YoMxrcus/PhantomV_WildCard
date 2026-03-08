@@ -1,5 +1,9 @@
+using System.Collections;
+using System.Security.Cryptography;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.ProBuilder;
 
 [RequireComponent(typeof(CharacterController))]
 public class ThirdPersonController : MonoBehaviour
@@ -9,6 +13,13 @@ public class ThirdPersonController : MonoBehaviour
     public float rotationSpeed = 10f;
     public float gravity = -9.81f;
     public float jumpHeight = 1.5f;
+    public float stamina = 100f;
+    public float sprintDepletionRate = 20f;
+    public float staminaRegenRate = 5f;
+    public int health = 100;
+    public bool canMove = true;
+    [SerializeField] bool allowSprint = true;
+    public Vector3 moveDirection;
 
     [Header("References")]
     public Transform cameraTransform;
@@ -17,12 +28,21 @@ public class ThirdPersonController : MonoBehaviour
     private Vector2 moveInput;
     private float verticalVelocity;
 
+
+    public float dashSpeed = 20f;
+    public float dashDuration = .25f;
+    public float dashCooldown = 3f;
+    private bool isDashing = false;
+    private bool canDash = true;
+
+
     public bool aiming = false;
 
     public GameObject PuzzleManager;
     public GameObject PasswordManager;
     public GameObject HeatMinigameManager;
     public GameObject OxygenMinigameManager;
+    public GameObject enemyHitbox;
     public bool InPuzzle = false;
     private void Awake()
     {
@@ -47,8 +67,65 @@ public class ThirdPersonController : MonoBehaviour
         else { aiming = false; }
     }
 
+
+    void Update()
+    {
+        if (Keyboard.current.spaceKey.wasPressedThisFrame && canDash && stamina >= 30)
+        {
+            StartCoroutine(Dash());
+        }
+    }
+
+
+    IEnumerator Dash()
+    {
+        canDash = false;
+        isDashing = true;
+
+        stamina -= 30;
+        
+        Vector3 dashDirection = moveDirection;
+
+        float startTime = Time.time;
+        while (Time.time < startTime + dashDuration)
+        {
+           
+             controller.Move(dashDirection * dashSpeed * Time.deltaTime);
+
+            yield return null; // Wait for the next frame
+        }
+
+        // Dash ends
+        isDashing = false;
+
+        // Start cooldown
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
+    }
+
     private void HandleMovement()
     {
+        if (stamina <= 5)
+        {
+            allowSprint = false;
+            Invoke("ResetSprint", 3f);
+        }
+
+        if (Keyboard.current.shiftKey.isPressed && stamina > 0 && allowSprint)
+        {
+            moveSpeed = 9;
+            stamina -= sprintDepletionRate * Time.deltaTime;
+        }
+
+        else if (stamina < 100f)
+        { 
+            moveSpeed = 6;
+            stamina += staminaRegenRate * Time.deltaTime;
+
+            // Clamp the stamina to make sure it doesn't go over 100
+            stamina = Mathf.Min(stamina, 100f);
+        }
+
         // Ground check
         if (controller.isGrounded && verticalVelocity < 0)
         {
@@ -58,7 +135,7 @@ public class ThirdPersonController : MonoBehaviour
         // Convert input to world direction
         Vector3 inputDirection = new Vector3(moveInput.x, 0f, moveInput.y);
 
-        if (inputDirection.magnitude >= 0.1f)
+        if (inputDirection.magnitude >= 0.1f && !isDashing)
         {
             // Camera-relative movement
             Vector3 forward = cameraTransform.forward;
@@ -70,7 +147,7 @@ public class ThirdPersonController : MonoBehaviour
             forward.Normalize();
             right.Normalize();
 
-            Vector3 moveDirection = forward * moveInput.y + right * moveInput.x;
+            moveDirection = forward * moveInput.y + right * moveInput.x;
 
             // Rotate toward movement direction
             if (!aiming)
@@ -86,6 +163,9 @@ public class ThirdPersonController : MonoBehaviour
         // Apply gravity
         verticalVelocity += gravity * Time.deltaTime;
         controller.Move(Vector3.up * verticalVelocity * Time.deltaTime);
+
+
+       
     }
 
     void RotateTowardMouse()
@@ -121,7 +201,7 @@ public class ThirdPersonController : MonoBehaviour
                     case 1:
                         if (InPuzzle == false)
                         {
-                        PuzzleManager.GetComponent<Puzzles>().BeginMinigame();
+                            PuzzleManager.GetComponent<Puzzles>().BeginMinigame();
                             InPuzzle = true;
                         }
                         return;
@@ -129,7 +209,7 @@ public class ThirdPersonController : MonoBehaviour
                     case 2:
                         if (InPuzzle == false)
                         {
-                        PasswordManager.GetComponent<PasswordMinigameManager>().BeginMinigame();
+                            PasswordManager.GetComponent<PasswordMinigameManager>().BeginMinigame();
                             InPuzzle = true;
                         }
                         return;
@@ -137,7 +217,7 @@ public class ThirdPersonController : MonoBehaviour
                     case 3:
                         if (InPuzzle == false)
                         {
-                        HeatMinigameManager.GetComponent<HeatMeter>().BeginMinigame();
+                            HeatMinigameManager.GetComponent<HeatMeter>().BeginMinigame();
                             InPuzzle = true;
                         }
                         return;
@@ -151,11 +231,55 @@ public class ThirdPersonController : MonoBehaviour
                         return;
                 }
 
-               
+
                 return;
+
+            case "Enemy":
+
+                health -= 10;
+                canMove = false;
+                Invoke("AllowEnemyMovement", 3f);
+
+                break;
+
+
+
         }
     }
+    void AllowEnemyMovement()
+    {
+        canMove = true;
+        enemyHitbox.GetComponent<EnemyDetect>().canLunge = true;
+    }
 
-  
+    private void ResetSprint()
+    {
+        allowSprint = true;
+    }
 
+
+    /*public void Shoot()
+    {
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+
+        { 
+                Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.value);
+
+                RaycastHit hit;
+
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    Vector3 impact = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+                    GameObject projectileInstance = Instantiate(projectile, transform.position, Quaternion.identity);
+                    projectileInstance.GetComponent<FireBallScript>().targetPos = impact;
+
+
+                }
+
+        }
+
+    }
+    */
+    
 }
