@@ -254,7 +254,7 @@ public class ThirdPersonController : MonoBehaviour
     }
 
 
-    public void Shoot()
+    /*public void Shoot()
     {
         if (Mouse.current.leftButton.wasPressedThisFrame)
 
@@ -276,5 +276,6 @@ public class ThirdPersonController : MonoBehaviour
         }
 
     }
+    */
     
 }
