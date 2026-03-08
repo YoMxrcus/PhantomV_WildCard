@@ -844,7 +844,7 @@ MonoBehaviour:
   allowSprint: 1
   moveDirection: {x: 0, y: 0, z: 0}
   heatMeter: 0
-  projectile: {fileID: 0}
+  projectile: {fileID: 1346268236}
   cameraTransform: {fileID: 787687460}
   dashSpeed: 20
   dashDuration: 0.25
@@ -856,6 +856,9 @@ MonoBehaviour:
   OxygenMinigameManager: {fileID: 0}
   enemyHitbox: {fileID: 1892921884}
   InPuzzle: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &138153276
 GameObject:
   m_ObjectHideFlags: 0
@@ -4791,6 +4794,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1340768735}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1346268236
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1346268237}
+  m_Layer: 0
+  m_Name: Projectile
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1346268237
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346268236}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.17287, y: 0.42006, z: 8.1129}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1351701242
 GameObject:
   m_ObjectHideFlags: 0
@@ -6829,3 +6863,4 @@ SceneRoots:
   - {fileID: 1988644814}
   - {fileID: 829283723}
   - {fileID: 1892921882}
+  - {fileID: 1346268237}

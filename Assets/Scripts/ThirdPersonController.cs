@@ -44,7 +44,6 @@ public class ThirdPersonController : MonoBehaviour
     public GameObject PasswordManager;
     public GameObject HeatMinigameManager;
     public GameObject OxygenMinigameManager;
-    public GameObject enemyHitbox;
     public bool InPuzzle = false;
 
     public LayerMask layerMask;
@@ -65,7 +64,7 @@ public class ThirdPersonController : MonoBehaviour
         if (Mouse.current.rightButton.isPressed)
         {
             aiming = true;
-            RotateTowardMouse();
+            RotateTowardMouse(); 
 
         }
         else { aiming = false; }
@@ -78,6 +77,7 @@ public class ThirdPersonController : MonoBehaviour
         {
             StartCoroutine(Dash());
         }
+
 
         Shoot();
     }
@@ -177,6 +177,7 @@ public class ThirdPersonController : MonoBehaviour
     void RotateTowardMouse()
     {
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, layerMask))
         {
             Vector3 lookPoint = hit.point;
@@ -266,7 +267,7 @@ public class ThirdPersonController : MonoBehaviour
 
     public void Shoot()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current.leftButton.wasPressedThisFrame && aiming)
 
         { 
                 Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.value);
@@ -276,7 +277,7 @@ public class ThirdPersonController : MonoBehaviour
 
                 if (Physics.Raycast(ray, out hit))
                 {
-                    Vector3 impact = new Vector3(hit.point.x + 9999f, transform.position.y, hit.point.z + 9999f);
+                    Vector3 impact = new Vector3(hit.point.x, transform.position.y, hit.point.z);
                     GameObject projectileInstance = Instantiate(projectile, transform.position, Quaternion.identity);
                     projectileInstance.GetComponent<FireBallScript>().targetPos = impact;
 
@@ -286,6 +287,7 @@ public class ThirdPersonController : MonoBehaviour
         }
 
     }
+   
     
     
 }
