@@ -15,6 +15,7 @@ public class ThirdPersonController : MonoBehaviour
     public float sprintDepletionRate = 20f;
     public float staminaRegenRate = 5f;
     [SerializeField] bool allowSprint = true;
+    public Vector3 moveDirection;
 
     [Header("References")]
     public Transform cameraTransform;
@@ -78,7 +79,7 @@ public class ThirdPersonController : MonoBehaviour
 
         stamina -= 30;
         
-        Vector3 dashDirection = transform.forward;
+        Vector3 dashDirection = moveDirection;
 
         float startTime = Time.time;
         while (Time.time < startTime + dashDuration)
@@ -96,8 +97,6 @@ public class ThirdPersonController : MonoBehaviour
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
-
-
 
     private void HandleMovement()
     {
@@ -143,7 +142,7 @@ public class ThirdPersonController : MonoBehaviour
             forward.Normalize();
             right.Normalize();
 
-            Vector3 moveDirection = forward * moveInput.y + right * moveInput.x;
+            moveDirection = forward * moveInput.y + right * moveInput.x;
 
             // Rotate toward movement direction
             if (!aiming)
