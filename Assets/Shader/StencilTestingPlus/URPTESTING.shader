@@ -1,4 +1,4 @@
-Shader "URPLitStencil"
+Shader "Custom/URPLitStencilTESTING"
 {
     Properties
     {
