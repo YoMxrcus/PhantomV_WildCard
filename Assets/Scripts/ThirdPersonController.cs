@@ -1,5 +1,7 @@
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
 public class ThirdPersonController : MonoBehaviour
@@ -9,6 +11,10 @@ public class ThirdPersonController : MonoBehaviour
     public float rotationSpeed = 10f;
     public float gravity = -9.81f;
     public float jumpHeight = 1.5f;
+    public float stamina = 100f;
+    public float sprintDepletionRate = 20f;
+    public float staminaRegenRate = 5f;
+    [SerializeField] bool allowSprint = true;
 
     [Header("References")]
     public Transform cameraTransform;
@@ -16,6 +22,14 @@ public class ThirdPersonController : MonoBehaviour
     private CharacterController controller;
     private Vector2 moveInput;
     private float verticalVelocity;
+
+
+    public float dashSpeed = 20f;
+    public float dashDuration = .25f;
+    public float dashCooldown = 3f;
+    private bool isDashing = false;
+    private bool canDash = true;
+
 
     public bool aiming = false;
 
@@ -47,8 +61,67 @@ public class ThirdPersonController : MonoBehaviour
         else { aiming = false; }
     }
 
+
+    void Update()
+    {
+        if (Keyboard.current.cKey.wasPressedThisFrame && canDash && stamina >= 30)
+        {
+            StartCoroutine(Dash());
+        }
+    }
+
+
+    IEnumerator Dash()
+    {
+        canDash = false;
+        isDashing = true;
+
+        stamina -= 30;
+        
+        Vector3 dashDirection = transform.forward;
+
+        float startTime = Time.time;
+        while (Time.time < startTime + dashDuration)
+        {
+           
+             controller.Move(dashDirection * dashSpeed * Time.deltaTime);
+
+            yield return null; // Wait for the next frame
+        }
+
+        // Dash ends
+        isDashing = false;
+
+        // Start cooldown
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
+    }
+
+
+
     private void HandleMovement()
     {
+        if (stamina <= 5)
+        {
+            allowSprint = false;
+            Invoke("ResetSprint", 3f);
+        }
+
+        if (Keyboard.current.shiftKey.isPressed && stamina > 0 && allowSprint)
+        {
+            moveSpeed = 9;
+            stamina -= sprintDepletionRate * Time.deltaTime;
+        }
+
+        else if (stamina < 100f)
+        { 
+            moveSpeed = 6;
+            stamina += staminaRegenRate * Time.deltaTime;
+
+            // Clamp the stamina to make sure it doesn't go over 100
+            stamina = Mathf.Min(stamina, 100f);
+        }
+
         // Ground check
         if (controller.isGrounded && verticalVelocity < 0)
         {
@@ -58,7 +131,7 @@ public class ThirdPersonController : MonoBehaviour
         // Convert input to world direction
         Vector3 inputDirection = new Vector3(moveInput.x, 0f, moveInput.y);
 
-        if (inputDirection.magnitude >= 0.1f)
+        if (inputDirection.magnitude >= 0.1f && !isDashing)
         {
             // Camera-relative movement
             Vector3 forward = cameraTransform.forward;
@@ -86,6 +159,9 @@ public class ThirdPersonController : MonoBehaviour
         // Apply gravity
         verticalVelocity += gravity * Time.deltaTime;
         controller.Move(Vector3.up * verticalVelocity * Time.deltaTime);
+
+
+       
     }
 
     void RotateTowardMouse()
@@ -156,6 +232,9 @@ public class ThirdPersonController : MonoBehaviour
         }
     }
 
-  
+    private void ResetSprint()
+    {
+        allowSprint = true;
+    }
 
 }
