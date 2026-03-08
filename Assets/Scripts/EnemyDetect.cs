@@ -6,22 +6,24 @@ public class EnemyDetect : MonoBehaviour
 {
     public GameObject enemy;
     public GameObject player;
-    public GameObject[] enemyStance = new GameObject[4];
-    public float animationSpeed = 1f; // Time between stance swaps
+    float speed = 1f;
+    public bool canLunge = true;
+    //public GameObject[] enemyStance = new GameObject[4];
+    //public float animationSpeed = 1f; // Time between stance swaps
 
-    private Coroutine stanceRoutine;
-    private bool isMoving = false;
-    //private SpellCasting playerSpellScript;
+    //private Coroutine stanceRoutine;
+    //private bool isMoving = false;
+    private ThirdPersonController playerScript;
 
-    public GameObject EnemyAttack1, EnemyAttack2;
+    //public GameObject EnemyAttack1, EnemyAttack2;
 
-    public bool CancelAnimation = false;
+    //public bool CancelAnimation = false;
 
-    public Animator GoblinAnim;
+    //public Animator GoblinAnim;
     void Start()
     {
         // calling the script for better performance
-        //playerSpellScript = player.GetComponent<SpellCasting>();
+        playerScript = player.GetComponent<ThirdPersonController>();
 
         // Ensures only the first stance is active at start
        
@@ -29,14 +31,19 @@ public class EnemyDetect : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        /*if (other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            if (playerSpellScript.canMove)
+            if (playerScript.canMove == true)
             {
                 // Movement Logic
-                enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, player.transform.position, 5f * Time.deltaTime);
-                GoblinAnim.SetBool("Attack", false);
-                GoblinAnim.SetBool("Walking", true);
+                if (canLunge)
+                {
+                    AllowLunge();
+                    Invoke("DisallowLunge", .25f);
+                }
+                enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, player.transform.position, speed * Time.deltaTime);
+                //GoblinAnim.SetBool("Attack", false);
+                //GoblinAnim.SetBool("Walking", true);
 
                 // Start the loop if we aren't already moving
 
@@ -44,13 +51,23 @@ public class EnemyDetect : MonoBehaviour
             else
             {
 
-                GoblinAnim.SetBool("Attack", true);
-                //StopMovement();
+                //GoblinAnim.SetBool("Attack", true);
+                StopMovement();
             }
-        }*/
+        }
     }
+    void AllowLunge()
+    {
+        canLunge = true;
+        speed = 5;
+    }    
+    void DisallowLunge()
+    {
+        canLunge = false;
+        speed = 1;
+    }    
 
-    private void OnTriggerExit(Collider other)
+    /*private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -108,5 +125,9 @@ public class EnemyDetect : MonoBehaviour
         }
 
             
+    }*/
+    void StopMovement()
+    {
+        enemy.transform.position = transform.position;
     }
 }

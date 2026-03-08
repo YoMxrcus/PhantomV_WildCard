@@ -743,7 +743,7 @@ GameObject:
   - component: {fileID: 122096238}
   m_Layer: 0
   m_Name: ThirdPersonTEST
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -836,10 +836,23 @@ MonoBehaviour:
   rotationSpeed: 10
   gravity: -9.81
   jumpHeight: 1.5
+  stamina: 100
+  sprintDepletionRate: 20
+  staminaRegenRate: 5
+  health: 100
+  canMove: 1
+  allowSprint: 1
+  moveDirection: {x: 0, y: 0, z: 0}
   cameraTransform: {fileID: 787687460}
+  dashSpeed: 20
+  dashDuration: 0.25
+  dashCooldown: 3
   aiming: 0
   PuzzleManager: {fileID: 0}
   PasswordManager: {fileID: 0}
+  HeatMinigameManager: {fileID: 0}
+  OxygenMinigameManager: {fileID: 0}
+  enemyHitbox: {fileID: 1892921884}
   InPuzzle: 0
 --- !u!1 &138153276
 GameObject:
@@ -5424,7 +5437,7 @@ GameObject:
   - component: {fileID: 1677649989}
   m_Layer: 0
   m_Name: PlayerShell
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5814,6 +5827,122 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -5}
   m_SizeDelta: {x: 0, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &1892921882
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2506046489537460784, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3748655087740287278, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.9530115
+      objectReference: {fileID: 0}
+    - target: {fileID: 3748655087740287278, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.22000045
+      objectReference: {fileID: 0}
+    - target: {fileID: 3748655087740287278, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.07495
+      objectReference: {fileID: 0}
+    - target: {fileID: 3748655087740287278, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.84858876
+      objectReference: {fileID: 0}
+    - target: {fileID: 3748655087740287278, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3748655087740287278, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.5290531
+      objectReference: {fileID: 0}
+    - target: {fileID: 3748655087740287278, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3748655087740287278, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3748655087740287278, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3748655087740287278, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709560657257896378, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+      propertyPath: m_Name
+      value: GoblinEnemyOFFICIAL
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2916618305865303198, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+    - {fileID: 6715726577153605604, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+    - {fileID: 6136310720689427903, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 7348125039102378067, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+    - {fileID: 5318184974731944686, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+    - {fileID: 2354502337086121959, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+    - {fileID: 5857868998409785997, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+    - {fileID: 4215504751083338244, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+    - {fileID: 4003764164989415021, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+    - {fileID: 162744281979816469, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4709560657257896378, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1892921885}
+    - targetCorrespondingSourceObject: {fileID: 4217647736527744077, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1892921886}
+  m_SourcePrefab: {fileID: 100100000, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+--- !u!1 &1892921883 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4709560657257896378, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+  m_PrefabInstance: {fileID: 1892921882}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1892921884 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4217647736527744077, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+  m_PrefabInstance: {fileID: 1892921882}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1892921885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1892921883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e717aa21db55ed44aa040f4a19963a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  EnemyHealth: 100
+  Player: {fileID: 122096234}
+--- !u!114 &1892921886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1892921884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51d784b86a3ed5a41bfdb431f24e8bfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDetect
+  enemy: {fileID: 1892921883}
+  player: {fileID: 122096234}
+  canLunge: 1
 --- !u!1 &1906672230
 GameObject:
   m_ObjectHideFlags: 0
@@ -5967,6 +6096,7 @@ MonoBehaviour:
   heat3: 0
   tolerance: 5
   HeatMinigame: {fileID: 0}
+  Player: {fileID: 0}
 --- !u!4 &1988644814
 Transform:
   m_ObjectHideFlags: 0
@@ -6035,6 +6165,11 @@ MonoBehaviour:
   complete: 0
   complete2: 0
   complete3: 0
+  clickArea: {fileID: 288975115}
+  clickArea2: {fileID: 2046047641}
+  clickArea3: {fileID: 886390452}
+  OxygenMinigame: {fileID: 1260954339}
+  Player: {fileID: 122096234}
 --- !u!4 &1990221270
 Transform:
   m_ObjectHideFlags: 0
@@ -6687,3 +6822,4 @@ SceneRoots:
   - {fileID: 1990221270}
   - {fileID: 1988644814}
   - {fileID: 829283723}
+  - {fileID: 1892921882}

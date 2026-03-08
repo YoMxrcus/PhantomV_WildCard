@@ -17,7 +17,7 @@ public class ThirdPersonController : MonoBehaviour
     public float sprintDepletionRate = 20f;
     public float staminaRegenRate = 5f;
     public int health = 100;
-    public bool canMove = false;
+    public bool canMove = true;
     [SerializeField] bool allowSprint = true;
     public Vector3 moveDirection;
 
@@ -42,6 +42,7 @@ public class ThirdPersonController : MonoBehaviour
     public GameObject PasswordManager;
     public GameObject HeatMinigameManager;
     public GameObject OxygenMinigameManager;
+    public GameObject enemyHitbox;
     public bool InPuzzle = false;
     private void Awake()
     {
@@ -237,8 +238,6 @@ public class ThirdPersonController : MonoBehaviour
 
                 health -= 10;
                 canMove = false;
-                return;
-
                 Invoke("AllowEnemyMovement", 3f);
 
                 break;
@@ -246,6 +245,11 @@ public class ThirdPersonController : MonoBehaviour
 
 
         }
+    }
+    void AllowEnemyMovement()
+    {
+        canMove = true;
+        enemyHitbox.GetComponent<EnemyDetect>().canLunge = true;
     }
 
     private void ResetSprint()
