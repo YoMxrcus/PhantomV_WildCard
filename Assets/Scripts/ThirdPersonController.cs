@@ -44,6 +44,8 @@ public class ThirdPersonController : MonoBehaviour
     public GameObject OxygenMinigameManager;
     public GameObject enemyHitbox;
     public bool InPuzzle = false;
+
+    public LayerMask layerMask;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -171,7 +173,7 @@ public class ThirdPersonController : MonoBehaviour
     void RotateTowardMouse()
     {
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f, layerMask))
         {
             Vector3 lookPoint = hit.point;
             lookPoint.y = transform.position.y;
