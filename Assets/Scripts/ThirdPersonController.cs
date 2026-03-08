@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Security.Cryptography;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections;
+using UnityEngine.ProBuilder;
 
 [RequireComponent(typeof(CharacterController))]
 public class ThirdPersonController : MonoBehaviour
@@ -14,6 +16,8 @@ public class ThirdPersonController : MonoBehaviour
     public float stamina = 100f;
     public float sprintDepletionRate = 20f;
     public float staminaRegenRate = 5f;
+    public int health = 100;
+    public bool canMove = false;
     [SerializeField] bool allowSprint = true;
     public Vector3 moveDirection;
 
@@ -65,7 +69,7 @@ public class ThirdPersonController : MonoBehaviour
 
     void Update()
     {
-        if (Keyboard.current.cKey.wasPressedThisFrame && canDash && stamina >= 30)
+        if (Keyboard.current.spaceKey.wasPressedThisFrame && canDash && stamina >= 30)
         {
             StartCoroutine(Dash());
         }
@@ -196,7 +200,7 @@ public class ThirdPersonController : MonoBehaviour
                     case 1:
                         if (InPuzzle == false)
                         {
-                        PuzzleManager.GetComponent<Puzzles>().BeginMinigame();
+                            PuzzleManager.GetComponent<Puzzles>().BeginMinigame();
                             InPuzzle = true;
                         }
                         return;
@@ -204,7 +208,7 @@ public class ThirdPersonController : MonoBehaviour
                     case 2:
                         if (InPuzzle == false)
                         {
-                        PasswordManager.GetComponent<PasswordMinigameManager>().BeginMinigame();
+                            PasswordManager.GetComponent<PasswordMinigameManager>().BeginMinigame();
                             InPuzzle = true;
                         }
                         return;
@@ -212,7 +216,7 @@ public class ThirdPersonController : MonoBehaviour
                     case 3:
                         if (InPuzzle == false)
                         {
-                        HeatMinigameManager.GetComponent<HeatMeter>().BeginMinigame();
+                            HeatMinigameManager.GetComponent<HeatMeter>().BeginMinigame();
                             InPuzzle = true;
                         }
                         return;
@@ -226,8 +230,21 @@ public class ThirdPersonController : MonoBehaviour
                         return;
                 }
 
-               
+
                 return;
+
+            case "Enemy":
+
+                health -= 10;
+                canMove = false;
+                return;
+
+                Invoke("AllowEnemyMovement", 3f);
+
+                break;
+
+
+
         }
     }
 
@@ -236,4 +253,28 @@ public class ThirdPersonController : MonoBehaviour
         allowSprint = true;
     }
 
+
+    public void Shoot()
+    {
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+
+        { 
+                Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.value);
+
+                RaycastHit hit;
+
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    Vector3 impact = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+                    GameObject projectileInstance = Instantiate(projectile, transform.position, Quaternion.identity);
+                    projectileInstance.GetComponent<FireBallScript>().targetPos = impact;
+
+
+                }
+
+        }
+
+    }
+    
 }
