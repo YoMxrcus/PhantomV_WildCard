@@ -481,6 +481,8 @@ MonoBehaviour:
   canMove: 0
   allowSprint: 1
   moveDirection: {x: 0, y: 0, z: 0}
+  heatMeter: 0
+  projectile: {fileID: 0}
   cameraTransform: {fileID: 787687460}
   dashSpeed: 15
   dashDuration: 0.35
@@ -491,6 +493,9 @@ MonoBehaviour:
   HeatMinigameManager: {fileID: 675424673}
   OxygenMinigameManager: {fileID: 1653043701}
   InPuzzle: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!54 &122096239
 Rigidbody:
   m_ObjectHideFlags: 0
