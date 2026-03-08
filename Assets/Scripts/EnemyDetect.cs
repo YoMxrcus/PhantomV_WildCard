@@ -40,6 +40,7 @@ public class EnemyDetect : MonoBehaviour
                 {
                     AllowLunge();
                     Invoke("DisallowLunge", .25f);
+                    Invoke("AllowLunge", 5f);
                 }
                 enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, player.transform.position, speed * Time.deltaTime);
                 //GoblinAnim.SetBool("Attack", false);
@@ -59,12 +60,12 @@ public class EnemyDetect : MonoBehaviour
     void AllowLunge()
     {
         canLunge = true;
-        speed = 5;
+        speed = 10;
     }    
     void DisallowLunge()
     {
         canLunge = false;
-        speed = 1;
+        speed = 2;
     }    
 
     /*private void OnTriggerExit(Collider other)
