@@ -843,6 +843,8 @@ MonoBehaviour:
   canMove: 1
   allowSprint: 1
   moveDirection: {x: 0, y: 0, z: 0}
+  heatMeter: 0
+  projectile: {fileID: 0}
   cameraTransform: {fileID: 787687460}
   dashSpeed: 20
   dashDuration: 0.25
@@ -5092,7 +5094,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 958afd18b499574469f6593299efeb0b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.61
+  m_Volume: 0.039
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -5879,9 +5881,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4095893289682893566, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
+      propertyPath: m_Name
+      value: SnakeShell
+      objectReference: {fileID: 0}
     - target: {fileID: 4709560657257896378, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
       propertyPath: m_Name
-      value: GoblinEnemyOFFICIAL
+      value: SnakeEnemyPROTO
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2916618305865303198, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}

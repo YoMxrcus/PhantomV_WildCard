@@ -20,6 +20,8 @@ public class ThirdPersonController : MonoBehaviour
     public bool canMove = true;
     [SerializeField] bool allowSprint = true;
     public Vector3 moveDirection;
+    public int heatMeter = 0;
+    public GameObject projectile;
 
     [Header("References")]
     public Transform cameraTransform;
@@ -74,6 +76,8 @@ public class ThirdPersonController : MonoBehaviour
         {
             StartCoroutine(Dash());
         }
+
+        Shoot();
     }
 
 
@@ -249,7 +253,7 @@ public class ThirdPersonController : MonoBehaviour
     void AllowEnemyMovement()
     {
         canMove = true;
-        enemyHitbox.GetComponent<EnemyDetect>().canLunge = true;
+        
     }
 
     private void ResetSprint()
@@ -258,7 +262,7 @@ public class ThirdPersonController : MonoBehaviour
     }
 
 
-    /*public void Shoot()
+    public void Shoot()
     {
         if (Mouse.current.leftButton.wasPressedThisFrame)
 
@@ -270,7 +274,7 @@ public class ThirdPersonController : MonoBehaviour
 
                 if (Physics.Raycast(ray, out hit))
                 {
-                    Vector3 impact = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+                    Vector3 impact = new Vector3(hit.point.x + 9999f, transform.position.y, hit.point.z + 9999f);
                     GameObject projectileInstance = Instantiate(projectile, transform.position, Quaternion.identity);
                     projectileInstance.GetComponent<FireBallScript>().targetPos = impact;
 
@@ -280,6 +284,6 @@ public class ThirdPersonController : MonoBehaviour
         }
 
     }
-    */
+    
     
 }
