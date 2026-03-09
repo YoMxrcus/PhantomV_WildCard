@@ -49469,7 +49469,7 @@ GameObject:
   - component: {fileID: 1649170768}
   - component: {fileID: 1649170767}
   - component: {fileID: 1649170766}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (24)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84822,10 +84822,10 @@ MonoBehaviour:
   allowSprint: 1
   moveDirection: {x: 0, y: 0, z: 0}
   heatMeter: 0
-  heatBar: {fileID: 0}
-  staminaBar: {fileID: 0}
-  healthBar: {fileID: 0}
-  projectile: {fileID: 0}
+  heatBar: {fileID: 145496719}
+  staminaBar: {fileID: 597014933}
+  healthBar: {fileID: 1394263682}
+  projectile: {fileID: 4939932780079845728, guid: 925407ba5c1b90042abaf82056bc9b41, type: 3}
   cameraTransform: {fileID: 1833486707}
   dashSpeed: 20
   dashDuration: 0.25
