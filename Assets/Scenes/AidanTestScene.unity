@@ -1231,10 +1231,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SnakeShell
       objectReference: {fileID: 0}
-    - target: {fileID: 4503788265100200852, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
-      propertyPath: m_Radius
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4709560657257896378, guid: 7a6e3803ef58fad4c8438e510e842caa, type: 3}
       propertyPath: m_Name
       value: SnakeEnemyPROTO
