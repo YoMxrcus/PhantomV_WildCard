@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 public class CutsceneChecker : MonoBehaviour
 {
     string mainMenuScene = "MainMenu";
-    string LevelOneIntro = "IntroLevelOneAnimation";
+    string LevelOneIntro = "LevelOneIntroAnimation";
     string LevelOne = "LevelOneDesign";
     string LevelOneOutro = "OutroLevelOneAnimation";
-    string LevelTwoIntro = "IntroLevelTwo";
+    string LevelTwoIntro = "LevelTwoIntroAnimations";
     string LevelTwo = "LevelTwoDesign";
     string LevelTwoOutro = "OutroLevelTwo";
     string LevelThreeIntro = "IntroLevelThree";
@@ -22,7 +22,7 @@ public class CutsceneChecker : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == LevelOneIntro)
         {
-            Invoke("LoadLevelOne",24.5f);
+            Invoke("LoadLevelOne",10f);
         }
 
         if (SceneManager.GetActiveScene().name == LevelOneOutro)
@@ -32,7 +32,7 @@ public class CutsceneChecker : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == LevelTwoIntro)
         {
-            Invoke("LoadLevelTwo", 30f);
+            Invoke("LoadLevelTwo", 8f);
         }
 
         if (SceneManager.GetActiveScene().name == LevelTwoOutro)
@@ -64,7 +64,7 @@ public class CutsceneChecker : MonoBehaviour
             case "NextLevel":
                 if (SceneManager.GetActiveScene().name == LevelOne)
                 {
-                    LoadLevelTwo();
+                    LoadLevelTwoIntro();
                 }
                 else if (SceneManager.GetActiveScene().name == LevelTwo)
                 {

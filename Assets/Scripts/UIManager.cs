@@ -4,10 +4,10 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     string mainMenuScene = "MainMenu";
-    string Level1 = "Level1";
-    string levelTwo = "LvlTwoProto";
+    string Level1 = "LevelOneIntroAnimation";
+    string levelTwo = "LevelOneDesign";
     string levelThree = "LevelOneActual";
-    string levelBoss = "LEVEL2TESTSCENE";
+    string levelBoss = "LevelTwoDesign";
     string Credits = "Credits";
     string Help = "Help";
     string winScene = "WIN";
@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
 
         Time.timeScale = 1.0f; //sets time scale
 
-        if ((SceneManager.GetActiveScene().name == Level1) || (SceneManager.GetActiveScene().name == levelBoss)
+        if ((SceneManager.GetActiveScene().name == levelTwo) || (SceneManager.GetActiveScene().name == levelBoss)
             || (SceneManager.GetActiveScene().name == levelTwo) || (SceneManager.GetActiveScene().name == levelThree)|| (SceneManager.GetActiveScene().name == levelThreeActual))
         {
             Debug.Log("Open Pause Close");
