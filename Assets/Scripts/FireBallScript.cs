@@ -20,7 +20,7 @@ public class FireBallScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-       if (other.gameObject.CompareTag("destroyAttack"))
+       if (other.gameObject.CompareTag("Enemy"))
        {
             Destroy(gameObject);
        }

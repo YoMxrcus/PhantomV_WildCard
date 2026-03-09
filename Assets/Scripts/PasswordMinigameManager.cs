@@ -122,6 +122,12 @@ public class PasswordMinigameManager : MonoBehaviour
             {
                 // If the player completes the combination, it tells the player what spell they casted and sets SpellHeld to true, changes CurrentSpell to the spell that the player is holding
                 Debug.Log("Password Correct");
+                Player.GetComponent<ThirdPersonController>().HeaterUp -= 20;
+
+                if (Player.GetComponent<ThirdPersonController>().HeaterUp < 0)
+                {
+                    Player.GetComponent<ThirdPersonController>().HeaterUp = 0;
+                }
                 Invoke("CloseMinigame", 1f);
             }
 

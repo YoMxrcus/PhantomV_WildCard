@@ -9,22 +9,14 @@ public class Enemy : MonoBehaviour
     {
         switch(other.gameObject.tag)
         {
-            /*case "Fireball":
-                if (Player.GetComponent<SpellCasting>().EnhancementActive)
-                {
-                    EnemyHealth -= 100;
-                    Player.GetComponent<SpellCasting>().EnhancementActive = false;
-                    Player.GetComponent<SpellCasting>().Hitmarker.SetActive(true);
-                    Player.GetComponent<SpellCasting>().Invoke("ResetHitmarker", .2f);
-                }
-                else { EnemyHealth -= 50; Player.GetComponent<SpellCasting>().Hitmarker.SetActive(true); Player.GetComponent<SpellCasting>().Invoke("ResetHitmarker", .2f); }
+            case "projectile":
+                EnemyHealth -= 20;
 
                 if (EnemyHealth <= 0)
                 {
-                    Destroy(gameObject);
+                    DestroyEnemy();
                 }
-                break;
-            */
+                return;
             
         }
 
