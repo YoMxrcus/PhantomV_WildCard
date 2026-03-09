@@ -13,7 +13,7 @@ public class FireBallScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     { 
-        transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 4f);
+        transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 8f);
         CheckDestroy();
     }
 
