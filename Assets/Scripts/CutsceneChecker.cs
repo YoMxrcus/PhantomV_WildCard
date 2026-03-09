@@ -7,10 +7,10 @@ public class CutsceneChecker : MonoBehaviour
 {
     string mainMenuScene = "MainMenu";
     string LevelOneIntro = "IntroLevelOneAnimation";
-    string LevelOne = "LevelOneActual";
+    string LevelOne = "LevelOneDesign";
     string LevelOneOutro = "OutroLevelOneAnimation";
     string LevelTwoIntro = "IntroLevelTwo";
-    string LevelTwo = "LvlTwoProto";
+    string LevelTwo = "LevelTwoDesign";
     string LevelTwoOutro = "OutroLevelTwo";
     string LevelThreeIntro = "IntroLevelThree";
     string LevelThree = "LeveLThree";
@@ -61,16 +61,21 @@ public class CutsceneChecker : MonoBehaviour
     {
         switch (other.gameObject.tag)
         {
-            case "EndOfTutorialTrigger":
+            case "NextLevel":
                 if (SceneManager.GetActiveScene().name == LevelOne)
                 {
-                    LoadLevelOneEnd();
+                    LoadLevelTwo();
                 }
-                else if (SceneManager.GetActiveScene().name == LevelThree)
+                else if (SceneManager.GetActiveScene().name == LevelTwo)
                 {
-                    SceneManager.LoadScene(LevelThreeOutro);
+                    LoadWinScene();
                 }
                     break;
+
+            case "DeathPlane":
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                
+                break;
 
         }
     }

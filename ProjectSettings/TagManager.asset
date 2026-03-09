@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - TestTrigger
   - Building
+  - NextLevel
+  - DeathPlane
   layers:
   - Default
   - TransparentFX
