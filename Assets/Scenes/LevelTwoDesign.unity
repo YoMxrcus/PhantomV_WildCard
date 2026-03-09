@@ -28135,7 +28135,7 @@ GameObject:
   - component: {fileID: 1649170768}
   - component: {fileID: 1649170767}
   - component: {fileID: 1649170766}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (24)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63538,6 +63538,8 @@ MonoBehaviour:
   canMove: 1
   allowSprint: 1
   moveDirection: {x: 0, y: 0, z: 0}
+  heatMeter: 0
+  projectile: {fileID: 0}
   cameraTransform: {fileID: 1833486707}
   dashSpeed: 20
   dashDuration: 0.25
@@ -63547,7 +63549,6 @@ MonoBehaviour:
   PasswordManager: {fileID: 0}
   HeatMinigameManager: {fileID: 0}
   OxygenMinigameManager: {fileID: 0}
-  enemyHitbox: {fileID: 0}
   InPuzzle: 0
   layerMask:
     serializedVersion: 2

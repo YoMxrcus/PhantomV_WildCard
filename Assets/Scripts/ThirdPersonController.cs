@@ -20,6 +20,8 @@ public class ThirdPersonController : MonoBehaviour
     public bool canMove = true;
     [SerializeField] bool allowSprint = true;
     public Vector3 moveDirection;
+    public int heatMeter = 0;
+    public GameObject projectile;
 
     [Header("References")]
     public Transform cameraTransform;
@@ -42,7 +44,6 @@ public class ThirdPersonController : MonoBehaviour
     public GameObject PasswordManager;
     public GameObject HeatMinigameManager;
     public GameObject OxygenMinigameManager;
-    public GameObject enemyHitbox;
     public bool InPuzzle = false;
 
     public LayerMask layerMask;
@@ -63,7 +64,7 @@ public class ThirdPersonController : MonoBehaviour
         if (Mouse.current.rightButton.isPressed)
         {
             aiming = true;
-            RotateTowardMouse();
+            RotateTowardMouse(); 
 
         }
         else { aiming = false; }
@@ -76,6 +77,9 @@ public class ThirdPersonController : MonoBehaviour
         {
             StartCoroutine(Dash());
         }
+
+
+        Shoot();
     }
 
 
@@ -173,6 +177,7 @@ public class ThirdPersonController : MonoBehaviour
     void RotateTowardMouse()
     {
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, layerMask))
         {
             Vector3 lookPoint = hit.point;
@@ -251,7 +256,7 @@ public class ThirdPersonController : MonoBehaviour
     void AllowEnemyMovement()
     {
         canMove = true;
-        enemyHitbox.GetComponent<EnemyDetect>().canLunge = true;
+        
     }
 
     private void ResetSprint()
@@ -260,9 +265,9 @@ public class ThirdPersonController : MonoBehaviour
     }
 
 
-    /*public void Shoot()
+    public void Shoot()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current.leftButton.wasPressedThisFrame && aiming)
 
         { 
                 Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.value);
@@ -282,6 +287,7 @@ public class ThirdPersonController : MonoBehaviour
         }
 
     }
-    */
+   
+    
     
 }
