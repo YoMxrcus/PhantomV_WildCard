@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
 public class ThirdPersonController : MonoBehaviour
@@ -21,6 +22,7 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField] bool allowSprint = true;
     public Vector3 moveDirection;
     public int heatMeter = 0;
+    public Slider heatBar, staminaBar, healthBar;
     public GameObject projectile;
 
     [Header("References")]
@@ -86,18 +88,20 @@ public class ThirdPersonController : MonoBehaviour
 
         }
         else { aiming = false; }
+        UpdateUI();
     }
 
 
     void Update()
     {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame && canDash && stamina >= 30)
+        if (Keyboard.current.spaceKey.wasPressedThisFrame && canDash && stamina >= 30 && !InPuzzle)
         {
             StartCoroutine(Dash());
         }
 
 
         Shoot();
+        
     }
 
 
@@ -187,6 +191,7 @@ public class ThirdPersonController : MonoBehaviour
         // Apply gravity
         verticalVelocity += gravity * Time.deltaTime;
         controller.Move(Vector3.up * verticalVelocity * Time.deltaTime);
+
 
 
        
@@ -304,6 +309,12 @@ public class ThirdPersonController : MonoBehaviour
 
         }
 
+    }
+    void UpdateUI()
+    {
+        heatBar.value = HeaterUp;
+        staminaBar.value = stamina;
+        healthBar.value = health;
     }
    
     
