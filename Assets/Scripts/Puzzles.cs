@@ -167,6 +167,14 @@ public class WireMinigameManager : MonoBehaviour
             redConnected = false;
             blueConnected = false;
             yellowConnected = false;
+
+            Player.GetComponent<ThirdPersonController>().HeaterUp -= 20;
+
+            if (Player.GetComponent<ThirdPersonController>().HeaterUp < 0)
+            {
+                Player.GetComponent<ThirdPersonController>().HeaterUp = 0;
+            }
+
             Invoke("CloseMinigame", 1f);
         }
     }

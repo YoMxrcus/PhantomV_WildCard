@@ -108,6 +108,12 @@ public class OxygenLevelsPuzzle : MonoBehaviour
         if (complete & complete2 & complete3)
         {
             Debug.Log("GameWon");
+            Player.GetComponent<ThirdPersonController>().HeaterUp -= 20;
+
+            if (Player.GetComponent<ThirdPersonController>().HeaterUp < 0)
+            {
+                Player.GetComponent<ThirdPersonController>().HeaterUp = 0;
+            }
             Invoke("EndMinigame", 1f);
         }
     }

@@ -37,6 +37,8 @@ public class ThirdPersonController : MonoBehaviour
     private bool isDashing = false;
     private bool canDash = true;
 
+    public int HeaterUp = 0;
+    public bool HeatDecrement;
 
     public bool aiming = false;
 
@@ -50,6 +52,22 @@ public class ThirdPersonController : MonoBehaviour
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
+    }
+
+    public IEnumerator HeatCoroutine()
+    {
+        HeatDecrement = true;
+        while (HeaterUp < 100)
+        {
+            yield return new WaitForSeconds(2f);
+
+            HeaterUp++;
+        }
+    }
+
+    private void Start()
+    {
+        StartCoroutine(HeatCoroutine());
     }
 
     // Called automatically by PlayerInput
