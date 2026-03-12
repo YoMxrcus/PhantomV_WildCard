@@ -3,18 +3,41 @@ using UnityEngine;
 public class FireBallScript : MonoBehaviour
 {
     public Vector3 targetPos; //Stores Target Location
+    private float speed = 30f;
+    public GameObject Player;
+    public float initialYPos;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Player = GameObject.Find("ThirdPersonTEST");
+        initialYPos = transform.position.y;
     }
 
     // Update is called once per frame
     void FixedUpdate()
-    { 
-        transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 8f);
-        CheckDestroy();
+    {
+        if(targetPos.sqrMagnitude > 0.01f)
+        {
+            Vector3 movement = targetPos * speed * Time.fixedDeltaTime;
+
+        movement.y = initialYPos;
+
+        transform.position += movement;
+
+
+            transform.position = new Vector3(
+                    Mathf.Clamp(transform.position.x, -50f, 50f),  // Clamp horizontal X
+                    initialYPos,                                  // Keep Y constant
+                    Mathf.Clamp(transform.position.z, -50f, 50f)   // Clamp horizontal Z
+                );
+        }
+        else
+        {
+            Debug.LogWarning("Direction vector is zero, projectile will not move.");
+        }
+           
+
     }
 
 
@@ -28,13 +51,5 @@ public class FireBallScript : MonoBehaviour
       
     }
 
-    void CheckDestroy()
-    {
-        if (transform.position == targetPos) 
-        {
-            Destroy(gameObject);
-        }
-
-        
-    }
+   
 }
