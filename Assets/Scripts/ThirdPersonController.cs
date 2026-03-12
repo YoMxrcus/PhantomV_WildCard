@@ -50,6 +50,7 @@ public class ThirdPersonController : MonoBehaviour
     public GameObject OxygenMinigameManager;
     public bool InPuzzle = false;
 
+    
     public LayerMask layerMask;
     private void Awake()
     {
@@ -89,6 +90,7 @@ public class ThirdPersonController : MonoBehaviour
         }
         else { aiming = false; }
         UpdateUI();
+        
     }
 
 
@@ -98,8 +100,8 @@ public class ThirdPersonController : MonoBehaviour
         {
             StartCoroutine(Dash());
         }
-
-
+        
+      
         Shoot();
         
     }
@@ -297,15 +299,35 @@ public class ThirdPersonController : MonoBehaviour
 
                 RaycastHit hit;
 
+                float raycastDistance = 100f;
 
-                if (Physics.Raycast(ray, out hit))
+                if (Physics.Raycast(ray, out hit, raycastDistance))
                 {
-                    Vector3 impact = new Vector3(hit.point.x, transform.position.y, hit.point.z);
-                    GameObject projectileInstance = Instantiate(projectile, transform.position, Quaternion.identity);
-                    projectileInstance.GetComponent<FireBallScript>().targetPos = impact;
 
+                    Debug.Log($"Raycast hit at: {hit.point}");
+
+                    Vector3 impact = (hit.point - transform.position).normalized;
+
+                    if (impact.sqrMagnitude > 0.01f)
+                    {
+                        GameObject projectileInstance = Instantiate(projectile, transform.position, Quaternion.identity);
+                        projectileInstance.GetComponent<FireBallScript>().targetPos = impact;
+
+                        Debug.Log($"Projectile Direction: {impact}");
+
+                    }
+
+                    else
+                    {
+                    Debug.LogWarning("Calculated direction is too small, not spawning projectile.");
+                    }
 
                 }
+
+            else
+            {
+                Debug.LogWarning("Raycast did not hit anything.");
+            }
 
         }
 
