@@ -107,7 +107,7 @@ ScriptedImporter:
       y: 4
       width: 1920
       height: 1080
-    spriteID: 0dbb84678eba61147b1016f8dfe4ef84
+    spriteID: da1091049b39441438eacdf8156437f9
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -138,7 +138,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 1092}
-    spritePosition: {x: 742, y: 121}
+    spritePosition: {x: 742, y: 119}
   spriteImportData: []
   rigSpriteImportData: []
   sharedRigSpriteImportData: []
@@ -176,6 +176,26 @@ ScriptedImporter:
     parentIndex: -1
     spriteID: 0dbb84678eba61147b1016f8dfe4ef84
     layerID: 4
+    mosaicPosition: {x: 4, y: 4}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: text mask
+    spriteName: 
+    isGroup: 0
+    parentIndex: -1
+    spriteID: f5955ea9ae188ac41821d21b46ca8bf7
+    layerID: 14
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: background
+    spriteName: background
+    isGroup: 0
+    parentIndex: -1
+    spriteID: da1091049b39441438eacdf8156437f9
+    layerID: 11
     mosaicPosition: {x: 4, y: 4}
     flatten: 0
     isImported: 1
