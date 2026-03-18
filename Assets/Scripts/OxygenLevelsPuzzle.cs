@@ -22,9 +22,12 @@ public class OxygenLevelsPuzzle : MonoBehaviour
     public GameObject clickArea, clickArea2, clickArea3;
     public GameObject OxygenMinigame;
     public GameObject Player;
+    public int oxygenResetNum;
     public void BeginMinigame()
     {
         OxygenMinigame.SetActive(true);
+
+        oxygenResetNum = 0;
 
         oxygen = Random.Range(10, 101); oxygen2 = Random.Range(10, 101); oxygen3 = Random.Range(10, 101);
         min = Random.Range(20, 80); min2 = Random.Range(20, 80); min3 = Random.Range(20, 80);
@@ -47,7 +50,10 @@ public class OxygenLevelsPuzzle : MonoBehaviour
     {
         HandleOxygenInput();
         HandleOxygenDecay();
+        if(oxygenResetNum == 0)
+        {
         HandleTimerLogic();
+        }
         UpdateUI();
     }
 
@@ -114,11 +120,18 @@ public class OxygenLevelsPuzzle : MonoBehaviour
             {
                 Player.GetComponent<ThirdPersonController>().HeaterUp = 0;
             }
-            Invoke("EndMinigame", 1f);
+            Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().minigamesComplete++;
+            Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().UpdateLights();
+            fillImage.color = Color.white;
+            fillImage2.color = Color.white;
+            fillImage3.color = Color.white;
+            oxygenResetNum = 1;
+            Invoke("ResetInteractNum", 3f);
+            Invoke("CloseMinigame", 1f);
         }
     }
 
-    void EndMinigame()
+   public void CloseMinigame()
     {
         Player.GetComponent<ThirdPersonController>().InPuzzle = false;
 
@@ -130,5 +143,10 @@ public class OxygenLevelsPuzzle : MonoBehaviour
         OxygenMinigame.SetActive(false);
 
 
+    }
+
+   public void ResetInteractNum()
+    {
+        Player.GetComponent<ThirdPersonController>().interactTextNum = 0;
     }
 }

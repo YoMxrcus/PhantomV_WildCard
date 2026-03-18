@@ -50,7 +50,11 @@ public class ThirdPersonController : MonoBehaviour
     public GameObject OxygenMinigameManager;
     public bool InPuzzle = false;
 
-    
+    public GameObject CurrentGenerator;
+    public GameObject InteractText;
+    public int interactTextNum;
+    public bool DashOut = false;
+
     public LayerMask layerMask;
     private void Awake()
     {
@@ -91,6 +95,8 @@ public class ThirdPersonController : MonoBehaviour
         else { aiming = false; }
         UpdateUI();
         
+
+       
     }
 
 
@@ -100,9 +106,14 @@ public class ThirdPersonController : MonoBehaviour
         {
             StartCoroutine(Dash());
         }
-        
-      
-        Shoot();
+
+        else if(Keyboard.current.cKey.isPressed && InPuzzle)
+        {
+            StartCoroutine(Dash());
+        }
+
+
+            Shoot();
         
     }
 
@@ -135,68 +146,78 @@ public class ThirdPersonController : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (stamina <= 5)
+        if (!InPuzzle || DashOut )
         {
-            allowSprint = false;
-            Invoke("ResetSprint", 3f);
-        }
 
-        if (Keyboard.current.shiftKey.isPressed && stamina > 0 && allowSprint)
-        {
-            moveSpeed = 9;
-            stamina -= sprintDepletionRate * Time.deltaTime;
-        }
-
-        else if (stamina < 100f)
-        { 
-            moveSpeed = 6;
-            stamina += staminaRegenRate * Time.deltaTime;
-
-            // Clamp the stamina to make sure it doesn't go over 100
-            stamina = Mathf.Min(stamina, 100f);
-        }
-
-        // Ground check
-        if (controller.isGrounded && verticalVelocity < 0)
-        {
-            verticalVelocity = -2f; // Small downward force to stay grounded
-        }
-
-        // Convert input to world direction
-        Vector3 inputDirection = new Vector3(moveInput.x, 0f, moveInput.y);
-
-        if (inputDirection.magnitude >= 0.1f && !isDashing)
-        {
-            // Camera-relative movement
-            Vector3 forward = cameraTransform.forward;
-            Vector3 right = cameraTransform.right;
-
-            forward.y = 0f;
-            right.y = 0f;
-
-            forward.Normalize();
-            right.Normalize();
-
-            moveDirection = forward * moveInput.y + right * moveInput.x;
-
-            // Rotate toward movement direction
-            if (!aiming)
+            if (stamina <= 5)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                allowSprint = false;
+                Invoke("ResetSprint", 3f);
             }
-            else { }
+
+            if (Keyboard.current.shiftKey.isPressed && stamina > 0 && allowSprint)
+            {
+                moveSpeed = 9;
+                stamina -= sprintDepletionRate * Time.deltaTime;
+            }
+
+            else if (stamina < 100f)
+            {
+                moveSpeed = 6;
+                stamina += staminaRegenRate * Time.deltaTime;
+
+                // Clamp the stamina to make sure it doesn't go over 100
+                stamina = Mathf.Min(stamina, 100f);
+            }
+
+            // Ground check
+            if (controller.isGrounded && verticalVelocity < 0)
+            {
+                verticalVelocity = -2f; // Small downward force to stay grounded
+            }
+
+            // Convert input to world direction
+            Vector3 inputDirection = new Vector3(moveInput.x, 0f, moveInput.y);
+
+            if (inputDirection.magnitude >= 0.1f && !isDashing)
+            {
+                // Camera-relative movement
+                Vector3 forward = cameraTransform.forward;
+                Vector3 right = cameraTransform.right;
+
+                forward.y = 0f;
+                right.y = 0f;
+
+                forward.Normalize();
+                right.Normalize();
+
+                moveDirection = forward * moveInput.y + right * moveInput.x;
+
+                // Rotate toward movement direction
+                if (!aiming)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                }
+                else { }
 
                 controller.Move(moveDirection * moveSpeed * Time.deltaTime);
+            }
+
+            // Apply gravity
+            verticalVelocity += gravity * Time.deltaTime;
+            controller.Move(Vector3.up * verticalVelocity * Time.deltaTime);
+
+
+
         }
 
-        // Apply gravity
-        verticalVelocity += gravity * Time.deltaTime;
-        controller.Move(Vector3.up * verticalVelocity * Time.deltaTime);
+        if (Keyboard.current.cKey.isPressed && InPuzzle)
+        {
+            ExitAllMinigames();
+            DashOut = true;
 
-
-
-       
+        }
     }
 
     void RotateTowardMouse()
@@ -216,6 +237,79 @@ public class ThirdPersonController : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 15f * Time.deltaTime);
             }
         }
+
+    }
+
+
+    private void OnTriggerStay(Collider other)
+    {
+        switch (other.gameObject.tag)
+
+        {
+            case "TestTrigger":
+
+                CurrentGenerator = other.gameObject;
+
+                if (interactTextNum == 0 && CurrentGenerator.GetComponent<GeneratorScript>().minigamesComplete < 3)
+                {
+                    interactTextNum++;
+                    InteractText.SetActive(true);
+                }
+
+                if (Keyboard.current.fKey.isPressed == true && CurrentGenerator.GetComponent<GeneratorScript>().minigamesComplete < 3) 
+                
+                {
+                    if (interactTextNum == 1)
+                    {
+                        interactTextNum = -1;
+                        InteractText.SetActive(false);
+                        DashOut = false;
+                    }
+
+                    int randomNum = Random.Range(1, 5);
+
+                  
+
+                    switch (randomNum)
+                    {
+                        case 1:
+                            if (InPuzzle == false)
+                            {
+                                PuzzleManager.GetComponent<Puzzles>().BeginMinigame();
+                                InPuzzle = true;
+                            }
+                            return;
+
+                        case 2:
+                            if (InPuzzle == false)
+                            {
+                                PasswordManager.GetComponent<PasswordMinigameManager>().BeginMinigame();
+                                InPuzzle = true;
+                            }
+                            return;
+
+                        case 3:
+                            if (InPuzzle == false)
+                            {
+                                HeatMinigameManager.GetComponent<HeatMeter>().BeginMinigame();
+                                InPuzzle = true;
+                            }
+                            return;
+
+                        case 4:
+                            if (InPuzzle == false)
+                            {
+                                OxygenMinigameManager.GetComponent<OxygenLevelsPuzzle>().BeginMinigame();
+                                InPuzzle = true;
+                            }
+                            return;
+                    }
+
+
+                }
+                    return;
+
+        }
     }
 
 
@@ -224,47 +318,6 @@ public class ThirdPersonController : MonoBehaviour
         switch (other.gameObject.tag)
 
         {
-            case "TestTrigger":
-
-                int randomNum = Random.Range(1, 5);
-
-                switch (randomNum)
-                {
-                    case 1:
-                        if (InPuzzle == false)
-                        {
-                            PuzzleManager.GetComponent<Puzzles>().BeginMinigame();
-                            InPuzzle = true;
-                        }
-                        return;
-
-                    case 2:
-                        if (InPuzzle == false)
-                        {
-                            PasswordManager.GetComponent<PasswordMinigameManager>().BeginMinigame();
-                            InPuzzle = true;
-                        }
-                        return;
-
-                    case 3:
-                        if (InPuzzle == false)
-                        {
-                            HeatMinigameManager.GetComponent<HeatMeter>().BeginMinigame();
-                            InPuzzle = true;
-                        }
-                        return;
-
-                    case 4:
-                        if (InPuzzle == false)
-                        {
-                            OxygenMinigameManager.GetComponent<OxygenLevelsPuzzle>().BeginMinigame();
-                            InPuzzle = true;
-                        }
-                        return;
-                }
-
-
-                return;
 
             case "Enemy":
 
@@ -274,7 +327,19 @@ public class ThirdPersonController : MonoBehaviour
 
                 break;
 
+        }
+    }
 
+    private void OnTriggerExit(Collider other)
+    {
+        switch (other.gameObject.tag)
+
+        {
+            case "TestTrigger":
+
+                InteractText.SetActive(false);
+                interactTextNum = 0;
+                break;
 
         }
     }
@@ -339,6 +404,12 @@ public class ThirdPersonController : MonoBehaviour
         healthBar.value = health;
     }
    
-    
+    void ExitAllMinigames()
+    {
+        PuzzleManager.GetComponent<Puzzles>().CloseMinigame();
+        PasswordManager.GetComponent<PasswordMinigameManager>().CloseMinigame();
+        HeatMinigameManager.GetComponent<HeatMeter>().CloseMinigame();
+        OxygenMinigameManager.GetComponent<OxygenLevelsPuzzle>().CloseMinigame();
+    }
     
 }
