@@ -27,10 +27,11 @@ public class FireBallScript : MonoBehaviour
 
 
             transform.position = new Vector3(
-                    Mathf.Clamp(transform.position.x, -50f, 50f),  // Clamp horizontal X
+                    Mathf.Clamp(transform.position.x, -10000f, 10000f),  // Clamp horizontal X
                     initialYPos,                                  // Keep Y constant
-                    Mathf.Clamp(transform.position.z, -50f, 50f)   // Clamp horizontal Z
+                    Mathf.Clamp(transform.position.z, -10000f, 10000f)   // Clamp horizontal Z
                 );
+           
         }
         else
         {
