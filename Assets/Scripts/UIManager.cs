@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     string mainMenuScene = "MainMenu";
@@ -20,6 +21,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject gameOverMenu;
     public GameObject pauseMenu;
+    public Texture PistolAmmoIMAGE, AssaultAmmoIMAGE, ShotgunAmmoIMAGE, StimIMAGE, GrenadeIMAGE;
 
     private bool IsInTheGame;
     public int DeathCheck = 0;
