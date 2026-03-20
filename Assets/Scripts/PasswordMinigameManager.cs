@@ -15,10 +15,7 @@ public class PasswordMinigameManager : MonoBehaviour
     public GameObject PasswordMinigame;
     public GameObject Player;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-       
-    }
+ 
 
     // Update is called once per frame
     void Update()
@@ -134,6 +131,10 @@ public class PasswordMinigameManager : MonoBehaviour
                 }
                 Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().minigamesComplete++;
                 Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().UpdateLights();
+                if (Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().minigamesComplete == 3)
+                {
+                    Player.GetComponent<ThirdPersonController>().condensors++;
+                }
                 Invoke("ResetInteractNum", 3f);
                 Invoke("CloseMinigame", 1f);
             }

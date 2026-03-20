@@ -166,6 +166,10 @@ public class Puzzles : MonoBehaviour
             yellowConnected = false;
             Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().minigamesComplete++;
             Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().UpdateLights();
+            if (Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().minigamesComplete == 3)
+            {
+                Player.GetComponent<ThirdPersonController>().condensors++;
+            }
             Invoke("CloseMinigame", 1f);
             Invoke("ResetInteractNum", 3f);
         }
@@ -232,4 +236,6 @@ public class Puzzles : MonoBehaviour
     {
         Player.GetComponent<ThirdPersonController>().interactTextNum = 0;
     }
+
+   
 }

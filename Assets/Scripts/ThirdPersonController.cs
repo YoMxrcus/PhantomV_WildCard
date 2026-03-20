@@ -210,7 +210,7 @@ public class ThirdPersonController : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (!InPuzzle || DashOut || !InLoot )
+        if (!InPuzzle || DashOut)
         {
 
             if (stamina <= 5)
