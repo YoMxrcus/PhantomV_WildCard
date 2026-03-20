@@ -133,12 +133,14 @@ public class HeatMeter : MonoBehaviour
             {
                 Player.GetComponent<ThirdPersonController>().HeaterUp = 0;
             }
-
-                Invoke("EndMinigame", 1f);
+            Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().minigamesComplete++;
+            Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().UpdateLights();
+            Invoke("ResetInteractNum", 3f);
+            Invoke("CloseMinigame", 1f);
         }
     }
 
-    void EndMinigame()
+   public void CloseMinigame()
     {
         Player.GetComponent<ThirdPersonController>().InPuzzle = false;
 
@@ -153,5 +155,10 @@ public class HeatMeter : MonoBehaviour
         HeatMinigame.SetActive(false);
 
 
+    }
+
+    public void ResetInteractNum()
+    {
+        Player.GetComponent<ThirdPersonController>().interactTextNum = 0;
     }
 }

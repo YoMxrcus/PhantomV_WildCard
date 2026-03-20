@@ -23,36 +23,40 @@ public class PasswordMinigameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.qKey.wasPressedThisFrame)
+        if (Player.GetComponent<ThirdPersonController>().InPuzzle == true)
         {
 
-            // Sets PlayerInput to the character "q"
-            PlayerInput = 'q';
-            CheckPassword();
-        }
+            if (Keyboard.current.qKey.wasPressedThisFrame)
+            {
 
-        if (Keyboard.current.eKey.wasPressedThisFrame)
-        {
+                // Sets PlayerInput to the character "q"
+                PlayerInput = 'q';
+                CheckPassword();
+            }
 
-            // Sets PlayerInput to the character "q"
-            PlayerInput = 'e';
-            CheckPassword();
-        }
+            if (Keyboard.current.eKey.wasPressedThisFrame)
+            {
 
-        if (Keyboard.current.rKey.wasPressedThisFrame)
-        {
+                // Sets PlayerInput to the character "q"
+                PlayerInput = 'e';
+                CheckPassword();
+            }
 
-            // Sets PlayerInput to the character "q"
-            PlayerInput = 'r';
-            CheckPassword();
-        }
+            if (Keyboard.current.rKey.wasPressedThisFrame)
+            {
 
-        if (Keyboard.current.fKey.wasPressedThisFrame)
-        {
+                // Sets PlayerInput to the character "q"
+                PlayerInput = 'r';
+                CheckPassword();
+            }
 
-            // Sets PlayerInput to the character "q"
-            PlayerInput = 'f';
-            CheckPassword();
+            if (Keyboard.current.fKey.wasPressedThisFrame)
+            {
+
+                // Sets PlayerInput to the character "q"
+                PlayerInput = 'f';
+                CheckPassword();
+            }
         }
     }
 
@@ -128,6 +132,9 @@ public class PasswordMinigameManager : MonoBehaviour
                 {
                     Player.GetComponent<ThirdPersonController>().HeaterUp = 0;
                 }
+                Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().minigamesComplete++;
+                Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().UpdateLights();
+                Invoke("ResetInteractNum", 3f);
                 Invoke("CloseMinigame", 1f);
             }
 
@@ -135,7 +142,7 @@ public class PasswordMinigameManager : MonoBehaviour
 
     }
 
-    void CloseMinigame()
+    public void CloseMinigame()
     {
         PasswordMinigame.SetActive(false);
         Player.GetComponent<ThirdPersonController>().InPuzzle = false;
@@ -147,5 +154,10 @@ public class PasswordMinigameManager : MonoBehaviour
         correctFive.GetComponent<Image>().color = Color.red;
 
         correctCounter = 0;
+    }
+
+   public void ResetInteractNum()
+    {
+        Player.GetComponent<ThirdPersonController>().interactTextNum = 0;
     }
 }

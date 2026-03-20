@@ -164,7 +164,10 @@ public class Puzzles : MonoBehaviour
             redConnected = false;
             blueConnected = false;
             yellowConnected = false;
+            Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().minigamesComplete++;
+            Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().UpdateLights();
             Invoke("CloseMinigame", 1f);
+            Invoke("ResetInteractNum", 3f);
         }
     }
 
@@ -223,5 +226,10 @@ public class Puzzles : MonoBehaviour
         positions2[2] = 240;
 
         
+    }
+
+    public void ResetInteractNum()
+    {
+        Player.GetComponent<ThirdPersonController>().interactTextNum = 0;
     }
 }
