@@ -1,13 +1,24 @@
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class Stencil : MonoBehaviour
 {
 
     public Animator sphereAnimator;
+
+
+
+    private void Awake()
+    {
+
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         sphereAnimator = GameObject.Find("StencilSphere").GetComponent<Animator>();
+        
     }
 
     // Update is called once per frame
@@ -22,6 +33,7 @@ public class Stencil : MonoBehaviour
         {
             case "Building":
                 sphereAnimator.SetTrigger("INC");
+
                 return;
         }
     }
@@ -31,7 +43,9 @@ public class Stencil : MonoBehaviour
         switch (other.tag)
         {
             case "Building":
+
                 sphereAnimator.SetTrigger("DEC");
+
                 return;
         }
     }
