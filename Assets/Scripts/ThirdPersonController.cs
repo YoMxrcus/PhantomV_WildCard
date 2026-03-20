@@ -49,6 +49,8 @@ public class ThirdPersonController : MonoBehaviour
     public GameObject HeatMinigameManager;
     public GameObject OxygenMinigameManager;
     public bool InPuzzle = false;
+    public bool InLoot = false;
+    public bool InLootTrigger = false;
 
     public GameObject CurrentGenerator;
     public GameObject InteractText;
@@ -56,6 +58,17 @@ public class ThirdPersonController : MonoBehaviour
     public bool DashOut = false;
 
     public LayerMask layerMask;
+
+    public GameObject currentLootBox;
+    public GameObject lootPanel;
+
+    public int condensors = 0;
+    public int stims = 0;
+    public int grenades = 0;
+    public int pistolAmmo = 50;
+    public int assaultAmmo = 75;
+    public int shotgunAmmo = 30;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -75,6 +88,7 @@ public class ThirdPersonController : MonoBehaviour
     private void Start()
     {
         StartCoroutine(HeatCoroutine());
+        
     }
 
     // Called automatically by PlayerInput
@@ -114,7 +128,57 @@ public class ThirdPersonController : MonoBehaviour
 
 
             Shoot();
-        
+
+
+        if (Keyboard.current.eKey.wasPressedThisFrame && InLoot) 
+        {
+            switch (currentLootBox.GetComponent<LootBox>().CurrentLoot[0])
+            {
+                case "Stim":
+                    stims++;
+                    currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
+                    currentLootBox.GetComponent<LootBox>().ResetImages();
+                    currentLootBox.GetComponent<LootBox>().AssignImages();
+                    break;
+
+                case "Grenade":
+                    grenades++;
+                    currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
+                    currentLootBox.GetComponent<LootBox>().ResetImages();
+                    currentLootBox.GetComponent<LootBox>().AssignImages();
+                    break;
+
+                case "PistolAmmo":
+                    pistolAmmo += 25;
+                    currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
+                    currentLootBox.GetComponent<LootBox>().ResetImages();
+                    currentLootBox.GetComponent<LootBox>().AssignImages();
+                    break;
+
+                case "AssaultAmmo":
+                    assaultAmmo += 50;
+                    currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
+                    currentLootBox.GetComponent<LootBox>().ResetImages();
+                    currentLootBox.GetComponent<LootBox>().AssignImages();
+                    break;
+
+                case "ShotgunAmmo":
+                    shotgunAmmo += 10;
+                    currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
+                    currentLootBox.GetComponent<LootBox>().ResetImages();
+                    currentLootBox.GetComponent<LootBox>().AssignImages();
+                    break;
+
+                  
+            }
+
+            if(currentLootBox.GetComponent<LootBox>().CurrentLoot.Count == 0)
+            {
+                currentLootBox.GetComponent<LootBox>().IsLooted = true;
+                lootPanel.SetActive(false);
+                
+            }
+        }
     }
 
 
@@ -146,7 +210,7 @@ public class ThirdPersonController : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (!InPuzzle || DashOut )
+        if (!InPuzzle || DashOut || !InLoot )
         {
 
             if (stamina <= 5)
@@ -215,6 +279,7 @@ public class ThirdPersonController : MonoBehaviour
         if (Keyboard.current.cKey.isPressed && InPuzzle)
         {
             ExitAllMinigames();
+            lootPanel.SetActive(false);
             DashOut = true;
 
         }
@@ -309,6 +374,46 @@ public class ThirdPersonController : MonoBehaviour
                 }
                     return;
 
+            case "LootTrigger":
+                
+                currentLootBox = other.gameObject;
+                InLootTrigger = true;
+
+                if (interactTextNum == 0 && currentLootBox.GetComponent<LootBox>().IsLooted == false)
+                {
+                    interactTextNum++;
+                    InteractText.SetActive(true);
+                }
+
+                if (Keyboard.current.fKey.isPressed == true && currentLootBox.GetComponent<LootBox>().IsLooted == false && !InLoot)
+                {
+                    InLoot = true;
+                    if (interactTextNum == 1)
+                    {
+                        interactTextNum = -1;
+                        InteractText.SetActive(false);
+                        DashOut = false;
+                    }
+
+                    lootPanel.SetActive(true);
+
+                    if (currentLootBox.GetComponent<LootBox>().Randomized == false) 
+                    {
+                        currentLootBox.GetComponent<LootBox>().RandomizeLoot();
+                        currentLootBox.GetComponent<LootBox>().Randomized = true;
+                    }
+
+                   else if (currentLootBox.GetComponent<LootBox>().Randomized == true)
+                    {
+                        currentLootBox.GetComponent<LootBox>().AssignImages();
+                    }
+
+                }
+
+               
+
+                    return;
+
         }
     }
 
@@ -339,6 +444,15 @@ public class ThirdPersonController : MonoBehaviour
 
                 InteractText.SetActive(false);
                 interactTextNum = 0;
+                break;
+
+            case "LootTrigger":
+
+                InteractText.SetActive(false);
+                interactTextNum = 0;
+                InLootTrigger = false;
+                lootPanel.SetActive(false);
+                InLoot = false;
                 break;
 
         }

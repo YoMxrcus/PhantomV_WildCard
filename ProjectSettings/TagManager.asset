@@ -12,6 +12,7 @@ TagManager:
   - NextLevel
   - DeathPlane
   - projectile
+  - LootTrigger
   layers:
   - Default
   - TransparentFX

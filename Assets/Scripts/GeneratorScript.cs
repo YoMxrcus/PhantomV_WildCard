@@ -6,6 +6,7 @@ public class GeneratorScript : MonoBehaviour
     public GameObject lightOne, lightTwo, lightThree;
     public int minigamesComplete = 0;
     public Material completeMaterial;
+    public GameObject Player;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -33,7 +34,14 @@ public class GeneratorScript : MonoBehaviour
 
             case 3:
                 lightThree.GetComponent<Renderer>().material = completeMaterial;
+                Player.GetComponent<ThirdPersonController>().condensors++;
+                UnlockDoors();
                 return;
         }
+    }
+
+    void UnlockDoors()
+    {
+        //Checks tag of generator and opens door based on generator number
     }
 }
