@@ -133,7 +133,7 @@ public class PasswordMinigameManager : MonoBehaviour
                 Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().UpdateLights();
                 if (Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().minigamesComplete == 3)
                 {
-                    Player.GetComponent<ThirdPersonController>().condensors++;
+                    Player.GetComponent<ThirdPersonController>().condensors += Random.Range(1,4);
                 }
                 Invoke("ResetInteractNum", 3f);
                 Invoke("CloseMinigame", 1f);

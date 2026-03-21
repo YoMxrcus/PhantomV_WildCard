@@ -3,6 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+
 using System.Linq;
 
 public class Puzzles : MonoBehaviour
@@ -168,7 +169,8 @@ public class Puzzles : MonoBehaviour
             Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().UpdateLights();
             if (Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().minigamesComplete == 3)
             {
-                Player.GetComponent<ThirdPersonController>().condensors++;
+                Player.GetComponent<ThirdPersonController>().condensors += UnityEngine.Random.Range(1, 4);
+                Player.GetComponent<ThirdPersonController>().UpdateUI();
             }
             Invoke("CloseMinigame", 1f);
             Invoke("ResetInteractNum", 3f);

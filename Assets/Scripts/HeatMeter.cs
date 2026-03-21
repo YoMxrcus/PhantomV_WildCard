@@ -137,7 +137,8 @@ public class HeatMeter : MonoBehaviour
             Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().UpdateLights();
             if (Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().minigamesComplete == 3)
             {
-                Player.GetComponent<ThirdPersonController>().condensors++;
+                Player.GetComponent<ThirdPersonController>().condensors += UnityEngine.Random.Range(1, 4);
+                Player.GetComponent<ThirdPersonController>().UpdateUI();
             }
             Invoke("ResetInteractNum", 3f);
             Invoke("CloseMinigame", 1f);

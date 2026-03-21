@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Security.Cryptography;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -69,6 +70,14 @@ public class ThirdPersonController : MonoBehaviour
     public int assaultAmmo = 75;
     public int shotgunAmmo = 30;
 
+    public int condensorHealth = 0;
+    public Texture StimIMAGE, GrenadeIMAGE, EmptyIMAGE,CondensorImage, PistolImage;
+    public GameObject invSlotOne, invSlotTwo, invSlotThree, invSlotFour;
+    public GameObject[] InventorySelects;
+    public TMP_Text CondensorNum, StimNum, GrenadeNum;
+
+    public int CurrentInvSelect = 0;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -79,9 +88,19 @@ public class ThirdPersonController : MonoBehaviour
         HeatDecrement = true;
         while (HeaterUp < 100)
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
 
             HeaterUp++;
+        }
+    }
+    public IEnumerator CondensorCoroutine()
+    {
+        HeatDecrement = true;
+        while (HeaterUp > 0)
+        {
+            yield return new WaitForSeconds(2f);
+
+            HeaterUp--;
         }
     }
 
@@ -107,10 +126,10 @@ public class ThirdPersonController : MonoBehaviour
 
         }
         else { aiming = false; }
-        UpdateUI();
         
+      
 
-       
+        UpdateUI();
     }
 
 
@@ -139,6 +158,7 @@ public class ThirdPersonController : MonoBehaviour
                     currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
                     currentLootBox.GetComponent<LootBox>().ResetImages();
                     currentLootBox.GetComponent<LootBox>().AssignImages();
+                    UpdateUI();
                     break;
 
                 case "Grenade":
@@ -146,6 +166,7 @@ public class ThirdPersonController : MonoBehaviour
                     currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
                     currentLootBox.GetComponent<LootBox>().ResetImages();
                     currentLootBox.GetComponent<LootBox>().AssignImages();
+                    UpdateUI();
                     break;
 
                 case "PistolAmmo":
@@ -153,6 +174,7 @@ public class ThirdPersonController : MonoBehaviour
                     currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
                     currentLootBox.GetComponent<LootBox>().ResetImages();
                     currentLootBox.GetComponent<LootBox>().AssignImages();
+                    UpdateUI();
                     break;
 
                 case "AssaultAmmo":
@@ -160,6 +182,7 @@ public class ThirdPersonController : MonoBehaviour
                     currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
                     currentLootBox.GetComponent<LootBox>().ResetImages();
                     currentLootBox.GetComponent<LootBox>().AssignImages();
+                    UpdateUI();
                     break;
 
                 case "ShotgunAmmo":
@@ -167,6 +190,7 @@ public class ThirdPersonController : MonoBehaviour
                     currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
                     currentLootBox.GetComponent<LootBox>().ResetImages();
                     currentLootBox.GetComponent<LootBox>().AssignImages();
+                    UpdateUI();
                     break;
 
                   
@@ -178,6 +202,27 @@ public class ThirdPersonController : MonoBehaviour
                 lootPanel.SetActive(false);
                 
             }
+        }
+
+        if (Keyboard.current[Key.Digit1].wasPressedThisFrame && !InPuzzle)
+        {
+            CurrentInvSelect = 0;
+            UpdateUI();
+        }
+        if (Keyboard.current[Key.Digit2].wasPressedThisFrame && !InPuzzle)
+        {
+            CurrentInvSelect = 1;
+            UpdateUI();
+        }
+        if (Keyboard.current[Key.Digit3].wasPressedThisFrame && !InPuzzle)
+        {
+            CurrentInvSelect = 2;
+            UpdateUI();
+        }
+        if (Keyboard.current[Key.Digit4].wasPressedThisFrame && !InPuzzle)
+        {
+            CurrentInvSelect = 3;
+            UpdateUI();
         }
     }
 
@@ -511,11 +556,53 @@ public class ThirdPersonController : MonoBehaviour
         }
 
     }
-    void UpdateUI()
+  public void UpdateUI()
     {
         heatBar.value = HeaterUp;
         staminaBar.value = stamina;
         healthBar.value = health;
+
+        if (condensors == 0)
+        {
+            invSlotTwo.GetComponent<RawImage>().texture = EmptyIMAGE;
+        }
+
+        else if(condensors > 0)
+        {
+            invSlotTwo.GetComponent<RawImage>().texture = CondensorImage;
+        }
+
+        if (stims == 0)
+        {
+            invSlotThree.GetComponent<RawImage>().texture = EmptyIMAGE;
+        }
+
+        else if (stims > 0)
+        {
+            invSlotThree.GetComponent<RawImage>().texture = StimIMAGE;
+        }
+
+        if (grenades == 0)
+        {
+            invSlotFour.GetComponent<RawImage>().texture = EmptyIMAGE;
+        }
+
+        else if (grenades > 0)
+        {
+            invSlotFour.GetComponent<RawImage>().texture = GrenadeIMAGE;
+        }
+
+        CondensorNum.text = condensors.ToString();
+        StimNum.text = stims.ToString();
+        GrenadeNum.text = grenades.ToString(); 
+
+        for (int i = 0; i < InventorySelects.Length; i++)
+        {
+            InventorySelects[i].SetActive(false);
+        }
+
+        InventorySelects[CurrentInvSelect].SetActive(true);
+
     }
    
     void ExitAllMinigames()
