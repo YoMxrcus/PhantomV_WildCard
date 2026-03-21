@@ -7,7 +7,7 @@ public class CutsceneChecker : MonoBehaviour
 {
     string mainMenuScene = "MainMenu";
     string LevelOneIntro = "LevelOneIntroAnimation";
-    string LevelOne = "LevelOneDesign";
+    string LevelOne = "LevelOneDesignAlejandroTesting";
     string LevelOneOutro = "OutroLevelOneAnimation";
     string LevelTwoIntro = "LevelTwoIntroAnimations";
     string LevelTwo = "LevelTwoDesign";
