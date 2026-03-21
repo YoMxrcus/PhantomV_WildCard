@@ -123,18 +123,15 @@ public class PasswordMinigameManager : MonoBehaviour
             {
                 // If the player completes the combination, it tells the player what spell they casted and sets SpellHeld to true, changes CurrentSpell to the spell that the player is holding
                 Debug.Log("Password Correct");
-                Player.GetComponent<ThirdPersonController>().HeaterUp -= 20;
-
-                if (Player.GetComponent<ThirdPersonController>().HeaterUp < 0)
-                {
-                    Player.GetComponent<ThirdPersonController>().HeaterUp = 0;
-                }
+               
                 Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().minigamesComplete++;
                 Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().UpdateLights();
                 if (Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().minigamesComplete == 3)
                 {
                     Player.GetComponent<ThirdPersonController>().condensors += Random.Range(1,4);
+                    Player.GetComponent<ThirdPersonController>().UpdateUI();
                 }
+
                 Invoke("ResetInteractNum", 3f);
                 Invoke("CloseMinigame", 1f);
             }

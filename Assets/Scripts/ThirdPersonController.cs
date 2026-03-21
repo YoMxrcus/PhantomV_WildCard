@@ -76,6 +76,8 @@ public class ThirdPersonController : MonoBehaviour
     public GameObject[] InventorySelects;
     public TMP_Text CondensorNum, StimNum, GrenadeNum;
 
+    [SerializeField] Coroutine heatCoroutine, condensorHealthCoroutine, condensorActiveCoroutine;
+
     public int CurrentInvSelect = 0;
 
     private void Awake()
@@ -104,9 +106,29 @@ public class ThirdPersonController : MonoBehaviour
         }
     }
 
+    public IEnumerator CondensorDecrementCoroutine()
+    {
+        HeatDecrement = true;
+        while (condensorHealth > 0)
+        {
+
+            yield return new WaitForSeconds(2f);
+
+            if(condensorHealth <= 0 )
+            {
+                condensorHealth = 0;
+                StopCondensorCoroutine();
+                StartHeatCoroutine();
+            }
+            condensorHealth--;
+
+        }
+    }
+
     private void Start()
     {
-        StartCoroutine(HeatCoroutine());
+        StartHeatCoroutine();
+        StartCondensorHealthCoroutine();
         
     }
 
@@ -145,7 +167,7 @@ public class ThirdPersonController : MonoBehaviour
             StartCoroutine(Dash());
         }
 
-
+            CondensorActivate();
             Shoot();
 
 
@@ -516,7 +538,7 @@ public class ThirdPersonController : MonoBehaviour
 
     public void Shoot()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame && aiming)
+        if (Mouse.current.leftButton.wasPressedThisFrame && aiming && CurrentInvSelect == 0)
 
         { 
                 Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.value);
@@ -613,4 +635,51 @@ public class ThirdPersonController : MonoBehaviour
         OxygenMinigameManager.GetComponent<OxygenLevelsPuzzle>().CloseMinigame();
     }
     
+
+    void CondensorActivate()
+    {
+        if(CurrentInvSelect == 1 && condensors > 0 && !InPuzzle && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            condensors--;
+            condensorHealth = 50;
+            StopHeatCoroutine();
+            StopCondensorDecrementCoroutine();
+            condensorHealth = 50;
+            moveSpeed = moveSpeed / 2;
+            Invoke("CondensorSecure", 3f);
+        }
+    }
+
+    void CondensorSecure()
+    {
+        moveSpeed = moveSpeed * 2;
+        condensorActiveCoroutine = StartCoroutine(CondensorCoroutine());
+        StartCondensorHealthCoroutine();
+    }
+
+    void StopCondensorCoroutine()
+    {
+        StopCoroutine(condensorActiveCoroutine);
+        condensorActiveCoroutine = null;
+    }
+    void StopCondensorDecrementCoroutine()
+    {
+        StopCoroutine(condensorHealthCoroutine);
+        condensorHealthCoroutine = null;
+    }
+    void StopHeatCoroutine()
+    {
+        StopCoroutine(heatCoroutine);
+        heatCoroutine = null;
+    }
+
+    void StartCondensorHealthCoroutine()
+    {
+        condensorHealthCoroutine = StartCoroutine(CondensorDecrementCoroutine());
+    }
+
+    void StartHeatCoroutine()
+    {
+        heatCoroutine = StartCoroutine(HeatCoroutine());
+    }
 }
