@@ -53,6 +53,7 @@ public class ThirdPersonController : MonoBehaviour
     public bool InLoot = false;
     public bool InLootTrigger = false;
     public bool condensorActive = false;
+    public bool stimActive = false;
 
     public GameObject CurrentGenerator;
     public GameObject InteractText;
@@ -170,6 +171,7 @@ public class ThirdPersonController : MonoBehaviour
             StartCoroutine(Dash());
         }
 
+            StimActivate();
             CondensorActivate();
             Shoot();
 
@@ -292,7 +294,11 @@ public class ThirdPersonController : MonoBehaviour
             if (Keyboard.current.shiftKey.isPressed && stamina > 0 && allowSprint)
             {
                 moveSpeed = 9;
-                stamina -= sprintDepletionRate * Time.deltaTime;
+                if (!stimActive)
+                {
+                    stamina -= sprintDepletionRate * Time.deltaTime;
+                }
+               
             }
 
             else if (stamina < 100f)
@@ -667,6 +673,19 @@ public class ThirdPersonController : MonoBehaviour
         }
     }
 
+
+    void StimActivate()
+    {
+        if (CurrentInvSelect == 2 && stims > 0 && !InPuzzle && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            stims--;
+            stamina = 100;
+            stimActive = true;
+            CancelInvoke("ResetStim");
+            Invoke("ResetStim", 10f);
+        }
+    }
+
     void CondensorSecure()
     {
         moveSpeed = moveSpeed * 2;
@@ -710,4 +729,10 @@ public class ThirdPersonController : MonoBehaviour
     {
         heatCoroutine = StartCoroutine(HeatCoroutine());
     }
+
+    void ResetStim()
+    {
+        stimActive = false;
+    }
+
 }
