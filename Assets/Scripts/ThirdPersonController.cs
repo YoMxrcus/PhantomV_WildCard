@@ -52,6 +52,7 @@ public class ThirdPersonController : MonoBehaviour
     public bool InPuzzle = false;
     public bool InLoot = false;
     public bool InLootTrigger = false;
+    public bool condensorActive = false;
 
     public GameObject CurrentGenerator;
     public GameObject InteractText;
@@ -100,7 +101,7 @@ public class ThirdPersonController : MonoBehaviour
         HeatDecrement = true;
         while (HeaterUp > 0)
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
 
             HeaterUp--;
         }
@@ -114,21 +115,23 @@ public class ThirdPersonController : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
 
-            if(condensorHealth <= 0 )
-            {
-                condensorHealth = 0;
-                StopCondensorCoroutine();
-                StartHeatCoroutine();
-            }
             condensorHealth--;
 
         }
+            
+                condensorHealth = 0;
+                condensorActive = false;
+                StopCondensorCoroutine();
+                StartHeatCoroutine();
+            
+
+        condensorHealthCoroutine = null;
     }
 
     private void Start()
     {
         StartHeatCoroutine();
-        StartCondensorHealthCoroutine();
+       
         
     }
 
@@ -638,15 +641,29 @@ public class ThirdPersonController : MonoBehaviour
 
     void CondensorActivate()
     {
+        
+
         if(CurrentInvSelect == 1 && condensors > 0 && !InPuzzle && Mouse.current.leftButton.wasPressedThisFrame)
         {
+            if (condensorActive)
+            {
+                condensorHealth = 50;
+                condensors--;
+                return;
+            }
+
+            condensorActive = true;
+
             condensors--;
             condensorHealth = 50;
             StopHeatCoroutine();
+            StopCondensorCoroutine();
             StopCondensorDecrementCoroutine();
-            condensorHealth = 50;
+
+            condensorHealthCoroutine = StartCoroutine(CondensorDecrementCoroutine());
             moveSpeed = moveSpeed / 2;
-            Invoke("CondensorSecure", 3f);
+            CancelInvoke("CondensorSecure");
+            Invoke("CondensorSecure", 1.75f);
         }
     }
 
@@ -654,23 +671,34 @@ public class ThirdPersonController : MonoBehaviour
     {
         moveSpeed = moveSpeed * 2;
         condensorActiveCoroutine = StartCoroutine(CondensorCoroutine());
-        StartCondensorHealthCoroutine();
+       
     }
 
     void StopCondensorCoroutine()
     {
-        StopCoroutine(condensorActiveCoroutine);
-        condensorActiveCoroutine = null;
+        if (condensorActiveCoroutine != null)
+        {
+            StopCoroutine(condensorActiveCoroutine);
+            condensorActiveCoroutine = null;
+        }
     }
     void StopCondensorDecrementCoroutine()
     {
-        StopCoroutine(condensorHealthCoroutine);
-        condensorHealthCoroutine = null;
+        if (condensorHealthCoroutine != null)
+        {
+            StopCoroutine(condensorHealthCoroutine);
+            condensorHealthCoroutine = null;
+        }
+
+        
     }
     void StopHeatCoroutine()
     {
-        StopCoroutine(heatCoroutine);
-        heatCoroutine = null;
+        if (heatCoroutine != null)
+        {
+            StopCoroutine(heatCoroutine);
+            heatCoroutine = null;
+        }
     }
 
     void StartCondensorHealthCoroutine()
