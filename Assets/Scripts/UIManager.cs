@@ -21,7 +21,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject gameOverMenu;
     public GameObject pauseMenu;
-    public Texture PistolAmmoIMAGE, AssaultAmmoIMAGE, ShotgunAmmoIMAGE, StimIMAGE, GrenadeIMAGE;
+    
 
     private bool IsInTheGame;
     public int DeathCheck = 0;

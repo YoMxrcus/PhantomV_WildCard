@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Security.Cryptography;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -51,6 +52,8 @@ public class ThirdPersonController : MonoBehaviour
     public bool InPuzzle = false;
     public bool InLoot = false;
     public bool InLootTrigger = false;
+    public bool condensorActive = false;
+    public bool stimActive = false;
 
     public GameObject CurrentGenerator;
     public GameObject InteractText;
@@ -69,6 +72,16 @@ public class ThirdPersonController : MonoBehaviour
     public int assaultAmmo = 75;
     public int shotgunAmmo = 30;
 
+    public int condensorHealth = 0;
+    public Texture StimIMAGE, GrenadeIMAGE, EmptyIMAGE,CondensorImage, PistolImage;
+    public GameObject invSlotOne, invSlotTwo, invSlotThree, invSlotFour;
+    public GameObject[] InventorySelects;
+    public TMP_Text CondensorNum, StimNum, GrenadeNum;
+
+    [SerializeField] Coroutine heatCoroutine, condensorHealthCoroutine, condensorActiveCoroutine;
+
+    public int CurrentInvSelect = 0;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -79,15 +92,47 @@ public class ThirdPersonController : MonoBehaviour
         HeatDecrement = true;
         while (HeaterUp < 100)
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
 
             HeaterUp++;
         }
     }
+    public IEnumerator CondensorCoroutine()
+    {
+        HeatDecrement = true;
+        while (HeaterUp > 0)
+        {
+            yield return new WaitForSeconds(1f);
+
+            HeaterUp--;
+        }
+    }
+
+    public IEnumerator CondensorDecrementCoroutine()
+    {
+        HeatDecrement = true;
+        while (condensorHealth > 0)
+        {
+
+            yield return new WaitForSeconds(2f);
+
+            condensorHealth--;
+
+        }
+            
+                condensorHealth = 0;
+                condensorActive = false;
+                StopCondensorCoroutine();
+                StartHeatCoroutine();
+            
+
+        condensorHealthCoroutine = null;
+    }
 
     private void Start()
     {
-        StartCoroutine(HeatCoroutine());
+        StartHeatCoroutine();
+       
         
     }
 
@@ -107,10 +152,10 @@ public class ThirdPersonController : MonoBehaviour
 
         }
         else { aiming = false; }
-        UpdateUI();
         
+      
 
-       
+        UpdateUI();
     }
 
 
@@ -126,7 +171,8 @@ public class ThirdPersonController : MonoBehaviour
             StartCoroutine(Dash());
         }
 
-
+            StimActivate();
+            CondensorActivate();
             Shoot();
 
 
@@ -139,6 +185,7 @@ public class ThirdPersonController : MonoBehaviour
                     currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
                     currentLootBox.GetComponent<LootBox>().ResetImages();
                     currentLootBox.GetComponent<LootBox>().AssignImages();
+                    UpdateUI();
                     break;
 
                 case "Grenade":
@@ -146,6 +193,7 @@ public class ThirdPersonController : MonoBehaviour
                     currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
                     currentLootBox.GetComponent<LootBox>().ResetImages();
                     currentLootBox.GetComponent<LootBox>().AssignImages();
+                    UpdateUI();
                     break;
 
                 case "PistolAmmo":
@@ -153,6 +201,7 @@ public class ThirdPersonController : MonoBehaviour
                     currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
                     currentLootBox.GetComponent<LootBox>().ResetImages();
                     currentLootBox.GetComponent<LootBox>().AssignImages();
+                    UpdateUI();
                     break;
 
                 case "AssaultAmmo":
@@ -160,6 +209,7 @@ public class ThirdPersonController : MonoBehaviour
                     currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
                     currentLootBox.GetComponent<LootBox>().ResetImages();
                     currentLootBox.GetComponent<LootBox>().AssignImages();
+                    UpdateUI();
                     break;
 
                 case "ShotgunAmmo":
@@ -167,6 +217,7 @@ public class ThirdPersonController : MonoBehaviour
                     currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
                     currentLootBox.GetComponent<LootBox>().ResetImages();
                     currentLootBox.GetComponent<LootBox>().AssignImages();
+                    UpdateUI();
                     break;
 
                   
@@ -178,6 +229,27 @@ public class ThirdPersonController : MonoBehaviour
                 lootPanel.SetActive(false);
                 
             }
+        }
+
+        if (Keyboard.current[Key.Digit1].wasPressedThisFrame && !InPuzzle)
+        {
+            CurrentInvSelect = 0;
+            UpdateUI();
+        }
+        if (Keyboard.current[Key.Digit2].wasPressedThisFrame && !InPuzzle)
+        {
+            CurrentInvSelect = 1;
+            UpdateUI();
+        }
+        if (Keyboard.current[Key.Digit3].wasPressedThisFrame && !InPuzzle)
+        {
+            CurrentInvSelect = 2;
+            UpdateUI();
+        }
+        if (Keyboard.current[Key.Digit4].wasPressedThisFrame && !InPuzzle)
+        {
+            CurrentInvSelect = 3;
+            UpdateUI();
         }
     }
 
@@ -210,7 +282,7 @@ public class ThirdPersonController : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (!InPuzzle || DashOut || !InLoot )
+        if (!InPuzzle || DashOut)
         {
 
             if (stamina <= 5)
@@ -222,7 +294,11 @@ public class ThirdPersonController : MonoBehaviour
             if (Keyboard.current.shiftKey.isPressed && stamina > 0 && allowSprint)
             {
                 moveSpeed = 9;
-                stamina -= sprintDepletionRate * Time.deltaTime;
+                if (!stimActive)
+                {
+                    stamina -= sprintDepletionRate * Time.deltaTime;
+                }
+               
             }
 
             else if (stamina < 100f)
@@ -471,7 +547,7 @@ public class ThirdPersonController : MonoBehaviour
 
     public void Shoot()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame && aiming)
+        if (Mouse.current.leftButton.wasPressedThisFrame && aiming && CurrentInvSelect == 0)
 
         { 
                 Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.value);
@@ -511,11 +587,53 @@ public class ThirdPersonController : MonoBehaviour
         }
 
     }
-    void UpdateUI()
+  public void UpdateUI()
     {
         heatBar.value = HeaterUp;
         staminaBar.value = stamina;
         healthBar.value = health;
+
+        if (condensors == 0)
+        {
+            invSlotTwo.GetComponent<RawImage>().texture = EmptyIMAGE;
+        }
+
+        else if(condensors > 0)
+        {
+            invSlotTwo.GetComponent<RawImage>().texture = CondensorImage;
+        }
+
+        if (stims == 0)
+        {
+            invSlotThree.GetComponent<RawImage>().texture = EmptyIMAGE;
+        }
+
+        else if (stims > 0)
+        {
+            invSlotThree.GetComponent<RawImage>().texture = StimIMAGE;
+        }
+
+        if (grenades == 0)
+        {
+            invSlotFour.GetComponent<RawImage>().texture = EmptyIMAGE;
+        }
+
+        else if (grenades > 0)
+        {
+            invSlotFour.GetComponent<RawImage>().texture = GrenadeIMAGE;
+        }
+
+        CondensorNum.text = condensors.ToString();
+        StimNum.text = stims.ToString();
+        GrenadeNum.text = grenades.ToString(); 
+
+        for (int i = 0; i < InventorySelects.Length; i++)
+        {
+            InventorySelects[i].SetActive(false);
+        }
+
+        InventorySelects[CurrentInvSelect].SetActive(true);
+
     }
    
     void ExitAllMinigames()
@@ -526,4 +644,95 @@ public class ThirdPersonController : MonoBehaviour
         OxygenMinigameManager.GetComponent<OxygenLevelsPuzzle>().CloseMinigame();
     }
     
+
+    void CondensorActivate()
+    {
+        
+
+        if(CurrentInvSelect == 1 && condensors > 0 && !InPuzzle && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            if (condensorActive)
+            {
+                condensorHealth = 50;
+                condensors--;
+                return;
+            }
+
+            condensorActive = true;
+
+            condensors--;
+            condensorHealth = 50;
+            StopHeatCoroutine();
+            StopCondensorCoroutine();
+            StopCondensorDecrementCoroutine();
+
+            condensorHealthCoroutine = StartCoroutine(CondensorDecrementCoroutine());
+            moveSpeed = moveSpeed / 2;
+            CancelInvoke("CondensorSecure");
+            Invoke("CondensorSecure", 1.75f);
+        }
+    }
+
+
+    void StimActivate()
+    {
+        if (CurrentInvSelect == 2 && stims > 0 && !InPuzzle && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            stims--;
+            stamina = 100;
+            stimActive = true;
+            CancelInvoke("ResetStim");
+            Invoke("ResetStim", 10f);
+        }
+    }
+
+    void CondensorSecure()
+    {
+        moveSpeed = moveSpeed * 2;
+        condensorActiveCoroutine = StartCoroutine(CondensorCoroutine());
+       
+    }
+
+    void StopCondensorCoroutine()
+    {
+        if (condensorActiveCoroutine != null)
+        {
+            StopCoroutine(condensorActiveCoroutine);
+            condensorActiveCoroutine = null;
+        }
+    }
+    void StopCondensorDecrementCoroutine()
+    {
+        if (condensorHealthCoroutine != null)
+        {
+            StopCoroutine(condensorHealthCoroutine);
+            condensorHealthCoroutine = null;
+        }
+
+        
+    }
+    void StopHeatCoroutine()
+    {
+        if (heatCoroutine != null)
+        {
+            StopCoroutine(heatCoroutine);
+            heatCoroutine = null;
+        }
+    }
+
+    void StartCondensorHealthCoroutine()
+    {
+        condensorHealthCoroutine = StartCoroutine(CondensorDecrementCoroutine());
+    }
+
+    void StartHeatCoroutine()
+    {
+        heatCoroutine = StartCoroutine(HeatCoroutine());
+    }
+
+    void ResetStim()
+    {
+        stimActive = false;
+    }
+
 }

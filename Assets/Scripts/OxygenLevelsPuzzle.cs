@@ -114,17 +114,14 @@ public class OxygenLevelsPuzzle : MonoBehaviour
         if (complete & complete2 & complete3)
         {
             Debug.Log("GameWon");
-            Player.GetComponent<ThirdPersonController>().HeaterUp -= 20;
-
-            if (Player.GetComponent<ThirdPersonController>().HeaterUp < 0)
-            {
-                Player.GetComponent<ThirdPersonController>().HeaterUp = 0;
-            }
             Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().minigamesComplete++;
             Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().UpdateLights();
-            fillImage.color = Color.white;
-            fillImage2.color = Color.white;
-            fillImage3.color = Color.white;
+            if (Player.GetComponent<ThirdPersonController>().CurrentGenerator.GetComponent<GeneratorScript>().minigamesComplete == 3)
+            {
+                Player.GetComponent<ThirdPersonController>().condensors += UnityEngine.Random.Range(1, 4);
+                Player.GetComponent<ThirdPersonController>().UpdateUI();
+            }
+           
             oxygenResetNum = 1;
             Invoke("ResetInteractNum", 3f);
             Invoke("CloseMinigame", 1f);
@@ -138,8 +135,11 @@ public class OxygenLevelsPuzzle : MonoBehaviour
         complete = false;
         complete2 = false;
         complete3 = false;
+        fillImage.color = Color.white;
+        fillImage2.color = Color.white;
+        fillImage3.color = Color.white;
 
-       
+
         OxygenMinigame.SetActive(false);
 
 
@@ -149,4 +149,5 @@ public class OxygenLevelsPuzzle : MonoBehaviour
     {
         Player.GetComponent<ThirdPersonController>().interactTextNum = 0;
     }
+
 }

@@ -10,14 +10,11 @@ public class GeneratorScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Player = GameObject.Find("MainPlayer");
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   
 
     public void UpdateLights()
     {
@@ -34,8 +31,7 @@ public class GeneratorScript : MonoBehaviour
 
             case 3:
                 lightThree.GetComponent<Renderer>().material = completeMaterial;
-                Player.GetComponent<ThirdPersonController>().condensors++;
-                UnlockDoors();
+                
                 return;
         }
     }
