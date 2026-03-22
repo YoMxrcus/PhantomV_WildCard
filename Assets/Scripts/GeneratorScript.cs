@@ -7,6 +7,11 @@ public class GeneratorScript : MonoBehaviour
     public int minigamesComplete = 0;
     public Material completeMaterial;
     public GameObject Player;
+
+    public GameObject doorOne;
+    public GameObject doorTwo;
+    public GameObject doorThree;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -31,7 +36,18 @@ public class GeneratorScript : MonoBehaviour
 
             case 3:
                 lightThree.GetComponent<Renderer>().material = completeMaterial;
-                
+                switch (gameObject.name)
+                {
+                    case "Generator01_02":
+                        doorOne = GameObject.Find("Door_01");
+                        doorTwo = GameObject.Find("Door_02");
+
+                        doorOne.SetActive(false);
+                        doorTwo.SetActive(false);
+                        break;
+                    default:
+                        break;
+                }
                 return;
         }
     }

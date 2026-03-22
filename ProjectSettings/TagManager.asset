@@ -13,6 +13,7 @@ TagManager:
   - DeathPlane
   - projectile
   - LootTrigger
+  - DoorOpen
   layers:
   - Default
   - TransparentFX
