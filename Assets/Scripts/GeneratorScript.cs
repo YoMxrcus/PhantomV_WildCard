@@ -45,6 +45,14 @@ public class GeneratorScript : MonoBehaviour
                         doorOne.SetActive(false);
                         doorTwo.SetActive(false);
                         break;
+                    case "Generator02_02":
+                        doorOne = GameObject.Find("Door_03");
+                        doorOne.SetActive(false);
+                        break;
+                    case "Generator03_02":
+                        doorOne = GameObject.Find("Door_04");
+                        doorOne.SetActive(false);
+                        break;
                     default:
                         break;
                 }
