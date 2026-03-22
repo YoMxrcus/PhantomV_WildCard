@@ -38,6 +38,13 @@ public class GeneratorScript : MonoBehaviour
                 lightThree.GetComponent<Renderer>().material = completeMaterial;
                 switch (gameObject.name)
                 {
+                    case "Generator01":
+                        doorOne = GameObject.Find("Door_01");
+                        doorTwo = GameObject.Find("Door_02");
+
+                        doorOne.SetActive(false);
+                        doorTwo.SetActive(false);
+                        break;
                     case "Generator01_02":
                         doorOne = GameObject.Find("Door_01");
                         doorTwo = GameObject.Find("Door_02");
