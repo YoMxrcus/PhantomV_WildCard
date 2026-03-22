@@ -77,6 +77,10 @@ public class ThirdPersonControllerMarcus : MonoBehaviour
     // Pattern for shotgun spread
     private float[] shotgunSpreadPattern =  { -0.4f, -0.2f, 0f, 0.2f, 0.4f };
 
+    private float lastFireTime;
+    public float fireRate = 0.12f; //Time between shots
+    public float bloom = 0.07f; //recoil offset
+
     public int condensorHealth = 0;
     public Texture StimIMAGE, GrenadeIMAGE, EmptyIMAGE,CondensorImage, PistolImage;
     public GameObject invSlotOne, invSlotTwo, invSlotThree, invSlotFour;
@@ -178,7 +182,7 @@ public class ThirdPersonControllerMarcus : MonoBehaviour
 
             StimActivate();
             CondensorActivate();
-            Shotgun();
+            AssaultRifle();
 
 
         if (Keyboard.current.eKey.wasPressedThisFrame && InLoot) 
@@ -641,6 +645,52 @@ public class ThirdPersonControllerMarcus : MonoBehaviour
             }
         }
     }
+    public void AssaultRifle()
+    {
+        if (Mouse.current.leftButton.isPressed && aiming && CurrentInvSelect == 0)
+        {
+            //handles fire rate
+            if (Time.time >= lastFireTime + fireRate)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.value);
+                RaycastHit hit;
+                float raycastDistance = 100f;
+
+                if (Physics.Raycast(ray, out hit, raycastDistance))
+                {
+                    //handles direction
+                    Vector3 impact = (hit.point - transform.position).normalized;
+                    impact.y = 0; 
+
+                    if (impact.sqrMagnitude > 0.01f)
+                    {
+                        //handles bloom
+                        Vector3 rightDir = Camera.main.transform.right;
+                        rightDir.y = 0;
+                        rightDir.Normalize();
+
+                        //Apply bloom
+                        float randomBloom = Random.Range(-bloom, bloom);
+                        Vector3 finalDirection = (impact + (rightDir * randomBloom)).normalized;
+
+                        //Spawn Projectile
+                        GameObject projectileInstance = Instantiate(projectile, transform.position, Quaternion.identity);
+                        FireBallScript script = projectileInstance.GetComponent<FireBallScript>();
+
+                        script.targetPos = finalDirection;
+                        //script.damage = 8f; 
+
+                        //Update timer
+                        lastFireTime = Time.time;
+
+                        Debug.Log("AR Fired");
+                    }
+                }
+            }
+        }
+    }
+
+
     public void UpdateUI()
     {
         heatBar.value = HeaterUp;
