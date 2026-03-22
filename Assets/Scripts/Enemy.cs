@@ -5,6 +5,30 @@ public class Enemy : MonoBehaviour
 {
     public int EnemyHealth = 100;
     public GameObject Player;
+    private GameObject SnakeShellGameObject;
+    private GameObject HitboxGameObject;
+    
+
+    private void Start()
+    {
+        Player = GameObject.Find("ThirdPersonTEST");
+        Transform SnakeShellTransform = transform.Find("SnakeShell");
+        if (SnakeShellTransform != null)
+        {
+            SnakeShellGameObject = SnakeShellTransform.gameObject;
+            Transform HitboxTransform = SnakeShellGameObject.transform.Find("Hitbox");
+            if (HitboxTransform != null)
+            {
+                HitboxGameObject = HitboxTransform.gameObject;
+                HitboxGameObject.GetComponent<EnemyDetect>().player = Player;
+                HitboxGameObject.GetComponent<EnemyDetect>().playerScript = Player.GetComponent<ThirdPersonController>();
+            }
+        }
+        
+
+      
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         switch(other.gameObject.tag)

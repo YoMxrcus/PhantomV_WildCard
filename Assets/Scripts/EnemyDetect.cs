@@ -13,21 +13,14 @@ public class EnemyDetect : MonoBehaviour
 
     //private Coroutine stanceRoutine;
     //private bool isMoving = false;
-    private ThirdPersonController playerScript;
+    public ThirdPersonController playerScript;
 
     //public GameObject EnemyAttack1, EnemyAttack2;
 
     //public bool CancelAnimation = false;
 
     //public Animator GoblinAnim;
-    void Start()
-    {
-        // calling the script for better performance
-        playerScript = player.GetComponent<ThirdPersonController>();
-
-        // Ensures only the first stance is active at start
-       
-    }
+  
 
     private void OnTriggerStay(Collider other)
     {
