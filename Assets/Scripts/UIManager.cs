@@ -9,8 +9,9 @@ public class UIManager : MonoBehaviour
     string levelTwo = "LevelOneDesign";
     string levelThree = "LevelOneActual";
     string levelBoss = "LevelTwoDesign";
-    string Credits = "Credits";
-    string Help = "Help";
+    public GameObject main;
+    public GameObject credits;
+    public GameObject help;
     string winScene = "WIN";
     string levelThreeActual = "LevelThree";
 
@@ -29,6 +30,7 @@ public class UIManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
         isDead = false;
 
         Time.timeScale = 1.0f; //sets time scale
@@ -101,15 +103,23 @@ public class UIManager : MonoBehaviour
     public void GetHelp()
     {
         Debug.Log("Help Scene");
-        SceneManager.LoadScene(Help);
+        help.SetActive(true);
+        main.SetActive(false);
     }
 
     public void GetCredits()
     {
         Debug.Log("Credit Scene");
-        SceneManager.LoadScene(Credits);
+        credits.SetActive(true);
+        main.SetActive(false); 
     }
-
+    public void BackToMenu()
+    {
+        Debug.Log("Menu");
+        credits.SetActive(false);
+        help.SetActive(false);
+        main.SetActive(true); 
+    }
     public void QuitToMenu()
     {
         Debug.Log("Main Scene");
