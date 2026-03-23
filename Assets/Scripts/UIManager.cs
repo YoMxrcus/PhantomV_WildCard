@@ -15,6 +15,8 @@ public class UIManager : MonoBehaviour
     string winScene = "WIN";
     string levelThreeActual = "LevelThree";
 
+    public AudioSource buttonSounds;
+    public AudioClip click1, click2;
     
     public bool Paused = false;
     bool isDead = false;
@@ -91,6 +93,7 @@ public class UIManager : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene(Level1);
+        buttonSounds.PlayOneShot(click1);
     }
 
     public void GameOver()
@@ -105,20 +108,23 @@ public class UIManager : MonoBehaviour
         Debug.Log("Help Scene");
         help.SetActive(true);
         main.SetActive(false);
+        buttonSounds.PlayOneShot(click1);
     }
 
     public void GetCredits()
     {
         Debug.Log("Credit Scene");
         credits.SetActive(true);
-        main.SetActive(false); 
+        main.SetActive(false);
+        buttonSounds.PlayOneShot(click1);
     }
     public void BackToMenu()
     {
         Debug.Log("Menu");
         credits.SetActive(false);
         help.SetActive(false);
-        main.SetActive(true); 
+        main.SetActive(true);
+        buttonSounds.PlayOneShot(click2);
     }
     public void QuitToMenu()
     {
@@ -143,7 +149,7 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("Quit");
         Application.Quit();
-
+        buttonSounds.PlayOneShot(click1);
     }
 
     public void GetWinScene()
