@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-using UnityEditor.AdaptivePerformance.Editor; // Required for Coroutines
+//using UnityEditor.AdaptivePerformance.Editor; Required for Coroutines
 
 public class MenuSounds : MonoBehaviour
 {

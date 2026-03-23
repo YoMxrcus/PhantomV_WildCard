@@ -6,8 +6,8 @@ public class UIManager : MonoBehaviour
 {
     string mainMenuScene = "MainMenu";
     string Level1 = "LevelOne_F";
-    string levelTwo = "LevelOneDesign";
-    string levelThree = "LevelOneActual";
+    string levelTwo = "LevelTwo_F";
+    string levelThree = "LevelThree_F";
     string levelBoss = "LevelTwoDesign";
     public GameObject main;
     public GameObject credits;
@@ -136,6 +136,12 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("Level Two Scene");
         SceneManager.LoadScene(levelTwo);
+    }
+
+    public void ThirdLevel()
+    {
+        Debug.Log("Level 3 Scene");
+        SceneManager.LoadScene(levelThree);
     }
 
     public void BossLevel()
