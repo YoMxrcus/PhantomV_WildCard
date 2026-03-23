@@ -74,6 +74,10 @@ public class ThirdPersonController : MonoBehaviour
     public int assaultAmmo = 75;
     public int shotgunAmmo = 30;
     public int activeGun = 0;
+    public int pistolMag = 15;
+    public int assaultMag = 25;
+    public int shotgunMag = 10;
+    public TMP_Text MagNum, MaxAmmo;
 
     private bool isCocked = true;
     // Pattern for shotgun spread
@@ -84,7 +88,7 @@ public class ThirdPersonController : MonoBehaviour
     public float bloom = 0.20f; //recoil offset
 
     public int condensorHealth = 0;
-    public Texture StimIMAGE, GrenadeIMAGE, EmptyIMAGE,CondensorImage, PistolImage;
+    public Texture StimIMAGE, GrenadeIMAGE, EmptyIMAGE,CondensorImage, PistolImage, AssaultRifleIMAGE, ShotgunIMAGE;
     public GameObject invSlotOne, invSlotTwo, invSlotThree, invSlotFour;
     public GameObject[] InventorySelects;
     public TMP_Text CondensorNum, StimNum, GrenadeNum;
@@ -177,7 +181,7 @@ public class ThirdPersonController : MonoBehaviour
             if (CurrentInvSelect == 0)
             {
                 activeGun++;
-                if(activeGun > 2)
+                if (activeGun > 2)
                 {
                     activeGun = 0;
                 }
@@ -206,13 +210,14 @@ public class ThirdPersonController : MonoBehaviour
             StartCoroutine(Dash());
         }
 
-        else if(Keyboard.current.cKey.isPressed && InPuzzle)
+        else if (Keyboard.current.cKey.isPressed && InPuzzle)
         {
             StartCoroutine(Dash());
         }
-
-            StimActivate();
-            CondensorActivate();
+        CheckLoot();
+        CheckReload();
+        StimActivate();
+        CondensorActivate();
 
         switch (activeGun)
         {
@@ -230,61 +235,10 @@ public class ThirdPersonController : MonoBehaviour
         }
 
 
-        if (Keyboard.current.eKey.wasPressedThisFrame && InLoot) 
-        {
-            switch (currentLootBox.GetComponent<LootBox>().CurrentLoot[0])
-            {
-                case "Stim":
-                    stims++;
-                    currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
-                    currentLootBox.GetComponent<LootBox>().ResetImages();
-                    currentLootBox.GetComponent<LootBox>().AssignImages();
-                    UpdateUI();
-                    break;
 
-                case "Grenade":
-                    grenades++;
-                    currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
-                    currentLootBox.GetComponent<LootBox>().ResetImages();
-                    currentLootBox.GetComponent<LootBox>().AssignImages();
-                    UpdateUI();
-                    break;
 
-                case "PistolAmmo":
-                    pistolAmmo += 25;
-                    currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
-                    currentLootBox.GetComponent<LootBox>().ResetImages();
-                    currentLootBox.GetComponent<LootBox>().AssignImages();
-                    UpdateUI();
-                    break;
-
-                case "AssaultAmmo":
-                    assaultAmmo += 50;
-                    currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
-                    currentLootBox.GetComponent<LootBox>().ResetImages();
-                    currentLootBox.GetComponent<LootBox>().AssignImages();
-                    UpdateUI();
-                    break;
-
-                case "ShotgunAmmo":
-                    shotgunAmmo += 10;
-                    currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
-                    currentLootBox.GetComponent<LootBox>().ResetImages();
-                    currentLootBox.GetComponent<LootBox>().AssignImages();
-                    UpdateUI();
-                    break;
-
+       
     }
-                  
-            }
-
-            if(currentLootBox.GetComponent<LootBox>().CurrentLoot.Count == 0)
-            {
-                currentLootBox.GetComponent<LootBox>().IsLooted = true;
-                lootPanel.SetActive(false);
-                
-            }
-        }
 
 
 
@@ -576,9 +530,11 @@ public class ThirdPersonController : MonoBehaviour
 
     public void Shoot()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame && aiming && CurrentInvSelect == 0)
+        if (Mouse.current.leftButton.wasPressedThisFrame && aiming && CurrentInvSelect == 0 && pistolMag > 0)
 
         { 
+            
+
                 Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.value);
 
                 RaycastHit hit;
@@ -596,6 +552,7 @@ public class ThirdPersonController : MonoBehaviour
                     {
                         GameObject projectileInstance = Instantiate(projectile, transform.position, Quaternion.identity);
                         projectileInstance.GetComponent<FireBallScript>().targetPos = impact;
+                        pistolMag--;
 
                         Debug.Log($"Projectile Direction: {impact}");
 
@@ -614,6 +571,7 @@ public class ThirdPersonController : MonoBehaviour
             }
 
         }
+            
 
     }
 
@@ -627,7 +585,7 @@ public class ThirdPersonController : MonoBehaviour
             Debug.Log("Gun Cocked");
         }
 
-        if (Mouse.current.leftButton.wasPressedThisFrame && aiming && CurrentInvSelect == 0)
+        if (Mouse.current.leftButton.wasPressedThisFrame && aiming && CurrentInvSelect == 0 && shotgunMag > 0)
         {
             Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.value);
 
@@ -663,6 +621,7 @@ public class ThirdPersonController : MonoBehaviour
                     }
 
                     isCocked = false;
+                    shotgunMag--;
                 }
             }
         }
@@ -670,7 +629,7 @@ public class ThirdPersonController : MonoBehaviour
 
     public void AssaultRifle()
     {
-        if (Mouse.current.leftButton.isPressed && aiming && CurrentInvSelect == 0)
+        if (Mouse.current.leftButton.isPressed && aiming && CurrentInvSelect == 0 && assaultMag > 0)
         {
             //handles fire rate
             if (Time.time >= lastFireTime + fireRate)
@@ -707,6 +666,7 @@ public class ThirdPersonController : MonoBehaviour
                         lastFireTime = Time.time;
 
                         Debug.Log("AR Fired");
+                        assaultMag--;
                     }
                 }
             }
@@ -717,6 +677,29 @@ public class ThirdPersonController : MonoBehaviour
         heatBar.value = HeaterUp;
         staminaBar.value = stamina;
         healthBar.value = health;
+
+        switch (activeGun)
+        {
+            case 0:
+                invSlotOne.GetComponent<RawImage>().texture = PistolImage;
+                MagNum.text = pistolMag.ToString();
+                MaxAmmo.text = pistolAmmo.ToString();
+                break;
+
+            case 1:
+                invSlotOne.GetComponent<RawImage>().texture = AssaultRifleIMAGE;
+                MagNum.text = assaultMag.ToString();
+                MaxAmmo.text = assaultAmmo.ToString();
+                break;
+
+            case 2:
+                invSlotOne.GetComponent<RawImage>().texture = ShotgunIMAGE;
+                MagNum.text = shotgunMag.ToString();
+                MaxAmmo.text = shotgunAmmo.ToString();
+                break;
+        }
+
+
 
         if (condensors == 0)
         {
@@ -858,6 +841,114 @@ public class ThirdPersonController : MonoBehaviour
     void ResetStim()
     {
         stimActive = false;
+    }
+
+
+    void CheckReload()
+    {
+        if (Keyboard.current.rKey.wasPressedThisFrame && pistolMag == 0)
+        {
+            if (pistolAmmo < 15)
+            {
+                pistolMag += pistolAmmo;
+                pistolAmmo = 0;
+            }
+
+            else
+            {
+                pistolAmmo -= 15;
+                pistolMag += 15;
+            }
+        }
+
+        if (Keyboard.current.rKey.wasPressedThisFrame && assaultMag == 0)
+        {
+            if (assaultAmmo < 25)
+            {
+                assaultMag += assaultAmmo;
+                assaultAmmo = 0;
+            }
+
+            else
+            {
+                assaultAmmo -= 25;
+                assaultMag += 25;
+            }
+
+        }
+
+        if (Keyboard.current.rKey.wasPressedThisFrame && shotgunMag == 0)
+        {
+            if (shotgunAmmo < 10)
+            {
+                shotgunMag += shotgunAmmo;
+                shotgunAmmo = 0;
+            }
+
+            else
+            {
+                shotgunAmmo -= 10;
+                shotgunMag += 10;
+            }
+        }
+    }
+
+    void CheckLoot()
+    {
+        if (Keyboard.current.eKey.wasPressedThisFrame && InLoot)
+        {
+            switch (currentLootBox.GetComponent<LootBox>().CurrentLoot[0])
+            {
+                case "Stim":
+                    stims++;
+                    currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
+                    currentLootBox.GetComponent<LootBox>().ResetImages();
+                    currentLootBox.GetComponent<LootBox>().AssignImages();
+                    UpdateUI();
+                    break;
+
+                case "Grenade":
+                    grenades++;
+                    currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
+                    currentLootBox.GetComponent<LootBox>().ResetImages();
+                    currentLootBox.GetComponent<LootBox>().AssignImages();
+                    UpdateUI();
+                    break;
+
+                case "PistolAmmo":
+                    pistolAmmo += 25;
+                    currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
+                    currentLootBox.GetComponent<LootBox>().ResetImages();
+                    currentLootBox.GetComponent<LootBox>().AssignImages();
+                    UpdateUI();
+                    break;
+
+                case "AssaultAmmo":
+                    assaultAmmo += 50;
+                    currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
+                    currentLootBox.GetComponent<LootBox>().ResetImages();
+                    currentLootBox.GetComponent<LootBox>().AssignImages();
+                    UpdateUI();
+                    break;
+
+                case "ShotgunAmmo":
+                    shotgunAmmo += 10;
+                    currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
+                    currentLootBox.GetComponent<LootBox>().ResetImages();
+                    currentLootBox.GetComponent<LootBox>().AssignImages();
+                    UpdateUI();
+                    break;
+
+
+
+            }
+            if (currentLootBox.GetComponent<LootBox>().CurrentLoot.Count == 0)
+            {
+                currentLootBox.GetComponent<LootBox>().IsLooted = true;
+                lootPanel.SetActive(false);
+
+            }
+        }
     }
 
 }
