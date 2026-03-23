@@ -38,6 +38,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelTwoIntroAnimations.unity
     guid: 35d4d97b6e50fd5439197af88754e956
+  - enabled: 0
+    path: Assets/Scenes/FinalLevels/LevelTwoaS.unity
+    guid: 338a030b306e80944b5daca3de22ca3f
+  - enabled: 1
+    path: Assets/Scenes/FinalLevels/LevelOne_F.unity
+    guid: 514ecc2cff267b14d945bd7bc25d9d56
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

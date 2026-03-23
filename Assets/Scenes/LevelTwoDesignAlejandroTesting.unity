@@ -276708,6 +276708,7 @@ MonoBehaviour:
   staminaBar: {fileID: 1080297914}
   healthBar: {fileID: 936778751}
   projectile: {fileID: 4939932780079845728, guid: 925407ba5c1b90042abaf82056bc9b41, type: 3}
+  enemyDamage: {fileID: 0}
   cameraTransform: {fileID: 1172750778}
   dashSpeed: 20
   dashDuration: 0.25
@@ -276739,6 +276740,8 @@ MonoBehaviour:
   pistolAmmo: 50
   assaultAmmo: 75
   shotgunAmmo: 30
+  fireRate: 0.12
+  bloom: 0.2
   condensorHealth: 0
   StimIMAGE: {fileID: 2800000, guid: 41a7fd7c18e368348b8d42c65f2e704d, type: 3}
   GrenadeIMAGE: {fileID: 2800000, guid: 67277c3f7154e004f9ee6026287457b2, type: 3}
@@ -333018,6 +333021,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b7cf7a8c44f7343ae89f98e3583f21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
+  main: {fileID: 0}
+  credits: {fileID: 0}
+  help: {fileID: 0}
   Paused: 0
   Player: {fileID: 1739761919}
   gameOverMenu: {fileID: 703833553}

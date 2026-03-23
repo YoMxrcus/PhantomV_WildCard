@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GeneratorScript : MonoBehaviour
 {
 
@@ -38,13 +38,17 @@ public class GeneratorScript : MonoBehaviour
                 lightThree.GetComponent<Renderer>().material = completeMaterial;
                 switch (gameObject.name)
                 {
-                    case "Generator01":
+                    case "Generator03":
                         doorOne = GameObject.Find("Door_01");
                         doorTwo = GameObject.Find("Door_02");
 
                         doorOne.SetActive(false);
                         doorTwo.SetActive(false);
+
+                        SceneManager.LoadScene("LevelTwo_F");
                         break;
+
+
 
 
                     case "Generator01_02":
@@ -61,6 +65,8 @@ public class GeneratorScript : MonoBehaviour
                     case "Generator03_02":
                         doorOne = GameObject.Find("Door_04");
                         doorOne.SetActive(false);
+
+                        SceneManager.LoadScene("LevelThree_F");
                         break;
 
 
@@ -81,12 +87,15 @@ public class GeneratorScript : MonoBehaviour
                         doorOne.SetActive(false);
                         break;
                     case "Generator05_03":
+                        SceneManager.LoadScene("WIN");
                         doorOne = GameObject.Find("Door_05");
                         doorOne.SetActive(false);
                         break;
                     case "Generator06_03":
                         doorOne = GameObject.Find("Door_06");
                         doorOne.SetActive(false);
+
+                        
                         break;
 
                     default:

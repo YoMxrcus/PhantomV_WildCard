@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     string mainMenuScene = "MainMenu";
-    string Level1 = "LevelOneIntroAnimation";
+    string Level1 = "LevelOne_F";
     string levelTwo = "LevelOneDesign";
     string levelThree = "LevelOneActual";
     string levelBoss = "LevelTwoDesign";
