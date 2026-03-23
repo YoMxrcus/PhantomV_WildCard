@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Net;
 using System.Security.Cryptography;
 using TMPro;
 using Unity.VisualScripting;
@@ -72,6 +73,7 @@ public class ThirdPersonController : MonoBehaviour
     public int pistolAmmo = 50;
     public int assaultAmmo = 75;
     public int shotgunAmmo = 30;
+    public int activeGun = 0;
 
     private bool isCocked = true;
     // Pattern for shotgun spread
@@ -170,6 +172,35 @@ public class ThirdPersonController : MonoBehaviour
 
     void Update()
     {
+        if (Keyboard.current[Key.Digit1].wasPressedThisFrame && !InPuzzle)
+        {
+            if (CurrentInvSelect == 0)
+            {
+                activeGun++;
+                if(activeGun > 2)
+                {
+                    activeGun = 0;
+                }
+            }
+            CurrentInvSelect = 0;
+            UpdateUI();
+        }
+        if (Keyboard.current[Key.Digit2].wasPressedThisFrame && !InPuzzle)
+        {
+            CurrentInvSelect = 1;
+            UpdateUI();
+        }
+        if (Keyboard.current[Key.Digit3].wasPressedThisFrame && !InPuzzle)
+        {
+            CurrentInvSelect = 2;
+            UpdateUI();
+        }
+        if (Keyboard.current[Key.Digit4].wasPressedThisFrame && !InPuzzle)
+        {
+            CurrentInvSelect = 3;
+            UpdateUI();
+        }
+
         if (Keyboard.current.spaceKey.wasPressedThisFrame && canDash && stamina >= 30 && !InPuzzle)
         {
             StartCoroutine(Dash());
@@ -182,7 +213,21 @@ public class ThirdPersonController : MonoBehaviour
 
             StimActivate();
             CondensorActivate();
-            Shotgun();
+
+        switch (activeGun)
+        {
+            case 0:
+                Shoot();
+                return;
+
+            case 1:
+                AssaultRifle();
+                return;
+
+            case 2:
+                Shotgun();
+                return;
+        }
 
 
         if (Keyboard.current.eKey.wasPressedThisFrame && InLoot) 
@@ -229,6 +274,7 @@ public class ThirdPersonController : MonoBehaviour
                     UpdateUI();
                     break;
 
+    }
                   
             }
 
@@ -240,27 +286,6 @@ public class ThirdPersonController : MonoBehaviour
             }
         }
 
-        if (Keyboard.current[Key.Digit1].wasPressedThisFrame && !InPuzzle)
-        {
-            CurrentInvSelect = 0;
-            UpdateUI();
-        }
-        if (Keyboard.current[Key.Digit2].wasPressedThisFrame && !InPuzzle)
-        {
-            CurrentInvSelect = 1;
-            UpdateUI();
-        }
-        if (Keyboard.current[Key.Digit3].wasPressedThisFrame && !InPuzzle)
-        {
-            CurrentInvSelect = 2;
-            UpdateUI();
-        }
-        if (Keyboard.current[Key.Digit4].wasPressedThisFrame && !InPuzzle)
-        {
-            CurrentInvSelect = 3;
-            UpdateUI();
-        }
-    }
 
 
     IEnumerator Dash()
