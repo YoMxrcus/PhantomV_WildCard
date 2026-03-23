@@ -66,7 +66,7 @@ public class CutsceneChecker : MonoBehaviour
                 {
                     LoadLevelTwoIntro();
                 }
-                else if (SceneManager.GetActiveScene().name == LevelTwo)
+                else if (SceneManager.GetActiveScene().name == LevelThree)
                 {
                     LoadWinScene();
                 }
