@@ -6,8 +6,9 @@ public class EnemyDetect : MonoBehaviour
 {
     public GameObject enemy;
     public GameObject player;
-    float speed = 1f;
+    float speed = 2f;
     public bool canLunge = true;
+    public bool canMove = true;
     //public GameObject[] enemyStance = new GameObject[4];
     //public float animationSpeed = 1f; // Time between stance swaps
 
@@ -26,7 +27,7 @@ public class EnemyDetect : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (playerScript.canMove == true)
+            if (canMove == true)
             {
                 // Movement Logic
                 if (canLunge)
@@ -47,6 +48,7 @@ public class EnemyDetect : MonoBehaviour
 
                 //GoblinAnim.SetBool("Attack", true);
                 StopMovement();
+                Invoke("AllowEnemyMovement", 3f);
             }
         }
     }
@@ -123,5 +125,11 @@ public class EnemyDetect : MonoBehaviour
     void StopMovement()
     {
         enemy.transform.position = transform.position;
+    }
+
+    void AllowEnemyMovement()
+    {
+       canMove = true;
+
     }
 }

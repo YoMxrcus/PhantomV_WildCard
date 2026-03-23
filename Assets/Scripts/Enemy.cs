@@ -6,7 +6,8 @@ public class Enemy : MonoBehaviour
     public int EnemyHealth = 100;
     public GameObject Player;
     private GameObject SnakeShellGameObject;
-    private GameObject HitboxGameObject;
+    public GameObject HitboxGameObject;
+    public GameObject SpawnerRef;
     
 
     private void Start()
@@ -62,7 +63,13 @@ public class Enemy : MonoBehaviour
 
     void DestroyEnemy()
     {
+        if (SpawnerRef != null)
+        {
+
+        SpawnerRef.GetComponent<EnemySpawnerScript>().CurrentSpawnAmount--;
+        }
         Destroy(gameObject);
+        
     }
 }
 

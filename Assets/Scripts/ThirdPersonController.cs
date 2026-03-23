@@ -25,6 +25,7 @@ public class ThirdPersonController : MonoBehaviour
     public int heatMeter = 0;
     public Slider heatBar, staminaBar, healthBar;
     public GameObject projectile;
+    public GameObject enemyDamage;
 
     [Header("References")]
     public Transform cameraTransform;
@@ -71,6 +72,14 @@ public class ThirdPersonController : MonoBehaviour
     public int pistolAmmo = 50;
     public int assaultAmmo = 75;
     public int shotgunAmmo = 30;
+
+    private bool isCocked = true;
+    // Pattern for shotgun spread
+    private float[] shotgunSpreadPattern = { -0.4f, -0.2f, 0f, 0.2f, 0.4f };
+
+    private float lastFireTime;
+    public float fireRate = 0.12f; //Time between shots
+    public float bloom = 0.20f; //recoil offset
 
     public int condensorHealth = 0;
     public Texture StimIMAGE, GrenadeIMAGE, EmptyIMAGE,CondensorImage, PistolImage;
@@ -173,7 +182,7 @@ public class ThirdPersonController : MonoBehaviour
 
             StimActivate();
             CondensorActivate();
-            Shoot();
+            Shotgun();
 
 
         if (Keyboard.current.eKey.wasPressedThisFrame && InLoot) 
@@ -503,9 +512,8 @@ public class ThirdPersonController : MonoBehaviour
             case "Enemy":
 
                 health -= 10;
-                canMove = false;
-                Invoke("AllowEnemyMovement", 3f);
-
+                enemyDamage = other.gameObject;
+                enemyDamage.GetComponent<Enemy>().HitboxGameObject.GetComponent<EnemyDetect>().canMove = false;
                 break;
 
         }
@@ -533,11 +541,7 @@ public class ThirdPersonController : MonoBehaviour
 
         }
     }
-    void AllowEnemyMovement()
-    {
-        canMove = true;
-        
-    }
+  
 
     private void ResetSprint()
     {
@@ -587,7 +591,103 @@ public class ThirdPersonController : MonoBehaviour
         }
 
     }
-  public void UpdateUI()
+
+
+    public void Shotgun()
+    {
+        // Cocking mechanic
+        if (Keyboard.current.rKey.wasPressedThisFrame && !isCocked)
+        {
+            isCocked = true;
+            Debug.Log("Gun Cocked");
+        }
+
+        if (Mouse.current.leftButton.wasPressedThisFrame && aiming && CurrentInvSelect == 0)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.value);
+
+            RaycastHit hit;
+
+            float raycastDistance = 100f;
+
+            if (!isCocked)
+            {
+                Debug.Log("Needs recocking!");
+                return;
+            }
+            if (Physics.Raycast(ray, out hit, raycastDistance))
+            {
+                Vector3 impact = (hit.point - transform.position).normalized;
+                impact.y = 0;
+
+                if (impact.sqrMagnitude > 0.01f)
+                {
+                    Vector3 rightDir = Camera.main.transform.right;
+                    rightDir.y = 0;
+                    rightDir.Normalize();
+
+                    for (int i = 0; i < shotgunSpreadPattern.Length; i++)
+                    {
+                        Vector3 spreadDirection = (impact + (rightDir * shotgunSpreadPattern[i])).normalized;
+
+                        GameObject projectileInstance = Instantiate(projectile, transform.position, Quaternion.identity);
+
+                        FireBallScript script = projectileInstance.GetComponent<FireBallScript>();
+                        script.targetPos = spreadDirection;
+                        //script.damage = 30f;
+                    }
+
+                    isCocked = false;
+                }
+            }
+        }
+    }
+
+    public void AssaultRifle()
+    {
+        if (Mouse.current.leftButton.isPressed && aiming && CurrentInvSelect == 0)
+        {
+            //handles fire rate
+            if (Time.time >= lastFireTime + fireRate)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.value);
+                RaycastHit hit;
+                float raycastDistance = 100f;
+
+                if (Physics.Raycast(ray, out hit, raycastDistance))
+                {
+                    //handles direction
+                    Vector3 impact = (hit.point - transform.position).normalized;
+                    impact.y = 0;
+
+                    if (impact.sqrMagnitude > 0.01f)
+                    {
+                        //handles bloom
+                        Vector3 rightDir = Camera.main.transform.right;
+                        rightDir.y = 0;
+                        rightDir.Normalize();
+
+                        //Apply bloom
+                        float randomBloom = Random.Range(-bloom, bloom);
+                        Vector3 finalDirection = (impact + (rightDir * randomBloom)).normalized;
+
+                        //Spawn Projectile
+                        GameObject projectileInstance = Instantiate(projectile, transform.position, Quaternion.identity);
+                        FireBallScript script = projectileInstance.GetComponent<FireBallScript>();
+
+                        script.targetPos = finalDirection;
+                        //script.damage = 8f; 
+
+                        //Update timer
+                        lastFireTime = Time.time;
+
+                        Debug.Log("AR Fired");
+                    }
+                }
+            }
+        }
+    }
+    public void UpdateUI()
     {
         heatBar.value = HeaterUp;
         staminaBar.value = stamina;

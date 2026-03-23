@@ -208,6 +208,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   EnemyHealth: 100
   Player: {fileID: 0}
+  HitboxGameObject: {fileID: 0}
+  SpawnerRef: {fileID: 0}
 --- !u!1 &8004770134543547757
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,7 +220,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7909616481320438122}
   - component: {fileID: 4333249138298846493}
-  - component: {fileID: 3660915214015890583}
   m_Layer: 0
   m_Name: Hitbox
   m_TagString: Hitbox
@@ -262,19 +263,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 55, y: 1, z: 55}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3660915214015890583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8004770134543547757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51d784b86a3ed5a41bfdb431f24e8bfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyDetect
-  enemy: {fileID: 5206159375067576357}
-  player: {fileID: 0}
-  canLunge: 1
-  playerScript: {fileID: 0}
