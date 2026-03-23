@@ -10,10 +10,10 @@ public class CutsceneChecker : MonoBehaviour
     string LevelOne = "LevelOneDesignAlejandroTesting";
     string LevelOneOutro = "OutroLevelOneAnimation";
     string LevelTwoIntro = "LevelTwoIntroAnimations";
-    string LevelTwo = "LevelTwoDesign";
+    string LevelTwo = "LevelTwoDesignAlejandroTesting";
     string LevelTwoOutro = "OutroLevelTwo";
     string LevelThreeIntro = "IntroLevelThree";
-    string LevelThree = "LeveLThree";
+    string LevelThree = "LeveLThreeDesign";
     string LevelThreeOutro = "OutroLevelThree";
     string winScene = "WIN";
 
@@ -64,7 +64,11 @@ public class CutsceneChecker : MonoBehaviour
             case "NextLevel":
                 if (SceneManager.GetActiveScene().name == LevelOne)
                 {
-                    LoadLevelTwoIntro();
+                    LoadLevelTwo();
+                }
+                else if (SceneManager.GetActiveScene().name == LevelTwo)
+                {
+                    LoadLevelTwo();
                 }
                 else if (SceneManager.GetActiveScene().name == LevelThree)
                 {
