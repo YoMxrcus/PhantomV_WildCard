@@ -24,6 +24,10 @@ public class BanditEnemy : MonoBehaviour
     private Rigidbody rb;
     Vector3 movePos;
     private bool moveTime = false;
+    bool moveRandom = false;
+    int shootFunction = 1;
+    Vector3 randomPos;
+    public Coroutine ShootCoroutine, MoveRandomCoroutine;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
 
@@ -52,6 +56,25 @@ public class BanditEnemy : MonoBehaviour
             enemy.transform.position = MoveFunction;
             
         }
+
+        if (moveRandom)
+        {
+            EndShootCoroutine();
+            shootFunction--;
+            Vector3 MoveFunction = Vector3.MoveTowards(enemy.transform.position, randomPos, speed * Time.deltaTime);
+            enemy.transform.position = MoveFunction;
+            if (enemy.transform.position == randomPos)
+            {
+                moveRandom = false;
+            }
+        }
+
+        if (!moveRandom && fighting && shootFunction == 1)
+        {
+            EndRandomMoveCoroutine();
+            ShootCoroutine = StartCoroutine(ShootProjectile(transform));
+            shootFunction++;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -59,7 +82,7 @@ public class BanditEnemy : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case "Player":
-                activeActionNum = Random.Range(0, 1);
+                activeActionNum = Random.Range(0, 2);
                 string currentAction = possibleActions[activeActionNum];
 
                 switch (currentAction)
@@ -71,6 +94,7 @@ public class BanditEnemy : MonoBehaviour
 
                     case "Fight":
                         fighting = true;
+                        MoveRandomCoroutine = StartCoroutine(RandomMoveCoroutine());
                         break;
 
                     case "Heal":
@@ -137,24 +161,38 @@ public class BanditEnemy : MonoBehaviour
                 break;
         }
     }
-   
 
-    void ShootProjectileDelay()
+
+    public IEnumerator RandomMoveCoroutine()
     {
-        //ShootProjectile(firePoint);
-        
+        moveRandom = true;
+        randomPos = new Vector3(transform.position.x + Random.Range(-3, 3), transform.position.y, transform.position.z + Random.Range(-3, 3));
+
+        while (fighting)
+        {
+            yield return new WaitForSeconds(10f);
+            moveRandom = true;
+            randomPos = new Vector3(transform.position.x + Random.Range(-3, 3), transform.position.y, transform.position.z + Random.Range(-3, 3));
+        }
 
     }
 
 
-    /*void ShootProjectile(Transform firePoint)
+    public IEnumerator ShootProjectile(Transform firePoint)
     {
-        var projectileObj = Instantiate(fireBall, firePoint.position, Quaternion.identity) as GameObject;
-        Vector3 direction = (player.transform.position - firePoint.position).normalized;
-        projectileObj.GetComponent<Rigidbody>().linearVelocity = direction * projectileSpeed;
-        Destroy(projectileObj, 5f);
+        while (!moveRandom)
+        {
+
+        yield return new WaitForSeconds(1f);
+
+            var projectileObj = Instantiate(fireBall, firePoint.position, Quaternion.identity) as GameObject;
+            Vector3 direction = (player.transform.position - firePoint.position).normalized;
+            projectileObj.GetComponent<Rigidbody>().linearVelocity = direction * projectileSpeed;
+            Destroy(projectileObj, 5f);
+
+        }
     }
-    */
+    
 
     void Hide()
     {
@@ -166,6 +204,7 @@ public class BanditEnemy : MonoBehaviour
                 movePos = activeCovers[i].GetComponentInChildren<CoverPointScript>().gameObject.transform.position;
                 Debug.Log(movePos);
                 moveTime = true;
+                Invoke("ResetMoveTime", 5f);
                 break;
             }
 
@@ -178,5 +217,26 @@ public class BanditEnemy : MonoBehaviour
 
     }
 
+    void ResetMoveTime()
+    {
+        moveTime = false;
+    }
 
+    void EndShootCoroutine()
+    {
+        if (ShootCoroutine != null)
+        {
+            StopCoroutine(ShootCoroutine);
+            ShootCoroutine = null;
+        }
+    }
+
+    void EndRandomMoveCoroutine()
+    {
+        if (MoveRandomCoroutine != null)
+        {
+            StopCoroutine(MoveRandomCoroutine);
+            MoveRandomCoroutine = null;
+        }
+    }
 }

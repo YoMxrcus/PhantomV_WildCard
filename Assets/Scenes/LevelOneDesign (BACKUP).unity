@@ -21366,7 +21366,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BanditEnemy
   enemy: {fileID: 634896098}
   player: {fileID: 0}
-  fireBall: {fileID: 0}
+  fireBall: {fileID: 4939932780079845728, guid: 925407ba5c1b90042abaf82056bc9b41, type: 3}
   firePoint: {fileID: 0}
   projectileSpeed: 10
   speed: 5
@@ -24109,6 +24109,9 @@ MonoBehaviour:
   main: {fileID: 0}
   credits: {fileID: 0}
   help: {fileID: 0}
+  buttonSounds: {fileID: 0}
+  click1: {fileID: 0}
+  click2: {fileID: 0}
   Paused: 0
   Player: {fileID: 1720478192}
   gameOverMenu: {fileID: 1019330414}
@@ -37753,7 +37756,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BanditEnemy
   enemy: {fileID: 1109463794}
   player: {fileID: 0}
-  fireBall: {fileID: 0}
+  fireBall: {fileID: 4939932780079845728, guid: 925407ba5c1b90042abaf82056bc9b41, type: 3}
   firePoint: {fileID: 0}
   projectileSpeed: 10
   speed: 5
@@ -37805,7 +37808,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BanditEnemy
   enemy: {fileID: 5206159374701758557}
   player: {fileID: 0}
-  fireBall: {fileID: 0}
+  fireBall: {fileID: 4939932780079845728, guid: 925407ba5c1b90042abaf82056bc9b41, type: 3}
   firePoint: {fileID: 0}
   projectileSpeed: 10
   speed: 5
