@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
-    public Vector3 targetPos; //Stores Target Location
+    public Vector3 targetDirection; //Stores Target Direction
     private float speed = 20f;
     public GameObject Player;
     public float initialYPos;
@@ -17,9 +17,9 @@ public class EnemyProjectile : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(targetPos.sqrMagnitude > 0.01f)
+        if(targetDirection.sqrMagnitude > 0.01f)
         {
-            Vector3 movement = targetPos * speed * Time.fixedDeltaTime;
+            Vector3 movement = targetDirection * speed * Time.fixedDeltaTime;
 
             movement.y = initialYPos;
 

@@ -20889,6 +20889,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BanditEnemy
   enemy: {fileID: 634896098}
   player: {fileID: 0}
+  playerMover: {fileID: 0}
   fireBall: {fileID: 4939932780079845728, guid: 26b9c525ebb1de74b9748264c010dd34, type: 3}
   firePoint: {fileID: 0}
   projectileSpeed: 10
@@ -20906,6 +20907,11 @@ MonoBehaviour:
   fighting: 0
   healing: 0
   grenading: 0
+  moveTime: 0
+  moveRandom: 0
+  shootFunction: 1
+  playerPos: {x: 0, y: 0, z: 0}
+  direction: {x: 0, y: 0, z: 0}
 --- !u!65 &836681727
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -37129,6 +37135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BanditEnemy
   enemy: {fileID: 1109463794}
   player: {fileID: 0}
+  playerMover: {fileID: 0}
   fireBall: {fileID: 4939932780079845728, guid: 26b9c525ebb1de74b9748264c010dd34, type: 3}
   firePoint: {fileID: 0}
   projectileSpeed: 10
@@ -37146,6 +37153,11 @@ MonoBehaviour:
   fighting: 0
   healing: 0
   grenading: 0
+  moveTime: 0
+  moveRandom: 0
+  shootFunction: 1
+  playerPos: {x: 0, y: 0, z: 0}
+  direction: {x: 0, y: 0, z: 0}
 --- !u!65 &1511621886
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -37181,6 +37193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BanditEnemy
   enemy: {fileID: 5206159374701758557}
   player: {fileID: 0}
+  playerMover: {fileID: 0}
   fireBall: {fileID: 4939932780079845728, guid: 26b9c525ebb1de74b9748264c010dd34, type: 3}
   firePoint: {fileID: 0}
   projectileSpeed: 10
@@ -37198,6 +37211,11 @@ MonoBehaviour:
   fighting: 0
   healing: 0
   grenading: 0
+  moveTime: 0
+  moveRandom: 0
+  shootFunction: 1
+  playerPos: {x: 0, y: 0, z: 0}
+  direction: {x: 0, y: 0, z: 0}
 --- !u!1 &1524327175
 GameObject:
   m_ObjectHideFlags: 0
@@ -41330,7 +41348,7 @@ Transform:
   m_GameObject: {fileID: 1743962861}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 74.6, y: 0, z: -5}
+  m_LocalPosition: {x: 116.3, y: 0, z: -28.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -43448,7 +43466,7 @@ Transform:
   m_GameObject: {fileID: 1833486706}
   serializedVersion: 2
   m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
-  m_LocalPosition: {x: 62.484554, y: 10.5, z: -17.247446}
+  m_LocalPosition: {x: 104.18456, y: 10.500003, z: -40.64745}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

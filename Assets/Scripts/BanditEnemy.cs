@@ -196,11 +196,11 @@ public class BanditEnemy : MonoBehaviour
         while (!moveRandom)
         {
 
-        yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1f);
 
             var projectileObj = Instantiate(fireBall, firePoint.position, Quaternion.identity); 
             direction = (playerPos - firePoint.position).normalized;
-            fireBall.GetComponent<EnemyProjectile>().targetPos = direction;
+            fireBall.GetComponent<EnemyProjectile>().targetDirection = direction;
             Destroy(projectileObj, 5f);
 
         }
