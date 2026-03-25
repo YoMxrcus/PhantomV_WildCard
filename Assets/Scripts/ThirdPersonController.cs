@@ -168,10 +168,11 @@ public class ThirdPersonController : MonoBehaviour
 
         }
         else { aiming = false; }
-        
-      
 
         UpdateUI();
+
+        if (HeaterUp >=100)
+        { Time.timeScale = 0; }
     }
 
 
@@ -490,8 +491,8 @@ public class ThirdPersonController : MonoBehaviour
         {
 
             case "Enemy":
-
-                HeaterUp -= 10;
+                if (HeaterUp < 100)
+                { HeaterUp += 10; }
                 enemyDamage = other.gameObject;
                 enemyDamage.GetComponent<Enemy>().HitboxGameObject.GetComponent<EnemyDetect>().canMove = false;
                 break;
