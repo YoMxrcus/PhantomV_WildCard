@@ -42,7 +42,7 @@ public class DialogueManager : MonoBehaviour
     {
         //How to call items in the CSV - grid[x, y] where x and y are numbers starting from 0 (A1 on the excel sheet would be 0,0 and A2 on the excell sheet would be 0,1)
         //How to call certain characters - grid[2 + currentTextIndex, characterID]
-        csvDialogue = Resources.Load<TextAsset>("CSVFiles/ActualDialogue-2");
+        csvDialogue = Resources.Load<TextAsset>("CSVFiles/TestingDio_01");
         dialougeGrid = getCSVGrid(csvDialogue.text);
 
         dialougeBox.SetActive(false);
@@ -52,7 +52,8 @@ public class DialogueManager : MonoBehaviour
         currentTextIndex = 0;
 
         doneTyping = true;
-        
+
+
 
     }
 
@@ -111,6 +112,7 @@ public class DialogueManager : MonoBehaviour
         doneTyping = true;
 
 
+        ClickForward();
     }
 
     public void OpenTextBox(int characterIndex)
@@ -128,10 +130,10 @@ public class DialogueManager : MonoBehaviour
     {
         Debug.Log(currentTextIndex);
         Debug.Log(dialougeGrid[currentTextIndex, characterID]);
-        string EndCheck = dialougeGrid[currentTextIndex, characterID];
+        string EndCheck = dialougeGrid[currentTextIndex + 4, characterID];
         Debug.Log(EndCheck);
 
-        if ((EndCheck == "END TEXT" || EndCheck == null || EndCheck == "END TEXT\r\n") & doneTyping)
+        if ((EndCheck == "END TEXT" || EndCheck == null || EndCheck == "END TEXT\r\n" || EndCheck == "") & doneTyping)
         {
             Debug.Log("Attempting To Close");
             CloseTextBox();
