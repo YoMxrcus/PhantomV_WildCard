@@ -35,17 +35,7 @@ public class DialogueManager : MonoBehaviour
     public int lengthOfDialouge;
     public Coroutine dioCor;
 
-    //Targets + Sheild
-    public GameObject SpellCastingVariable;
-
-    public Animator finalCutsceneAnimator;
-    public GameObject finalRockSpeaker;
-
-    public GameObject bgSpeaker;
-
-    public GameObject secondSound;
-    public GameObject thirdSound;
-
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -137,11 +127,11 @@ public class DialogueManager : MonoBehaviour
     public void ClickForward()
     {
         Debug.Log(currentTextIndex);
-        Debug.Log(dialougeGrid[currentTextIndex + 3, characterID]);
-        string EndCheck = dialougeGrid[currentTextIndex + 3, characterID];
+        Debug.Log(dialougeGrid[currentTextIndex, characterID]);
+        string EndCheck = dialougeGrid[currentTextIndex, characterID];
         Debug.Log(EndCheck);
 
-        if ((dialougeGrid[currentTextIndex + 3, characterID] == "END TEXT" || dialougeGrid[currentTextIndex + 3, characterID] == null || dialougeGrid[currentTextIndex + 3, characterID] == "END TEXT\r\n") & doneTyping)
+        if ((EndCheck == "END TEXT" || EndCheck == null || EndCheck == "END TEXT\r\n") & doneTyping)
         {
             Debug.Log("Attempting To Close");
             CloseTextBox();
@@ -150,7 +140,7 @@ public class DialogueManager : MonoBehaviour
         {
             if (doneTyping)
             {
-                currentTextIndex += 1;
+                currentTextIndex += 2;
             }
 
             PlayDio();
@@ -169,11 +159,7 @@ public class DialogueManager : MonoBehaviour
 
     void PlayDio() //plays the dialouge inside the text box depending on the character ID and page index
     {
-        commaCheckName = dialougeGrid[1, characterID];
-        commaCheckName = commaCheckName.Replace("`", ",");
-
-        commaCheckTxt = dialougeGrid[currentTextIndex + 2, characterID];
-        commaCheckTxt = commaCheckTxt.Replace("`", ",");
+        CommaChecker();
 
         if (doneTyping && currentTextIndex == 0) //if the player clicks the button after typing, move to the next text dialouge
         {
@@ -206,15 +192,23 @@ public class DialogueManager : MonoBehaviour
         
     }
 
+    void CommaChecker()
+    {
+        commaCheckName = dialougeGrid[currentTextIndex + 1, characterID];
+        commaCheckName = commaCheckName.Replace("`", ",");
+
+        commaCheckTxt = dialougeGrid[currentTextIndex + 2, characterID];
+        commaCheckTxt = commaCheckTxt.Replace("`", ",");
+    }
     void ChangeCharacter()
     {
         switch (nameTxt.text)
         {
-            case "Kaslvas The Great":
-                SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("KaslavasHeadshot");
+            case "Alejandro":
+                SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("PlaceHolderFace");
                 break;
-            case "Goblin":
-                SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("GoblinMainImage");
+            case "Aidan":
+                SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("PlaceHolderFace2");
                 break;
             case "Good Spellow":
                 SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("GoodSpellowHeadshot");
