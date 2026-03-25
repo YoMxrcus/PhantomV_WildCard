@@ -41,7 +41,7 @@ public class ThirdPersonController : MonoBehaviour
     private bool isDashing = false;
     private bool canDash = true;
 
-    public int HeaterUp = 0;
+    public int HeaterUp = 0; //heat
     public bool HeatDecrement;
 
     public bool aiming = false;
@@ -65,6 +65,7 @@ public class ThirdPersonController : MonoBehaviour
 
     public GameObject currentLootBox;
     public GameObject lootPanel;
+    public GameObject arrow, dial;
 
     public int condensors = 0;
     public int stims = 0;
@@ -109,6 +110,7 @@ public class ThirdPersonController : MonoBehaviour
             yield return new WaitForSeconds(1f);
 
             HeaterUp++;
+            
         }
     }
     public IEnumerator CondensorCoroutine()
@@ -119,6 +121,7 @@ public class ThirdPersonController : MonoBehaviour
             yield return new WaitForSeconds(1f);
 
             HeaterUp--;
+         
         }
     }
 
@@ -674,6 +677,7 @@ public class ThirdPersonController : MonoBehaviour
     public void UpdateUI()
     {
         heatBar.value = HeaterUp;
+        arrow.transform.rotation = Quaternion.Euler(0,0, ((360/100) * HeaterUp) * -1);
         staminaBar.value = stamina;
         healthBar.value = health;
 
