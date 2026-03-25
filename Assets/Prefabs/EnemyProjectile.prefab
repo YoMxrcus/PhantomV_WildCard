@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6901341747463611843}
   - component: {fileID: 1815876893929391818}
   - component: {fileID: 7981534325848826184}
+  - component: {fileID: -224089321348894833}
   m_Layer: 0
   m_Name: EnemyProjectile
   m_TagString: projectile
@@ -140,3 +141,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &-224089321348894833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4939932780079845728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a199cc32bd716494492d24f3b6d6021d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyProjectile
+  targetPos: {x: 0, y: 0, z: 0}
+  Player: {fileID: 0}
+  initialYPos: 0
