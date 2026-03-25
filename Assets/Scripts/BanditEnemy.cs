@@ -30,7 +30,9 @@ public class BanditEnemy : MonoBehaviour
     public Vector3 playerPos;
     Vector3 randomPos;
     public Vector3 direction;
-    public Coroutine ShootCoroutine, MoveRandomCoroutine;
+    public Coroutine ShootCoroutine, MoveRandomCoroutine, StartActionCoroutine;
+    string currentActionStr;
+    public bool ActionStarted = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
 
@@ -57,7 +59,7 @@ public class BanditEnemy : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        playerPos = playerMover.transform.position;
+       
        
 
         if (moveTime)
@@ -86,37 +88,34 @@ public class BanditEnemy : MonoBehaviour
         }
     }
 
+    public IEnumerator SwitchActionCoroutine(string currentAction)
+    {
+        CheckAction(currentAction); 
+
+        while (true)
+        {
+            Debug.Log("reached here");
+            yield return new WaitForSeconds(5f);
+
+            Debug.Log("reached here2");
+            activeActionNum = Random.Range(0, 2);
+            currentActionStr = possibleActions[activeActionNum];
+            Debug.Log("currentActionStr");
+            CheckAction(currentAction);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         switch (other.gameObject.tag)
         {
             case "Player":
-                activeActionNum = Random.Range(0, 2);
-                string currentAction = possibleActions[activeActionNum];
-
-                switch (currentAction)
+                if (!ActionStarted)
                 {
-                    case "Hide":
-                        ResetActions();
-                        hiding = true;
-                        Invoke("Hide", Random.Range(1f,3f));
-                        break;
-
-                    case "Fight":
-                        ResetActions();
-                        fighting = true;
-                        MoveRandomCoroutine = StartCoroutine(RandomMoveCoroutine());
-                        break;
-
-                    case "Heal":
-                        ResetActions();
-                        healing = true;
-                        break;
-
-                    case "Grenade":
-                        ResetActions();
-                        grenading |= true;
-                        break;
+                    activeActionNum = Random.Range(0, 2);
+                    currentActionStr = possibleActions[activeActionNum];
+                    StartActionCoroutine = StartCoroutine(SwitchActionCoroutine(currentActionStr));
+                    ActionStarted = true;
                 }
                 break;
 
@@ -198,9 +197,11 @@ public class BanditEnemy : MonoBehaviour
 
             yield return new WaitForSeconds(1f);
 
+            playerPos = playerMover.transform.position;
+
             var projectileObj = Instantiate(fireBall, firePoint.position, Quaternion.identity); 
             direction = (playerPos - firePoint.position).normalized;
-            fireBall.GetComponent<EnemyProjectile>().targetDirection = direction;
+            projectileObj.GetComponent<EnemyProjectile>().targetDirection = direction;
             Destroy(projectileObj, 5f);
 
         }
@@ -259,6 +260,46 @@ public class BanditEnemy : MonoBehaviour
         hiding = false;
         healing = false;
         grenading = false;
-        StopAllCoroutines();
+       
+    }
+
+    void CheckAction(string currentAction)
+    {
+        switch (currentAction)
+        {
+            case "Hide":
+                ResetActions();
+                if (!hiding)
+                {
+                    Invoke("Hide", Random.Range(1f, 3f));
+                    hiding = true;
+                }
+                break;
+
+            case "Fight":
+                ResetActions();
+                if (!fighting)
+                {
+                    MoveRandomCoroutine = StartCoroutine(RandomMoveCoroutine());
+                    fighting = true;
+                }
+                break;
+
+            case "Heal":
+                ResetActions();
+                if (!healing)
+                {
+                    healing = true;
+                }
+                break;
+
+            case "Grenade":
+                ResetActions();
+                if (!grenading)
+                {
+                    grenading = true;
+                }
+                break;
+        }
     }
 }
