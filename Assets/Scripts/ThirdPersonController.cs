@@ -18,12 +18,11 @@ public class ThirdPersonController : MonoBehaviour
     public float stamina = 100f;
     public float sprintDepletionRate = 20f;
     public float staminaRegenRate = 5f;
-    public int health = 100;
     public bool canMove = true;
     [SerializeField] bool allowSprint = true;
     public Vector3 moveDirection;
     public int heatMeter = 0;
-    public Slider heatBar, staminaBar, healthBar;
+    public Slider staminaBar;
     public GameObject projectile;
     public GameObject enemyDamage;
 
@@ -492,7 +491,7 @@ public class ThirdPersonController : MonoBehaviour
 
             case "Enemy":
 
-                health -= 10;
+                HeaterUp -= 10;
                 enemyDamage = other.gameObject;
                 enemyDamage.GetComponent<Enemy>().HitboxGameObject.GetComponent<EnemyDetect>().canMove = false;
                 break;
@@ -676,10 +675,8 @@ public class ThirdPersonController : MonoBehaviour
     }
     public void UpdateUI()
     {
-        heatBar.value = HeaterUp;
         arrow.transform.rotation = Quaternion.Euler(0,0, ((360/100) * HeaterUp) * -1);
         staminaBar.value = stamina;
-        healthBar.value = health;
 
         switch (activeGun)
         {
