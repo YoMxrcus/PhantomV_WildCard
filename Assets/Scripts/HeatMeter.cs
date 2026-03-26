@@ -72,7 +72,7 @@ public class HeatMeter : MonoBehaviour
 
     private void Update()
     {
-        if (Keyboard.current[Key.Space].wasPressedThisFrame)
+        if (HeatMinigame.activeInHierarchy & Keyboard.current[Key.Space].wasPressedThisFrame)
         {
             // 1. Get the local Y position of each individual click area
             float yPos = clickAreaPos.anchoredPosition.y;

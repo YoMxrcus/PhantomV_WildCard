@@ -173,7 +173,7 @@ public class ThirdPersonController : MonoBehaviour
 
         UpdateUI();
 
-        if (HeaterUp >=100)
+        if (HeaterUp >=120)
         { Time.timeScale = 0; }
     }
 
@@ -702,37 +702,21 @@ public class ThirdPersonController : MonoBehaviour
                 break;
         }
 
-
-
-        if (condensors == 0)
+        if(condensors > 0)
         {
-            //invSlotTwo.GetComponent<Image>().sprite = EmptyIMAGE;
-        }
-
-        else if(condensors > 0)
-        {
-            invSlotTwo.GetComponent<Image>().sprite = CondensorImage;
-        }
-
-        if (stims == 0)
-        {
-            //invSlotThree.GetComponent<Image>().sprite = EmptyIMAGE;
+            invSlotTwo.SetActive(true);
         }
 
         else if (stims > 0)
         {
-            invSlotThree.GetComponent<Image>().sprite = StimIMAGE;
-        }
-
-        if (grenades == 0)
-        {
-            //invSlotFour.GetComponent<Image>().sprite = EmptyIMAGE;
+            invSlotThree.SetActive(true);
         }
 
         else if (grenades > 0)
         {
-            invSlotFour.GetComponent<Image>().sprite = GrenadeIMAGE;
+            invSlotFour.SetActive(true);
         }
+        else { invSlotTwo.SetActive(false); invSlotThree.SetActive(false); invSlotFour.SetActive(false); }
 
         CondensorNum.text = condensors.ToString();
         StimNum.text = stims.ToString();
