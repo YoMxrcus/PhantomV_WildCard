@@ -87,8 +87,8 @@ public class ThirdPersonController : MonoBehaviour
     public float bloom = 0.20f; //recoil offset
 
     public int condensorHealth = 0;
-    public Texture StimIMAGE, GrenadeIMAGE, EmptyIMAGE,CondensorImage, PistolImage, AssaultRifleIMAGE, ShotgunIMAGE;
-    public GameObject invSlotOne, invSlotTwo, invSlotThree, invSlotFour;
+    public Sprite StimIMAGE, GrenadeIMAGE, EmptyIMAGE,CondensorImage, PistolImage, AssaultRifleIMAGE, ShotgunIMAGE;
+    public GameObject gunSlot, invSlotTwo, invSlotThree, invSlotFour;
     public GameObject[] InventorySelects;
     public TMP_Text CondensorNum, StimNum, GrenadeNum;
 
@@ -96,6 +96,8 @@ public class ThirdPersonController : MonoBehaviour
 
     public int CurrentInvSelect = 0;
 
+    public AudioSource playerSounds;
+    public AudioClip walking, running;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -682,19 +684,19 @@ public class ThirdPersonController : MonoBehaviour
         switch (activeGun)
         {
             case 0:
-                invSlotOne.GetComponent<RawImage>().texture = PistolImage;
+                gunSlot.GetComponent<Image>().sprite = PistolImage;
                 MagNum.text = pistolMag.ToString();
                 MaxAmmo.text = pistolAmmo.ToString();
                 break;
 
             case 1:
-                invSlotOne.GetComponent<RawImage>().texture = AssaultRifleIMAGE;
+                gunSlot.GetComponent<Image>().sprite = AssaultRifleIMAGE;
                 MagNum.text = assaultMag.ToString();
                 MaxAmmo.text = assaultAmmo.ToString();
                 break;
 
             case 2:
-                invSlotOne.GetComponent<RawImage>().texture = ShotgunIMAGE;
+                gunSlot.GetComponent<Image>().sprite = ShotgunIMAGE;
                 MagNum.text = shotgunMag.ToString();
                 MaxAmmo.text = shotgunAmmo.ToString();
                 break;
@@ -704,32 +706,32 @@ public class ThirdPersonController : MonoBehaviour
 
         if (condensors == 0)
         {
-            invSlotTwo.GetComponent<RawImage>().texture = EmptyIMAGE;
+            //invSlotTwo.GetComponent<Image>().sprite = EmptyIMAGE;
         }
 
         else if(condensors > 0)
         {
-            invSlotTwo.GetComponent<RawImage>().texture = CondensorImage;
+            invSlotTwo.GetComponent<Image>().sprite = CondensorImage;
         }
 
         if (stims == 0)
         {
-            invSlotThree.GetComponent<RawImage>().texture = EmptyIMAGE;
+            //invSlotThree.GetComponent<Image>().sprite = EmptyIMAGE;
         }
 
         else if (stims > 0)
         {
-            invSlotThree.GetComponent<RawImage>().texture = StimIMAGE;
+            invSlotThree.GetComponent<Image>().sprite = StimIMAGE;
         }
 
         if (grenades == 0)
         {
-            invSlotFour.GetComponent<RawImage>().texture = EmptyIMAGE;
+            //invSlotFour.GetComponent<Image>().sprite = EmptyIMAGE;
         }
 
         else if (grenades > 0)
         {
-            invSlotFour.GetComponent<RawImage>().texture = GrenadeIMAGE;
+            invSlotFour.GetComponent<Image>().sprite = GrenadeIMAGE;
         }
 
         CondensorNum.text = condensors.ToString();
