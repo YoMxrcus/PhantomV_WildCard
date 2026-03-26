@@ -106,7 +106,7 @@ public class ThirdPersonController : MonoBehaviour
     public IEnumerator HeatCoroutine()
     {
         HeatDecrement = true;
-        while (HeaterUp < 100)
+        while (HeaterUp < 120)
         {
             yield return new WaitForSeconds(1f);
 
@@ -493,7 +493,7 @@ public class ThirdPersonController : MonoBehaviour
         {
 
             case "Enemy":
-                if (HeaterUp < 100)
+                if (HeaterUp < 120)
                 { HeaterUp += 10; }
                 enemyDamage = other.gameObject;
                 enemyDamage.GetComponent<Enemy>().HitboxGameObject.GetComponent<EnemyDetect>().canMove = false;
