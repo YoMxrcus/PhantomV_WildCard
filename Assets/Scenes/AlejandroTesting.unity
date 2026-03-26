@@ -33050,6 +33050,8 @@ MonoBehaviour:
   characterID: 0
   currentTextIndex: 0
   lengthOfDialouge: 0
+  timeStart: 2
+  timeEnd: 1.5
 --- !u!4 &850886732
 Transform:
   m_ObjectHideFlags: 0
@@ -63888,7 +63890,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 677, y: 284}
+  m_AnchoredPosition: {x: -574, y: 284}
   m_SizeDelta: {x: 471.559, y: 347.549}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1998439238
@@ -64444,7 +64446,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 850886731}
         m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
-        m_MethodName: OpenTextBox
+        m_MethodName: OpenBoxFunction
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

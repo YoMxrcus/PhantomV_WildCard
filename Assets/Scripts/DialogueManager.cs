@@ -19,7 +19,7 @@ public class DialogueManager : MonoBehaviour
     //Diolouge Box
     public GameObject dialougeBox;
     public TMP_Text dialougeTxt, nameTxt;
-    public float dialogueType = 0.025f;
+    public float dialogueType = 0.05f;
     public GameObject SpeakingFace;
 
     //DialougeVariables
@@ -34,7 +34,10 @@ public class DialogueManager : MonoBehaviour
     public int currentTextIndex;
     public int lengthOfDialouge;
     public Coroutine dioCor;
-
+    public Coroutine openignCor;
+    public Coroutine closingCor;
+    public float timeStart = 2f;
+    public float timeEnd = 1.5f;
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -111,13 +114,30 @@ public class DialogueManager : MonoBehaviour
 
         doneTyping = true;
 
-
+        yield return new WaitForSeconds(2f);
         ClickForward();
     }
 
-    public void OpenTextBox(int characterIndex)
+
+    public void OpenBoxFunction(int characterIndex)
     {
-        CloseTextBox();
+        if (openignCor == null)
+        {
+            StartCoroutine(OpenTextBox(characterIndex));
+        }
+    }
+    public IEnumerator OpenTextBox(int characterIndex)
+    {
+        
+        if (textBoxOpen)
+        {
+            StartCoroutine(CloseTextBox());
+            yield return new WaitForSeconds(timeStart);
+        }
+        
+
+
+
         textBoxOpen = true;
         currentTextIndex = 0;
         characterID = characterIndex;
@@ -136,7 +156,7 @@ public class DialogueManager : MonoBehaviour
         if ((EndCheck == "END TEXT" || EndCheck == null || EndCheck == "END TEXT\r\n" || EndCheck == "") & doneTyping)
         {
             Debug.Log("Attempting To Close");
-            CloseTextBox();
+            closingCor = StartCoroutine(CloseTextBox());
         }
         else
         {
@@ -152,11 +172,24 @@ public class DialogueManager : MonoBehaviour
 
     }
 
-    public void CloseTextBox()
+    public void CloseBoxFunction()
     {
+        if (closingCor == null)
+        {
+            closingCor = StartCoroutine(CloseTextBox());
+        }
+    }
+    public IEnumerator CloseTextBox()
+    {
+        StopCoroutine(dioCor);
+        dialougeTxt.text = "";
+        nameTxt.text = "";
+
+        yield return new WaitForSeconds(timeEnd);
 
         dialougeBox.SetActive(false);
         textBoxOpen = false;
+       
     }
 
     void PlayDio() //plays the dialouge inside the text box depending on the character ID and page index
