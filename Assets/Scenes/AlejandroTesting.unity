@@ -33050,8 +33050,6 @@ MonoBehaviour:
   characterID: 0
   currentTextIndex: 0
   lengthOfDialouge: 0
-  timeStart: 2
-  timeEnd: 1.5
 --- !u!4 &850886732
 Transform:
   m_ObjectHideFlags: 0
@@ -64446,7 +64444,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 850886731}
         m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
-        m_MethodName: OpenBoxFunction
+        m_MethodName: OpenTextBox
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

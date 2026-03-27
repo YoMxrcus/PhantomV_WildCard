@@ -34,11 +34,8 @@ public class DialogueManager : MonoBehaviour
     public int currentTextIndex;
     public int lengthOfDialouge;
     public Coroutine dioCor;
-    public Coroutine openignCor;
-    public Coroutine closingCor;
-    public float timeStart = 2f;
-    public float timeEnd = 1.5f;
-    
+ 
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -119,25 +116,11 @@ public class DialogueManager : MonoBehaviour
     }
 
 
-    public void OpenBoxFunction(int characterIndex)
-    {
-        if (openignCor == null)
-        {
-            StartCoroutine(OpenTextBox(characterIndex));
-        }
-    }
-    public IEnumerator OpenTextBox(int characterIndex)
+  
+    public void OpenTextBox(int characterIndex)
     {
         
-        if (textBoxOpen)
-        {
-            StartCoroutine(CloseTextBox());
-            yield return new WaitForSeconds(timeStart);
-        }
-        
-
-
-
+        CloseTextBox();
         textBoxOpen = true;
         currentTextIndex = 0;
         characterID = characterIndex;
@@ -156,7 +139,7 @@ public class DialogueManager : MonoBehaviour
         if ((EndCheck == "END TEXT" || EndCheck == null || EndCheck == "END TEXT\r\n" || EndCheck == "") & doneTyping)
         {
             Debug.Log("Attempting To Close");
-            closingCor = StartCoroutine(CloseTextBox());
+            Invoke("CloseTextBox", 1f);
         }
         else
         {
@@ -172,21 +155,15 @@ public class DialogueManager : MonoBehaviour
 
     }
 
-    public void CloseBoxFunction()
+
+    public void CloseTextBox()
     {
-        if (closingCor == null)
+        if (dioCor != null)
         {
-            closingCor = StartCoroutine(CloseTextBox());
+            StopCoroutine(dioCor);
         }
-    }
-    public IEnumerator CloseTextBox()
-    {
-        StopCoroutine(dioCor);
         dialougeTxt.text = "";
         nameTxt.text = "";
-
-        yield return new WaitForSeconds(timeEnd);
-
         dialougeBox.SetActive(false);
         textBoxOpen = false;
        
