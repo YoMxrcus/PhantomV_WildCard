@@ -34,6 +34,7 @@ public class BanditEnemy : MonoBehaviour
     public string currentActionStr;
     public bool ActionStarted = false;
     float yPosition;
+    public GameObject ActiveCoverObject;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
 
@@ -113,13 +114,12 @@ public class BanditEnemy : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case "Player":
-                if (!ActionStarted)
-                {
+                
                     activeActionNum = Random.Range(0, 2);
                     currentActionStr = possibleActions[activeActionNum];
                     StartActionCoroutine = StartCoroutine(SwitchActionCoroutine(currentActionStr));
-                    ActionStarted = true;
-                }
+                    
+                
                 break;
 
             case "CoverObject":
@@ -174,6 +174,13 @@ public class BanditEnemy : MonoBehaviour
                 }
 
                 break;
+
+            case "Player":
+                StopAllCoroutines();
+                StartActionCoroutine = null;
+                ShootCoroutine = null;
+                MoveRandomCoroutine = null;
+                break;
         }
     }
 
@@ -218,11 +225,18 @@ public class BanditEnemy : MonoBehaviour
         {
             if (!activeCovers[i].GetComponentInChildren<CoverPointScript>().isCovered)
             {
-                activeCovers[i].GetComponentInChildren<CoverPointScript>().isCovered = true;
-                movePos = activeCovers[i].GetComponentInChildren<CoverPointScript>().gameObject.transform.position;
+                if (ActiveCoverObject != null)
+                {
+                    ActiveCoverObject.GetComponentInChildren<CoverPointScript>().isCovered = false;
+                }
+                ActiveCoverObject = activeCovers[i];
+                ActiveCoverObject.GetComponentInChildren<CoverPointScript>().isCovered = true;
+                movePos = ActiveCoverObject.GetComponentInChildren<CoverPointScript>().gameObject.transform.position;
                 Debug.Log(movePos);
                 moveTime = true;
                 Invoke("ResetMoveTime", 5f);
+                activeCovers.Remove(ActiveCoverObject);
+                activeCovers.Add(ActiveCoverObject);
                 break;
             }
 
@@ -251,7 +265,14 @@ public class BanditEnemy : MonoBehaviour
             Debug.Log("Stopped Shoot");
         }
     }
-
+    void EndActionCoroutine()
+    {
+        if (StartActionCoroutine != null)
+        {
+            StopCoroutine(StartActionCoroutine);
+            StartActionCoroutine = null;
+        }
+    }
     void EndRandomMoveCoroutine()
     {
         if (MoveRandomCoroutine != null)
