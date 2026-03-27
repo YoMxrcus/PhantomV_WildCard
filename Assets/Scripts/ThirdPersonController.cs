@@ -160,7 +160,10 @@ public class ThirdPersonController : MonoBehaviour
         {
             if (!playerSounds.isPlaying)
             {
-                playerSounds.clip = walking;
+                if (!Keyboard.current.shiftKey.isPressed)
+                {
+                    playerSounds.clip = walking;
+                }
                 playerSounds.loop = true;
                 playerSounds.Play();
             }
@@ -188,6 +191,25 @@ public class ThirdPersonController : MonoBehaviour
 
     void Update()
     {
+        if (Keyboard.current.shiftKey.wasPressedThisFrame)
+        {
+            playerSounds.Stop();
+            playerSounds.clip = running;
+            if (moveInput.sqrMagnitude > 0)
+            {
+                playerSounds.Play();
+            }
+        }
+        else if (Keyboard.current.shiftKey.wasReleasedThisFrame)
+        {
+            playerSounds.Stop();
+            playerSounds.clip = walking;
+            if (moveInput.sqrMagnitude > 0)
+            {
+                playerSounds.Play();
+            }
+        }
+
         if (Keyboard.current[Key.Digit1].wasPressedThisFrame && !InPuzzle)
         {
             if (CurrentInvSelect == 0)
@@ -287,10 +309,6 @@ public class ThirdPersonController : MonoBehaviour
             if (Keyboard.current.shiftKey.isPressed && stamina > 0 && allowSprint)
             {
                 moveSpeed = 9;
-                playerSounds.Stop();
-                playerSounds.clip = running;
-                playerSounds.loop = true;
-                playerSounds.Play();
                 if (!stimActive)
                 {
                     stamina -= sprintDepletionRate * Time.deltaTime;
