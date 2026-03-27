@@ -306,6 +306,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8456690154476901006}
     m_Modifications:
+    - target: {fileID: 954942785868466895, guid: b785c3c473682864e8488d9f91750dd7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c3614b3bd65f38b4c95e9a9abc4cf16e, type: 2}
     - target: {fileID: 1603386020977224474, guid: b785c3c473682864e8488d9f91750dd7, type: 3}
       propertyPath: m_Name
       value: Crate
