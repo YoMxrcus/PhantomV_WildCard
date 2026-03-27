@@ -38609,7 +38609,7 @@ MonoBehaviour:
   CurrentInvSelect: 0
   playerSounds: {fileID: 1720478198}
   walking: {fileID: 8300000, guid: e4cdf40e16e57e64188b9feea69ed1f0, type: 3}
-  running: {fileID: 0}
+  running: {fileID: 8300000, guid: a755187f7b43f4948bd5af50aeff9b2f, type: 3}
 --- !u!114 &1720478194
 MonoBehaviour:
   m_ObjectHideFlags: 0
