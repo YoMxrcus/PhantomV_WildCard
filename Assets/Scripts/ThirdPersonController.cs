@@ -142,22 +142,33 @@ public class ThirdPersonController : MonoBehaviour
                 condensorActive = false;
                 StopCondensorCoroutine();
                 StartHeatCoroutine();
-            
-
+           
         condensorHealthCoroutine = null;
     }
 
     private void Start()
     {
-        StartHeatCoroutine();
-       
-        
+        StartHeatCoroutine(); 
     }
 
     // Called automatically by PlayerInput
     public void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
+
+        if (moveInput.sqrMagnitude > 0)
+        {
+            if (!playerSounds.isPlaying)
+            {
+                if (!Keyboard.current.shiftKey.isPressed)
+                {
+                    playerSounds.clip = walking;
+                }
+                playerSounds.loop = true;
+                playerSounds.Play();
+            }
+        }
+        else {playerSounds.Stop();}
     }
 
     private void FixedUpdate()
@@ -180,6 +191,25 @@ public class ThirdPersonController : MonoBehaviour
 
     void Update()
     {
+        if (Keyboard.current.shiftKey.wasPressedThisFrame)
+        {
+            playerSounds.Stop();
+            playerSounds.clip = running;
+            if (moveInput.sqrMagnitude > 0)
+            {
+                playerSounds.Play();
+            }
+        }
+        else if (Keyboard.current.shiftKey.wasReleasedThisFrame)
+        {
+            playerSounds.Stop();
+            playerSounds.clip = walking;
+            if (moveInput.sqrMagnitude > 0)
+            {
+                playerSounds.Play();
+            }
+        }
+
         if (Keyboard.current[Key.Digit1].wasPressedThisFrame && !InPuzzle)
         {
             if (CurrentInvSelect == 0)
@@ -237,14 +267,7 @@ public class ThirdPersonController : MonoBehaviour
                 Shotgun();
                 return;
         }
-
-
-
-
-       
     }
-
-
 
     IEnumerator Dash()
     {
