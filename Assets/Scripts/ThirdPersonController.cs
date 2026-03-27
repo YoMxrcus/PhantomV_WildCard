@@ -97,7 +97,7 @@ public class ThirdPersonController : MonoBehaviour
     public int CurrentInvSelect = 0;
 
     public AudioSource playerSounds;
-    public AudioClip walking, running;
+    public AudioClip walking, running, shotgunReload, shotgunRecock, shotgunShot;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -897,6 +897,7 @@ public class ThirdPersonController : MonoBehaviour
 
             else
             {
+                playerSounds.PlayOneShot(shotgunReload);
                 shotgunAmmo -= 10;
                 shotgunMag += 10;
             }
