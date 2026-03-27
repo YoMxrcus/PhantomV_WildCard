@@ -31,8 +31,9 @@ public class BanditEnemy : MonoBehaviour
     Vector3 randomPos;
     public Vector3 direction;
     public Coroutine ShootCoroutine, MoveRandomCoroutine, StartActionCoroutine;
-    string currentActionStr;
+    public string currentActionStr;
     public bool ActionStarted = false;
+    float yPosition;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
 
@@ -56,6 +57,8 @@ public class BanditEnemy : MonoBehaviour
     }
     private void Update()
     {
+        yPosition = player.transform.position.y;
+        
     }
     private void FixedUpdate()
     {
@@ -64,7 +67,7 @@ public class BanditEnemy : MonoBehaviour
 
         if (moveTime)
         {
-            Vector3 MoveFunction = Vector3.MoveTowards(enemy.transform.position, movePos, speed * Time.deltaTime);
+            Vector3 MoveFunction = Vector3.MoveTowards(enemy.transform.position, new Vector3 (movePos.x, yPosition, movePos.z), speed * Time.deltaTime);
             enemy.transform.position = MoveFunction;
             
         }
@@ -95,13 +98,13 @@ public class BanditEnemy : MonoBehaviour
         while (true)
         {
             Debug.Log("reached here");
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(8f);
 
             Debug.Log("reached here2");
             activeActionNum = Random.Range(0, 2);
             currentActionStr = possibleActions[activeActionNum];
-            Debug.Log("currentActionStr");
-            CheckAction(currentAction);
+            Debug.Log(currentActionStr);
+            CheckAction(currentActionStr);
         }
     }
 
@@ -178,13 +181,13 @@ public class BanditEnemy : MonoBehaviour
     public IEnumerator RandomMoveCoroutine()
     {
         moveRandom = true;
-        randomPos = new Vector3(transform.position.x + Random.Range(-3, 4), transform.position.y, transform.position.z + Random.Range(-3, 4));
+        randomPos = new Vector3(transform.position.x + Random.Range(-3, 4), yPosition, transform.position.z + Random.Range(-3, 4));
 
         while (fighting)
         {
             yield return new WaitForSeconds(10f);
             moveRandom = true;
-            randomPos = new Vector3(transform.position.x + Random.Range(-3, 4), transform.position.y, transform.position.z + Random.Range(-3, 4));
+            randomPos = new Vector3(transform.position.x + Random.Range(-3, 4), yPosition, transform.position.z + Random.Range(-3, 4));
         }
 
     }
@@ -210,6 +213,7 @@ public class BanditEnemy : MonoBehaviour
 
     void Hide()
     {
+        EndShootCoroutine(); // Stops shooting when hiding
         for (int i = 0; i < activeCovers.Count; i++)
         {
             if (!activeCovers[i].GetComponentInChildren<CoverPointScript>().isCovered)
@@ -225,6 +229,7 @@ public class BanditEnemy : MonoBehaviour
             else
             {
                 Debug.Log("GameBroken");
+                moveTime = false;
                 continue;
             }
         }
@@ -240,8 +245,10 @@ public class BanditEnemy : MonoBehaviour
     {
         if (ShootCoroutine != null)
         {
+            Debug.Log("Stop Shoot");
             StopCoroutine(ShootCoroutine);
             ShootCoroutine = null;
+            Debug.Log("Stopped Shoot");
         }
     }
 
@@ -271,7 +278,7 @@ public class BanditEnemy : MonoBehaviour
                 ResetActions();
                 if (!hiding)
                 {
-                    Invoke("Hide", Random.Range(1f, 3f));
+                    Invoke("Hide", Random.Range(1f, 2f));
                     hiding = true;
                 }
                 break;
