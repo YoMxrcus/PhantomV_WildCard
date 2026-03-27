@@ -142,22 +142,30 @@ public class ThirdPersonController : MonoBehaviour
                 condensorActive = false;
                 StopCondensorCoroutine();
                 StartHeatCoroutine();
-            
-
+           
         condensorHealthCoroutine = null;
     }
 
     private void Start()
     {
-        StartHeatCoroutine();
-       
-        
+        StartHeatCoroutine(); 
     }
 
     // Called automatically by PlayerInput
     public void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
+
+        if (moveInput.sqrMagnitude > 0)
+        {
+            if (!playerSounds.isPlaying)
+            {
+                playerSounds.clip = walking;
+                playerSounds.loop = true;
+                playerSounds.Play();
+            }
+        }
+        else {playerSounds.Stop();}
     }
 
     private void FixedUpdate()
@@ -237,14 +245,7 @@ public class ThirdPersonController : MonoBehaviour
                 Shotgun();
                 return;
         }
-
-
-
-
-       
     }
-
-
 
     IEnumerator Dash()
     {
@@ -286,6 +287,10 @@ public class ThirdPersonController : MonoBehaviour
             if (Keyboard.current.shiftKey.isPressed && stamina > 0 && allowSprint)
             {
                 moveSpeed = 9;
+                playerSounds.Stop();
+                playerSounds.clip = running;
+                playerSounds.loop = true;
+                playerSounds.Play();
                 if (!stimActive)
                 {
                     stamina -= sprintDepletionRate * Time.deltaTime;
