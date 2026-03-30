@@ -365,7 +365,7 @@ public class BanditEnemy : MonoBehaviour
 
         Rigidbody rb = grenade.GetComponent<Rigidbody>();
 
-        float timeToTarget = 3f; //  tweak this for arc shape
+        float timeToTarget = 2.5f; //  tweak this for arc shape
 
         Vector3 velocity = CalculateLaunchVelocity(
             throwPoint.position,
