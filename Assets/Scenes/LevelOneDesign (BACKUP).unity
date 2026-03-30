@@ -13416,7 +13416,7 @@ GameObject:
   - component: {fileID: 452881417}
   m_Layer: 0
   m_Name: Cube (22)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20123,7 +20123,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1595511799}
   m_Father: {fileID: 516290894}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &836681725
@@ -20193,6 +20194,12 @@ MonoBehaviour:
   currentActionStr: 
   ActionStarted: 0
   ActiveCoverObject: {fileID: 0}
+<<<<<<< HEAD
+=======
+  GrenadePrefab: {fileID: 8279318609455448294, guid: cc68b596be4a06041a34159ed6e78da0, type: 3}
+  throwPoint: {fileID: 1595511799}
+  launchAngle: 45
+>>>>>>> 8fcb0cf8793249658a92a437fb2caa3740e906ff
 --- !u!65 &836681727
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -35656,6 +35663,12 @@ MonoBehaviour:
   currentActionStr: 
   ActionStarted: 0
   ActiveCoverObject: {fileID: 0}
+<<<<<<< HEAD
+=======
+  GrenadePrefab: {fileID: 0}
+  throwPoint: {fileID: 0}
+  launchAngle: 45
+>>>>>>> 8fcb0cf8793249658a92a437fb2caa3740e906ff
 --- !u!65 &1511621886
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -35717,6 +35730,12 @@ MonoBehaviour:
   currentActionStr: 
   ActionStarted: 0
   ActiveCoverObject: {fileID: 0}
+<<<<<<< HEAD
+=======
+  GrenadePrefab: {fileID: 0}
+  throwPoint: {fileID: 0}
+  launchAngle: 45
+>>>>>>> 8fcb0cf8793249658a92a437fb2caa3740e906ff
 --- !u!1 &1524327175
 GameObject:
   m_ObjectHideFlags: 0
@@ -36742,6 +36761,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 41.059982}
   m_SizeDelta: {x: 50, y: 167.31}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1595511798
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1595511799}
+  m_Layer: 0
+  m_Name: ThrowPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1595511799
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1595511798}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.79, y: 0.56, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 836681724}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1623855414
 GameObject:
   m_ObjectHideFlags: 0
@@ -38615,10 +38665,14 @@ MonoBehaviour:
   running: {fileID: 8300000, guid: a755187f7b43f4948bd5af50aeff9b2f, type: 3}
   shotgunReload: {fileID: 8300000, guid: c4ccf620fb956d0478ccd99f0a00bb56, type: 3}
   shotgunRecock: {fileID: 8300000, guid: cdfef9eb30491b345aee9619e19310af, type: 3}
+<<<<<<< HEAD
   shotgunShot: {fileID: 8300000, guid: 2104890068d15db4b8d70bcfbf326448, type: 3}
   generatorStart: {fileID: 8300000, guid: 81d77f40617407f4785513a452ec368d, type: 3}
   generatorRunning: {fileID: 8300000, guid: 90f5853364700d64fa46860d8039f0bc, type: 3}
   generatorStop: {fileID: 8300000, guid: b8073518371e623479699d022226d631, type: 3}
+=======
+  shotgunShot: {fileID: 0}
+>>>>>>> 8fcb0cf8793249658a92a437fb2caa3740e906ff
 --- !u!114 &1720478194
 MonoBehaviour:
   m_ObjectHideFlags: 0
