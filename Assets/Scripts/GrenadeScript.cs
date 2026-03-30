@@ -5,10 +5,11 @@ public class GrenadeScript : MonoBehaviour
 
     [SerializeField] Vector3 HitPoint;
     bool HitGround = false;
+    [SerializeField]GameObject EffectArea;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        EffectArea = transform.Find("Sphere").GetComponent<GrenadeDetectScript>().gameObject;
     }
 
     // Update is called once per frame
@@ -28,6 +29,7 @@ public class GrenadeScript : MonoBehaviour
             case "Ground":
                 HitPoint = transform.position;
                 HitGround = true;
+                EffectArea.SetActive(true);
                 break;
         }
     }
