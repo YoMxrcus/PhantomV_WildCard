@@ -18,7 +18,7 @@ public class BanditEnemy : MonoBehaviour
     public bool canShoot = true;
     public bool canMove = true;
     public int activeActionNum;
-    public List<string> possibleActions = new List<string>() {"Hide", "Fight", "Heal", "Grenade"};
+    public List<string> possibleActions = new List<string>() {"Hide", "Fight", "Grenade", "Heal"};
     public List<GameObject> activeCovers = new List<GameObject>();
     public bool hiding, fighting, healing, grenading;
     bool collectingInitial = true;
@@ -107,7 +107,7 @@ public class BanditEnemy : MonoBehaviour
             yield return new WaitForSeconds(8f);
 
             Debug.Log("reached here2");
-            activeActionNum = Random.Range(3, 4);
+            activeActionNum = Random.Range(0, 3);
             currentActionStr = possibleActions[activeActionNum];
             Debug.Log(currentActionStr);
             CheckAction(currentActionStr);
@@ -120,7 +120,7 @@ public class BanditEnemy : MonoBehaviour
         {
             case "Player":
                 
-                    activeActionNum = Random.Range(3, 4);
+                    activeActionNum = Random.Range(0, 3);
                     currentActionStr = possibleActions[activeActionNum];
                     StartActionCoroutine = StartCoroutine(SwitchActionCoroutine(currentActionStr));
                     
@@ -361,6 +361,8 @@ public class BanditEnemy : MonoBehaviour
 
     void ThrowGrenade(Vector3 targetPosition)
     {
+        EndShootCoroutine();
+
         GameObject grenade = Instantiate(GrenadePrefab, throwPoint.position, Quaternion.identity);
 
         Rigidbody rb = grenade.GetComponent<Rigidbody>();

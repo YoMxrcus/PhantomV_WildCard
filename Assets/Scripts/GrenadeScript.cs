@@ -30,6 +30,7 @@ public class GrenadeScript : MonoBehaviour
                 HitPoint = transform.position;
                 HitGround = true;
                 EffectArea.SetActive(true);
+                Debug.Log("Set True!");
                 break;
         }
     }
