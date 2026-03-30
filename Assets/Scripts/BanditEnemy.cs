@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -35,6 +35,10 @@ public class BanditEnemy : MonoBehaviour
     public bool ActionStarted = false;
     float yPosition;
     public GameObject ActiveCoverObject;
+
+    public GameObject GrenadePrefab;
+    [SerializeField] Transform throwPoint;
+    [SerializeField] float launchAngle = 45f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
 
@@ -59,6 +63,7 @@ public class BanditEnemy : MonoBehaviour
     private void Update()
     {
         yPosition = player.transform.position.y;
+        playerPos = playerMover.transform.position;
         
     }
     private void FixedUpdate()
@@ -102,7 +107,7 @@ public class BanditEnemy : MonoBehaviour
             yield return new WaitForSeconds(8f);
 
             Debug.Log("reached here2");
-            activeActionNum = Random.Range(0, 2);
+            activeActionNum = Random.Range(3, 4);
             currentActionStr = possibleActions[activeActionNum];
             Debug.Log(currentActionStr);
             CheckAction(currentActionStr);
@@ -115,7 +120,7 @@ public class BanditEnemy : MonoBehaviour
         {
             case "Player":
                 
-                    activeActionNum = Random.Range(0, 2);
+                    activeActionNum = Random.Range(3, 4);
                     currentActionStr = possibleActions[activeActionNum];
                     StartActionCoroutine = StartCoroutine(SwitchActionCoroutine(currentActionStr));
                     
@@ -326,8 +331,50 @@ public class BanditEnemy : MonoBehaviour
                 if (!grenading)
                 {
                     grenading = true;
+                    ThrowGrenade(playerPos);
+                    grenading = false;
                 }
                 break;
         }
+    }
+
+    public static Vector3 CalculateLaunchVelocity(
+     Vector3 start,
+     Vector3 target,
+     float time
+ )
+    {
+        Vector3 displacement = target - start;
+
+        // Horizontal velocity (x and z)
+        Vector3 velocity = new Vector3(
+            displacement.x / time,
+            0f,
+            displacement.z / time
+        );
+
+        // Vertical velocity (y)
+        velocity.y = (displacement.y / time) - (0.5f * Physics.gravity.y * time);
+
+        return velocity;
+    }
+
+    void ThrowGrenade(Vector3 targetPosition)
+    {
+        GameObject grenade = Instantiate(GrenadePrefab, throwPoint.position, Quaternion.identity);
+
+        Rigidbody rb = grenade.GetComponent<Rigidbody>();
+
+        float timeToTarget = 3f; //  tweak this for arc shape
+
+        Vector3 velocity = CalculateLaunchVelocity(
+            throwPoint.position,
+            targetPosition,
+            timeToTarget
+        );
+
+        Debug.Log("Applying velocity: " + velocity);
+
+        rb.linearVelocity = velocity; // direct and reliable
     }
 }
