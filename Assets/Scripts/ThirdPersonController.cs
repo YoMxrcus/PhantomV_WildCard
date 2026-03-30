@@ -247,6 +247,7 @@ public class ThirdPersonController : MonoBehaviour
         else if (Keyboard.current.cKey.isPressed && InPuzzle)
         {
             StartCoroutine(Dash());
+            playerSounds.PlayOneShot(generatorStop);
         }
         CheckLoot();
         CheckReload();
