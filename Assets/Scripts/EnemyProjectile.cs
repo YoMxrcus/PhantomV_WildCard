@@ -45,6 +45,7 @@ public class EnemyProjectile : MonoBehaviour
     {
        if (other.gameObject.CompareTag("Player"))
        {
+            other.gameObject.GetComponent<ThirdPersonController>().health -= 5;
             Destroy(gameObject);
        }
 
