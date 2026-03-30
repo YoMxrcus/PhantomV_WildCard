@@ -97,7 +97,7 @@ public class ThirdPersonController : MonoBehaviour
     public int CurrentInvSelect = 0;
 
     public AudioSource playerSounds;
-    public AudioClip walking, running, shotgunReload, shotgunRecock, shotgunShot;
+    public AudioClip walking, running, shotgunReload, shotgunRecock, shotgunShot, generatorStart, generatorRunning, generatorStop;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -415,6 +415,10 @@ public class ThirdPersonController : MonoBehaviour
                 if (Keyboard.current.fKey.isPressed == true && CurrentGenerator.GetComponent<GeneratorScript>().minigamesComplete < 3) 
                 
                 {
+                    if (!InPuzzle)
+                    {
+                        playerSounds.PlayOneShot(generatorStart);
+                    }
                     if (interactTextNum == 1)
                     {
                         interactTextNum = -1;
