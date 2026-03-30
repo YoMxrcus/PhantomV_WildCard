@@ -16,6 +16,8 @@ TagManager:
   - DoorOpen
   - EnemySpawner
   - CoverObject
+  - grenade
+  - Ground
   layers:
   - Default
   - TransparentFX
