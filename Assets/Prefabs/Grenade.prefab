@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.026815299, y: 0.07, z: -0.03}
-  m_LocalScale: {x: 17.389353, y: 0.1, z: 17.389353}
+  m_LocalScale: {x: 30.300947, y: 0.17424999, z: 30.300947}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7953369819784377553}
@@ -125,6 +125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3380f977dec9d1646a15ae5bd9cb14d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrenadeDetectScript
+  PlayerInField: 0
+  Player: {fileID: 0}
+  ParentGrenade: {fileID: 0}
 --- !u!1 &8081649499652155768
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +159,7 @@ Transform:
   m_GameObject: {fileID: 8081649499652155768}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 92.860634, y: -0.9063474, z: -17.87869}
+  m_LocalPosition: {x: 71.613335, y: -0.9063475, z: -17.248442}
   m_LocalScale: {x: 0.3314617, y: 0.3314617, z: 0.3314617}
   m_ConstrainProportionsScale: 0
   m_Children:

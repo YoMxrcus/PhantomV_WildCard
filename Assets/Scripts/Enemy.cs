@@ -35,12 +35,14 @@ public class Enemy : MonoBehaviour
         switch(other.gameObject.tag)
         {
             case "projectile":
-                EnemyHealth -= 20;
+                EnemyHealth -= Player.GetComponent<ThirdPersonController>().currentDamage;
 
                 if (EnemyHealth <= 0)
                 {
                     DestroyEnemy();
                 }
+
+                Destroy(other.gameObject);
                 return;
             
         }
