@@ -19,7 +19,7 @@ public class BanditHealth : MonoBehaviour
 
                 if (banditHealth <= 0)
                 {
-                    Destroy(transform.parent);
+                    Destroy(transform.parent.gameObject);
                 }
 
                 Destroy(other.gameObject);

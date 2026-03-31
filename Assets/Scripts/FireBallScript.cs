@@ -42,7 +42,15 @@ public class FireBallScript : MonoBehaviour
     }
 
 
-    
+    private void OnTriggerEnter(Collider other)
+    {
+        switch (other.gameObject.tag)
+        {
+            case "CoverObject":
+                Destroy(gameObject);
+                break;
+        }
+    }
 
-   
+
 }
