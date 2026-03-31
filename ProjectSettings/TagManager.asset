@@ -18,6 +18,7 @@ TagManager:
   - CoverObject
   - grenade
   - Ground
+  - BanditHitbox
   layers:
   - Default
   - TransparentFX
