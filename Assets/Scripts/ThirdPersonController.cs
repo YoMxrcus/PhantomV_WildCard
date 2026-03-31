@@ -79,6 +79,7 @@ public class ThirdPersonController : MonoBehaviour
     public int assaultMag = 25;
     public int shotgunMag = 10;
     public TMP_Text MagNum, MaxAmmo;
+    public int currentDamage = 20;
 
     private bool isCocked = true;
     // Pattern for shotgun spread
@@ -259,14 +260,17 @@ public class ThirdPersonController : MonoBehaviour
         switch (activeGun)
         {
             case 0:
+                currentDamage = 35;
                 Shoot();
                 return;
 
             case 1:
+                currentDamage = 15;
                 AssaultRifle();
                 return;
 
             case 2:
+                currentDamage = 45;
                 Shotgun();
                 return;
         }
@@ -615,6 +619,7 @@ public class ThirdPersonController : MonoBehaviour
         // Cocking mechanic
         if (Keyboard.current.rKey.wasPressedThisFrame && !isCocked)
         {
+            playerSounds.PlayOneShot(shotgunRecock);
             isCocked = true;
             Debug.Log("Gun Cocked");
         }
@@ -634,6 +639,7 @@ public class ThirdPersonController : MonoBehaviour
             }
             if (Physics.Raycast(ray, out hit, raycastDistance))
             {
+                playerSounds.PlayOneShot(shotgunShot);
                 Vector3 impact = (hit.point - transform.position).normalized;
                 impact.y = 0;
 
