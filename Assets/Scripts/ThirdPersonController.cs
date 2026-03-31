@@ -619,6 +619,7 @@ public class ThirdPersonController : MonoBehaviour
         // Cocking mechanic
         if (Keyboard.current.rKey.wasPressedThisFrame && !isCocked)
         {
+            playerSounds.PlayOneShot(shotgunRecock);
             isCocked = true;
             Debug.Log("Gun Cocked");
         }
@@ -638,6 +639,7 @@ public class ThirdPersonController : MonoBehaviour
             }
             if (Physics.Raycast(ray, out hit, raycastDistance))
             {
+                playerSounds.PlayOneShot(shotgunShot);
                 Vector3 impact = (hit.point - transform.position).normalized;
                 impact.y = 0;
 

@@ -12,6 +12,10 @@ public class GeneratorScript : MonoBehaviour
     public GameObject doorTwo;
     public GameObject doorThree;
 
+    public AudioSource generatorSounds;
+    public AudioClip generatorCorrect, openDoor; //where do I put this?
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,14 +31,17 @@ public class GeneratorScript : MonoBehaviour
         
         {
             case 1:
+                generatorSounds.PlayOneShot(generatorCorrect);
                 lightOne.GetComponent<Renderer>().material = completeMaterial;
                 return;
 
             case 2:
+                generatorSounds.PlayOneShot(generatorCorrect);
                 lightTwo.GetComponent<Renderer>().material = completeMaterial;
                 return;
 
             case 3:
+                generatorSounds.PlayOneShot(generatorCorrect);
                 lightThree.GetComponent<Renderer>().material = completeMaterial;
                 switch (gameObject.name)
                 {
