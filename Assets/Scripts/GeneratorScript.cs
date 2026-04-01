@@ -52,7 +52,7 @@ public class GeneratorScript : MonoBehaviour
                         doorOne.SetActive(false);
                         doorTwo.SetActive(false);
 
-                        SceneManager.LoadScene("LevelTwo_F");
+
                         break;
 
 
