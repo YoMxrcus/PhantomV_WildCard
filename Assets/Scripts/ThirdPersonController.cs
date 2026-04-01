@@ -99,6 +99,10 @@ public class ThirdPersonController : MonoBehaviour
 
     public int CurrentInvSelect = 0;
 
+    public GameObject GrenadePrefab;
+    [SerializeField] Transform throwPoint;
+    //Vector3 targetPosition ;
+
     public AudioSource playerSounds;
     public AudioClip walking, running, shotgunReload, shotgunRecock, shotgunShot, generatorStart, generatorRunning, generatorStop;
     private void Awake()
@@ -252,6 +256,7 @@ public class ThirdPersonController : MonoBehaviour
             StartCoroutine(Dash());
             playerSounds.PlayOneShot(generatorStop);
         }
+        CheckGrenade();
         CheckLoot();
         CheckReload();
         StimActivate();
@@ -711,6 +716,58 @@ public class ThirdPersonController : MonoBehaviour
                 }
             }
         }
+    }
+    void ThrowGrenade(Vector3 targetPosition)
+    {
+
+            GameObject grenade = Instantiate(GrenadePrefab, throwPoint.position, Quaternion.identity);
+
+            Rigidbody rb = grenade.GetComponent<Rigidbody>();
+
+
+            float timeToTarget = 2.5f; //  tweak this for arc shape
+
+            Vector3 velocity = CalculateLaunchVelocity(throwPoint.position, targetPosition, timeToTarget);
+            
+            Debug.Log("Applying velocity: " + velocity);
+
+            rb.linearVelocity = velocity; 
+
+        
+    }
+    void CheckGrenade()
+    {
+       
+        if (Mouse.current.leftButton.wasPressedThisFrame && aiming && CurrentInvSelect == 3 && grenades > 0)
+        {
+           
+            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.value);
+
+            RaycastHit hit;
+
+            float raycastDistance = 100f;
+
+            if (Physics.Raycast(ray, out hit, raycastDistance))
+            {
+                
+                ThrowGrenade(hit.point);
+                grenades--;
+            }
+        }
+
+        
+    }
+    public static Vector3 CalculateLaunchVelocity(Vector3 start, Vector3 target, float time)
+    {
+        Vector3 displacement = target - start;
+
+        // Horizontal velocity (x and z)
+        Vector3 velocity = new Vector3( displacement.x / time, 0f,displacement.z / time );
+
+        // Vertical velocity (y)
+        velocity.y = (displacement.y / time) - (0.5f * Physics.gravity.y * time);
+
+        return velocity;
     }
     public void UpdateUI()
     {
