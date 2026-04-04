@@ -104,7 +104,7 @@ public class ThirdPersonController : MonoBehaviour
     //Vector3 targetPosition ;
 
     public AudioSource playerSounds;
-    public AudioClip walking, running, shotgunReload, shotgunRecock, shotgunShot, generatorStart, generatorRunning, generatorStop;
+    public AudioClip walking, running, shotgunReload, shotgunRecock, shotgunShot, dash, takingDamage, grunt, switchWeapons, syringe, useCondensor,throwGrenade, lootBox, lootTrashcan, generatorStart, generatorRunning, generatorStop;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -249,11 +249,13 @@ public class ThirdPersonController : MonoBehaviour
         if (Keyboard.current.spaceKey.wasPressedThisFrame && canDash && stamina >= 30 && !InPuzzle)
         {
             StartCoroutine(Dash());
+            playerSounds.PlayOneShot(dash);
         }
 
         else if (Keyboard.current.cKey.isPressed && InPuzzle)
         {
             StartCoroutine(Dash());
+            playerSounds.PlayOneShot(dash);
             playerSounds.PlayOneShot(generatorStop);
         }
         CheckGrenade();
@@ -503,6 +505,7 @@ public class ThirdPersonController : MonoBehaviour
                     }
 
                     lootPanel.SetActive(true);
+                    playerSounds.PlayOneShot(lootTrashcan);
 
                     if (currentLootBox.GetComponent<LootBox>().Randomized == false) 
                     {
