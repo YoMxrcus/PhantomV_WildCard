@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 public class LootBox : MonoBehaviour
 {
 
-    [SerializeField] List<string> LootNames = new List<string>() { "Stim", "Grenade", "PistolAmmo", "AssaultAmmo", "ShotgunAmmo" };
+    [SerializeField] List<string> LootNames = new List<string>() { "Stim", "Grenade", "PistolAmmo", "AssaultAmmo", "ShotgunAmmo", "Bandage" };
     [SerializeField] int LootCount = 0;
     public List<string> CurrentLoot = new List<string>();
     public GameObject Player;
@@ -13,7 +13,7 @@ public class LootBox : MonoBehaviour
     public bool Randomized = false;
 
     public GameObject[] LootIMAGES;
-    public Texture PistolAmmoIMAGE, AssaultAmmoIMAGE, ShotgunAmmoIMAGE, StimIMAGE, GrenadeIMAGE, EmptyIMAGE;
+    public Texture PistolAmmoIMAGE, AssaultAmmoIMAGE, ShotgunAmmoIMAGE, StimIMAGE, GrenadeIMAGE, EmptyIMAGE, BandageIMAGE;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     private void Awake()
@@ -27,7 +27,7 @@ public class LootBox : MonoBehaviour
 
             for (int i = 0; i < LootCount; i++)
             {
-                CurrentLoot.Add(LootNames[Random.Range(0, 5)]);
+                CurrentLoot.Add(LootNames[Random.Range(0, 6)]);
                 Debug.Log(CurrentLoot);
             }
 
@@ -65,6 +65,10 @@ public class LootBox : MonoBehaviour
 
                 case "ShotgunAmmo":
                     LootIMAGES[i].GetComponent<RawImage>().texture = ShotgunAmmoIMAGE;
+                    continue;
+
+                case "Bandage":
+                    LootIMAGES[i].GetComponent<RawImage>().texture = BandageIMAGE;
                     continue;
             }
 

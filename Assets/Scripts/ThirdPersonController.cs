@@ -71,6 +71,7 @@ public class ThirdPersonController : MonoBehaviour
     public int condensors = 0;
     public int stims = 0;
     public int grenades = 0;
+    public int bandages = 0;
     public int pistolAmmo = 50;
     public int assaultAmmo = 75;
     public int shotgunAmmo = 30;
@@ -90,10 +91,10 @@ public class ThirdPersonController : MonoBehaviour
     public float bloom = 0.20f; //recoil offset
 
     public int condensorHealth = 0;
-    public Sprite StimIMAGE, GrenadeIMAGE, EmptyIMAGE,CondensorImage, PistolImage, AssaultRifleIMAGE, ShotgunIMAGE;
-    public GameObject gunSlot, invSlotTwo, invSlotThree, invSlotFour;
+    public Sprite StimIMAGE, GrenadeIMAGE, EmptyIMAGE,CondensorImage, PistolImage, AssaultRifleIMAGE, ShotgunIMAGE, BandageIMAGE;
+    public GameObject gunSlot, invSlotTwo, invSlotThree, invSlotFour, invSlotFive;
     public GameObject[] InventorySelects;
-    public TMP_Text CondensorNum, StimNum, GrenadeNum;
+    public TMP_Text CondensorNum, StimNum, GrenadeNum, BandageNum;
 
     [SerializeField] Coroutine heatCoroutine, condensorHealthCoroutine, condensorActiveCoroutine;
 
@@ -245,6 +246,11 @@ public class ThirdPersonController : MonoBehaviour
             CurrentInvSelect = 3;
             UpdateUI();
         }
+        if (Keyboard.current[Key.Digit5].wasPressedThisFrame && !InPuzzle)
+        {
+            CurrentInvSelect = 4;
+            UpdateUI();
+        }
 
         if (Keyboard.current.spaceKey.wasPressedThisFrame && canDash && stamina >= 30 && !InPuzzle)
         {
@@ -259,6 +265,7 @@ public class ThirdPersonController : MonoBehaviour
             playerSounds.PlayOneShot(generatorStop);
         }
         CheckGrenade();
+        CheckBandage();
         CheckLoot();
         CheckReload();
         StimActivate();
@@ -760,6 +767,17 @@ public class ThirdPersonController : MonoBehaviour
 
         
     }
+    void CheckBandage()
+    {
+       
+        if (Mouse.current.leftButton.wasPressedThisFrame && CurrentInvSelect == 4 && bandages > 0)
+        {
+            health += 25;
+            bandages--;
+        }
+
+        
+    }
     public static Vector3 CalculateLaunchVelocity(Vector3 start, Vector3 target, float time)
     {
         Vector3 displacement = target - start;
@@ -774,9 +792,11 @@ public class ThirdPersonController : MonoBehaviour
     }
     public void UpdateUI()
     {
-        arrow.transform.rotation = Quaternion.Euler(0,0, ((360/100) * HeaterUp) * -1);
+       
+        arrow.transform.rotation = Quaternion.Euler(0, 0, ((360 / 100) * HeaterUp) * -1);
         staminaBar.value = stamina;
         healthSlider.value = health;
+        if (health > 0) { health = 100; }
 
         switch (activeGun)
         {
@@ -799,25 +819,15 @@ public class ThirdPersonController : MonoBehaviour
                 break;
         }
 
-        if(condensors > 0)
-        {
-            invSlotTwo.SetActive(true);
-        }
-
-        else if (stims > 0)
-        {
-            invSlotThree.SetActive(true);
-        }
-
-        else if (grenades > 0)
-        {
-            invSlotFour.SetActive(true);
-        }
-        else { invSlotTwo.SetActive(false); invSlotThree.SetActive(false); invSlotFour.SetActive(false); }
+        invSlotTwo.SetActive(condensors > 0);
+        invSlotThree.SetActive(stims > 0);
+        invSlotFour.SetActive(grenades > 0);
+        invSlotFive.SetActive(bandages > 0);
 
         CondensorNum.text = condensors.ToString();
         StimNum.text = stims.ToString();
         GrenadeNum.text = grenades.ToString(); 
+        BandageNum.text = bandages.ToString();
 
         for (int i = 0; i < InventorySelects.Length; i++)
         {
@@ -1018,6 +1028,14 @@ public class ThirdPersonController : MonoBehaviour
 
                 case "ShotgunAmmo":
                     shotgunAmmo += 10;
+                    currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
+                    currentLootBox.GetComponent<LootBox>().ResetImages();
+                    currentLootBox.GetComponent<LootBox>().AssignImages();
+                    UpdateUI();
+                    break;
+
+                case "Bandage":
+                    bandages += 2;
                     currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
                     currentLootBox.GetComponent<LootBox>().ResetImages();
                     currentLootBox.GetComponent<LootBox>().AssignImages();
