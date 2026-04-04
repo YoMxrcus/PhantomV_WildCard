@@ -56,6 +56,7 @@ public class ThirdPersonController : MonoBehaviour
     public bool InLootTrigger = false;
     public bool condensorActive = false;
     public bool stimActive = false;
+    
 
     public GameObject CurrentGenerator;
     public GameObject InteractText;
@@ -199,6 +200,8 @@ public class ThirdPersonController : MonoBehaviour
 
     void Update()
     {
+      
+
         if (Keyboard.current.shiftKey.wasPressedThisFrame)
         {
             playerSounds.Stop();
@@ -327,7 +330,7 @@ public class ThirdPersonController : MonoBehaviour
                 Invoke("ResetSprint", 3f);
             }
 
-            if (Keyboard.current.shiftKey.isPressed && stamina > 0 && allowSprint)
+            if (Keyboard.current.shiftKey.isPressed && stamina > 0 && allowSprint && moveInput.sqrMagnitude > 0.01f)
             {
                 moveSpeed = 9;
                 if (!stimActive)
