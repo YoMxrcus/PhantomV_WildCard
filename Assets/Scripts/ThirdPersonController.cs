@@ -106,7 +106,7 @@ public class ThirdPersonController : MonoBehaviour
     //Vector3 targetPosition ;
 
     public AudioSource playerSounds;
-    public AudioClip walking, running, shotgunReload, shotgunRecock, shotgunShot, dash, takingDamage, grunt1, grunt2, grunt3, grunt4, switchWeapons, syringe, useCondensor,throwGrenade, lootTrashcan, generatorStart, generatorRunning, generatorStop;
+    public AudioClip walking, running, shotgunReload, shotgunRecock, shotgunShot, dash, grunt1, grunt2, grunt3, grunt4, switchWeapons, syringe, bandage, useCondensor,throwGrenade, lootTrashcan, generatorStart, generatorRunning, generatorStop;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -799,6 +799,7 @@ public class ThirdPersonController : MonoBehaviour
         if (Mouse.current.leftButton.wasPressedThisFrame && CurrentInvSelect == 4 && bandages > 0)
         {
             health += 25;
+            playerSounds.PlayOneShot(bandage);
             bandages--;
         }
 
