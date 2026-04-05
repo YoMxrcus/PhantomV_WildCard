@@ -889,6 +889,7 @@ public class ThirdPersonController : MonoBehaviour
             }
 
             condensorActive = true;
+            playerSounds.PlayOneShot(useCondensor);
 
             condensors--;
             condensorHealth = 50;

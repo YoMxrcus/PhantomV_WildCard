@@ -39823,10 +39823,10 @@ MonoBehaviour:
   lootPanel: {fileID: 1173757149}
   arrow: {fileID: 412294281}
   dial: {fileID: 1734250789}
-  condensors: 0
-  stims: 0
+  condensors: 3
+  stims: 3
   grenades: 3
-  bandages: 0
+  bandages: 3
   pistolAmmo: 50
   assaultAmmo: 75
   shotgunAmmo: 30
@@ -39880,7 +39880,7 @@ MonoBehaviour:
   switchWeapons: {fileID: 0}
   syringe: {fileID: 0}
   bandage: {fileID: 8300000, guid: 6cee27c0a8b8bb2439acb2c241af63de, type: 3}
-  useCondensor: {fileID: 0}
+  useCondensor: {fileID: 8300000, guid: 9548afc43b8fd8b4881e9b8930d58753, type: 3}
   throwGrenade: {fileID: 0}
   lootTrashcan: {fileID: 8300000, guid: bf33d7c8ce5587e4e83068edce9aec31, type: 3}
   generatorStart: {fileID: 8300000, guid: 81d77f40617407f4785513a452ec368d, type: 3}
