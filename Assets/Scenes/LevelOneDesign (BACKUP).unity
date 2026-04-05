@@ -39874,12 +39874,14 @@ MonoBehaviour:
   shotgunShot: {fileID: 8300000, guid: 2104890068d15db4b8d70bcfbf326448, type: 3}
   dash: {fileID: 8300000, guid: 6383a2d66868e4942ab8b4d52b74495c, type: 3}
   takingDamage: {fileID: 0}
-  grunt: {fileID: 0}
+  grunt1: {fileID: 8300000, guid: 4d74c770e46abb940b50928207b66860, type: 3}
+  grunt2: {fileID: 8300000, guid: 30c8e0b6689941745a899f8f229b118b, type: 3}
+  grunt3: {fileID: 8300000, guid: 888efb5eedf246844b6c593a8afbf382, type: 3}
+  grunt4: {fileID: 8300000, guid: 94c2656547d3ed34cb707ccddfe0ca60, type: 3}
   switchWeapons: {fileID: 0}
   syringe: {fileID: 0}
   useCondensor: {fileID: 0}
   throwGrenade: {fileID: 0}
-  lootBox: {fileID: 0}
   lootTrashcan: {fileID: 8300000, guid: bf33d7c8ce5587e4e83068edce9aec31, type: 3}
   generatorStart: {fileID: 8300000, guid: 81d77f40617407f4785513a452ec368d, type: 3}
   generatorRunning: {fileID: 8300000, guid: 90f5853364700d64fa46860d8039f0bc, type: 3}

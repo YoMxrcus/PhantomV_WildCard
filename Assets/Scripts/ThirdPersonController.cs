@@ -106,7 +106,7 @@ public class ThirdPersonController : MonoBehaviour
     //Vector3 targetPosition ;
 
     public AudioSource playerSounds;
-    public AudioClip walking, running, shotgunReload, shotgunRecock, shotgunShot, dash, takingDamage, grunt, switchWeapons, syringe, useCondensor,throwGrenade, lootBox, lootTrashcan, generatorStart, generatorRunning, generatorStop;
+    public AudioClip walking, running, shotgunReload, shotgunRecock, shotgunShot, dash, takingDamage, grunt1, grunt2, grunt3, grunt4, switchWeapons, syringe, useCondensor,throwGrenade, lootTrashcan, generatorStart, generatorRunning, generatorStop;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -546,7 +546,30 @@ public class ThirdPersonController : MonoBehaviour
 
             case "Enemy":
                 if (health > 10)
-                { health -= 10; }
+                { 
+                    health -= 10;
+                    playerSounds.loop = false;
+                    int grunt = Random.Range(1,5);
+                    switch (grunt)
+                    {
+                        case 1:
+                            playerSounds.clip = grunt1;
+                            playerSounds.Play();
+                            break;
+                        case 2:
+                            playerSounds.clip = grunt2;
+                            playerSounds.Play();
+                            break;
+                        case 3:
+                            playerSounds.clip = grunt3;
+                            playerSounds.Play();
+                            break;
+                        case 4:
+                            playerSounds.clip = grunt4;
+                            playerSounds.Play();
+                            break;
+                    }
+                }
                 enemyDamage = other.gameObject;
                 enemyDamage.GetComponent<Enemy>().HitboxGameObject.GetComponent<EnemyDetect>().canMove = false;
                 break;
