@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BanditHealth : MonoBehaviour
 {
-    int banditHealth = 100;
+    public int banditHealth = 100;
     public GameObject Player;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

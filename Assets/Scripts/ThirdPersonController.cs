@@ -799,7 +799,8 @@ public class ThirdPersonController : MonoBehaviour
         arrow.transform.rotation = Quaternion.Euler(0, 0, ((360 / 100) * HeaterUp) * -1);
         staminaBar.value = stamina;
         healthSlider.value = health;
-        if (health > 0) { health = 100; }
+
+        if (health > 100) { health = 100; }
 
         switch (activeGun)
         {
