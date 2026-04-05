@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &484783119752045977
+--- !u!1 &2010804668680443976
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,118 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8532154536354414133}
-  - component: {fileID: 2348543915603434585}
-  - component: {fileID: 3513936988980254441}
+  - component: {fileID: 6978483432093889410}
+  - component: {fileID: 2135984918628300371}
+  - component: {fileID: 6088841196195621472}
+  - component: {fileID: 7551394757693726241}
   m_Layer: 0
-  m_Name: BanditShell
-  m_TagString: BanditHitbox
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8532154536354414133
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 484783119752045977}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.000000014901, z: 0}
-  m_LocalScale: {x: 1.0795, y: 2.1837206, z: 1.0795}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8836478076470151453}
-  m_Father: {fileID: 6364906613430880513}
-  m_LocalEulerAnglesHint: {x: 0, y: 63.883, z: 0}
---- !u!136 &2348543915603434585
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 484783119752045977}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3513936988980254441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 484783119752045977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e80b2441500e3b244b517f433d65ca0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BanditHealth
-  Player: {fileID: 0}
---- !u!1 &1959427297391050960
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6364906613430880513}
-  - component: {fileID: 860423121869005803}
-  - component: {fileID: 4190372700608817793}
-  - component: {fileID: 398523708321360851}
-  m_Layer: 0
-  m_Name: BanditEnemyPROTO (8)
+  m_Name: BanditEnemyPROTO (6)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6364906613430880513
+--- !u!4 &6978483432093889410
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959427297391050960}
+  m_GameObject: {fileID: 2010804668680443976}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.5290531, z: -0, w: 0.84858876}
   m_LocalPosition: {x: 95.2, y: 0.09, z: -24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8532154536354414133}
+  - {fileID: 3421784720358553866}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &860423121869005803
+--- !u!33 &2135984918628300371
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959427297391050960}
+  m_GameObject: {fileID: 2010804668680443976}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &4190372700608817793
+--- !u!23 &6088841196195621472
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959427297391050960}
+  m_GameObject: {fileID: 2010804668680443976}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -162,13 +92,13 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &398523708321360851
+--- !u!136 &7551394757693726241
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959427297391050960}
+  m_GameObject: {fileID: 2010804668680443976}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -185,7 +115,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &3246539324502779109
+--- !u!1 &4613482711033315935
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -193,7 +123,78 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7574121531049463304}
+  - component: {fileID: 3421784720358553866}
+  - component: {fileID: 1238905029366587148}
+  - component: {fileID: 2456882008392165515}
+  m_Layer: 0
+  m_Name: BanditShell
+  m_TagString: BanditHitbox
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3421784720358553866
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4613482711033315935}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.000000014901, z: 0}
+  m_LocalScale: {x: 1.0795, y: 2.1837206, z: 1.0795}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5255069695774878893}
+  m_Father: {fileID: 6978483432093889410}
+  m_LocalEulerAnglesHint: {x: 0, y: 63.883, z: 0}
+--- !u!136 &1238905029366587148
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4613482711033315935}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2456882008392165515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4613482711033315935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e80b2441500e3b244b517f433d65ca0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BanditHealth
+  banditHealth: 100
+  Player: {fileID: 0}
+--- !u!1 &5038600579649263776
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3978753901797489413}
   m_Layer: 0
   m_Name: ThrowPoint
   m_TagString: Untagged
@@ -201,22 +202,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7574121531049463304
+--- !u!4 &3978753901797489413
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3246539324502779109}
+  m_GameObject: {fileID: 5038600579649263776}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.004, y: 1.189, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8836478076470151453}
+  m_Father: {fileID: 5255069695774878893}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8857859678830148386
+--- !u!1 &9161615411561289530
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -224,10 +225,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8836478076470151453}
-  - component: {fileID: 4393334275920845481}
-  - component: {fileID: 5643215013478682065}
-  - component: {fileID: 2565650895547402541}
+  - component: {fileID: 5255069695774878893}
+  - component: {fileID: 7903512929846526634}
+  - component: {fileID: 3706171797634188505}
+  - component: {fileID: 4063245568363362597}
   m_Layer: 0
   m_Name: Hitbox
   m_TagString: Hitbox
@@ -235,29 +236,29 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8836478076470151453
+--- !u!4 &5255069695774878893
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8857859678830148386}
+  m_GameObject: {fileID: 9161615411561289530}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7574121531049463304}
-  m_Father: {fileID: 8532154536354414133}
+  - {fileID: 3978753901797489413}
+  m_Father: {fileID: 3421784720358553866}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &4393334275920845481
+--- !u!65 &7903512929846526634
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8857859678830148386}
+  m_GameObject: {fileID: 9161615411561289530}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -272,19 +273,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 35, y: 1, z: 35}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5643215013478682065
+--- !u!114 &3706171797634188505
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8857859678830148386}
+  m_GameObject: {fileID: 9161615411561289530}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5de3752d9d3f25942aa963263e1dd3a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BanditEnemy
-  enemy: {fileID: 1959427297391050960}
+  enemy: {fileID: 2010804668680443976}
   player: {fileID: 0}
   playerMover: {fileID: 0}
   fireBall: {fileID: 4939932780079845728, guid: 26b9c525ebb1de74b9748264c010dd34, type: 3}
@@ -312,16 +313,16 @@ MonoBehaviour:
   currentActionStr: 
   ActionStarted: 0
   ActiveCoverObject: {fileID: 0}
-  GrenadePrefab: {fileID: 8081649499652155768, guid: cc68b596be4a06041a34159ed6e78da0, type: 3}
-  throwPoint: {fileID: 7574121531049463304}
+  GrenadePrefab: {fileID: 8081649499652155768, guid: 67179b49b58f96542845f9746c3447a3, type: 3}
+  throwPoint: {fileID: 3978753901797489413}
   launchAngle: 45
---- !u!54 &2565650895547402541
+--- !u!54 &4063245568363362597
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8857859678830148386}
+  m_GameObject: {fileID: 9161615411561289530}
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
