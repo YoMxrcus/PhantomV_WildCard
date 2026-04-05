@@ -11,6 +11,7 @@ public class LootBox : MonoBehaviour
     public GameObject Player;
     public bool IsLooted = false;
     public bool Randomized = false;
+    public GameObject LootLight;
 
     public GameObject[] LootIMAGES;
     public Texture PistolAmmoIMAGE, AssaultAmmoIMAGE, ShotgunAmmoIMAGE, StimIMAGE, GrenadeIMAGE, EmptyIMAGE, BandageIMAGE;
@@ -19,6 +20,15 @@ public class LootBox : MonoBehaviour
     private void Awake()
     {
         Player = GameObject.Find("MainPlayer");
+        LootLight = transform.Find("LootLight").gameObject;
+    }
+
+    private void Update()
+    {
+        if (IsLooted)
+        {
+            LootLight.SetActive(false);
+        }
     }
     public void RandomizeLoot()
     {

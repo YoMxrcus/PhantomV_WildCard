@@ -1731,6 +1731,7 @@ MonoBehaviour:
   Player: {fileID: 0}
   IsLooted: 0
   Randomized: 0
+  LootLight: {fileID: 0}
   LootIMAGES:
   - {fileID: 1348668621}
   - {fileID: 953443430}
@@ -2923,6 +2924,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6059144108766831966, guid: 24bcc0a10b8d2264aba91f6f5b4fd0bc, type: 3}
+      propertyPath: m_Name
+      value: BandageNum
+      objectReference: {fileID: 0}
     - target: {fileID: 6623474489163501450, guid: 24bcc0a10b8d2264aba91f6f5b4fd0bc, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.6151255
@@ -2943,6 +2948,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7961476511782513545, guid: 24bcc0a10b8d2264aba91f6f5b4fd0bc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5d65cfd3244d3e44cb9ec5bb98ea170d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14851,6 +14860,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: LootTrashCan
       objectReference: {fileID: 0}
+    - target: {fileID: 5834317021948548648, guid: 0fa6e29e1b8e49041a8b20627a41044c, type: 3}
+      propertyPath: 'LootIMAGES.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1348668621}
+    - target: {fileID: 5834317021948548648, guid: 0fa6e29e1b8e49041a8b20627a41044c, type: 3}
+      propertyPath: 'LootIMAGES.Array.data[1]'
+      value: 
+      objectReference: {fileID: 953443430}
+    - target: {fileID: 5834317021948548648, guid: 0fa6e29e1b8e49041a8b20627a41044c, type: 3}
+      propertyPath: 'LootIMAGES.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2125892261}
+    - target: {fileID: 5834317021948548648, guid: 0fa6e29e1b8e49041a8b20627a41044c, type: 3}
+      propertyPath: 'LootIMAGES.Array.data[3]'
+      value: 
+      objectReference: {fileID: 819243654}
     - target: {fileID: 7944404698722956188, guid: 0fa6e29e1b8e49041a8b20627a41044c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 80.72832
@@ -14891,60 +14916,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1770457719500093066, guid: 0fa6e29e1b8e49041a8b20627a41044c, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3551611920608236719, guid: 0fa6e29e1b8e49041a8b20627a41044c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 471822400}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fa6e29e1b8e49041a8b20627a41044c, type: 3}
---- !u!1 &471822393 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3551611920608236719, guid: 0fa6e29e1b8e49041a8b20627a41044c, type: 3}
-  m_PrefabInstance: {fileID: 471822392}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &471822400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 471822393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d71b38a60e6145418466c1c0ebf8bf5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LootBox
-  LootNames:
-  - Stim
-  - Grenade
-  - PistolAmmo
-  - AssaultAmmo
-  - ShotgunAmmo
-  - Bandage
-  LootCount: 0
-  CurrentLoot:
-  - 
-  - 
-  - 
-  - 
-  Player: {fileID: 0}
-  IsLooted: 0
-  Randomized: 0
-  LootIMAGES:
-  - {fileID: 1348668621}
-  - {fileID: 953443430}
-  - {fileID: 2125892261}
-  - {fileID: 819243654}
-  PistolAmmoIMAGE: {fileID: 2800000, guid: b945493c28893c94abf20bc7b699569d, type: 3}
-  AssaultAmmoIMAGE: {fileID: 2800000, guid: 1481895638c661c4dbd2c1e6c0a73bda, type: 3}
-  ShotgunAmmoIMAGE: {fileID: 2800000, guid: 217fc87783a1a534089a05f449637042, type: 3}
-  StimIMAGE: {fileID: 2800000, guid: 074ea0d7bce35f3478f1ef04d2b06632, type: 3}
-  GrenadeIMAGE: {fileID: 2800000, guid: f9714909a7901a949ba6bd22b47b2a9a, type: 3}
-  EmptyIMAGE: {fileID: 2800000, guid: 4fe9d6852c44e1d4492339c983ebeacd, type: 3}
-  BandageIMAGE: {fileID: 2800000, guid: 5d65cfd3244d3e44cb9ec5bb98ea170d, type: 3}
 --- !u!1 &496564756
 GameObject:
   m_ObjectHideFlags: 0
@@ -23731,6 +23707,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1016647895 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2003541640329615555, guid: 24bcc0a10b8d2264aba91f6f5b4fd0bc, type: 3}
+  m_PrefabInstance: {fileID: 367920176}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1016653962
 GameObject:
   m_ObjectHideFlags: 0
@@ -25220,7 +25207,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1173757150
 RectTransform:
   m_ObjectHideFlags: 0
@@ -38163,6 +38150,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4728919120730977226, guid: ae737a64f363b734a8f4472e3ecfce76, type: 3}
+      propertyPath: 'LootIMAGES.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1348668621}
+    - target: {fileID: 4728919120730977226, guid: ae737a64f363b734a8f4472e3ecfce76, type: 3}
+      propertyPath: 'LootIMAGES.Array.data[1]'
+      value: 
+      objectReference: {fileID: 953443430}
+    - target: {fileID: 4728919120730977226, guid: ae737a64f363b734a8f4472e3ecfce76, type: 3}
+      propertyPath: 'LootIMAGES.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2125892261}
+    - target: {fileID: 4728919120730977226, guid: ae737a64f363b734a8f4472e3ecfce76, type: 3}
+      propertyPath: 'LootIMAGES.Array.data[3]'
+      value: 
+      objectReference: {fileID: 819243654}
     - target: {fileID: 7795442941055883485, guid: ae737a64f363b734a8f4472e3ecfce76, type: 3}
       propertyPath: m_Name
       value: LootBox
@@ -38207,56 +38210,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3979396685240614353, guid: ae737a64f363b734a8f4472e3ecfce76, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7795442941055883485, guid: ae737a64f363b734a8f4472e3ecfce76, type: 3}
-      insertIndex: 3
-      addedObject: {fileID: 1615681774}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae737a64f363b734a8f4472e3ecfce76, type: 3}
---- !u!1 &1615681773 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7795442941055883485, guid: ae737a64f363b734a8f4472e3ecfce76, type: 3}
-  m_PrefabInstance: {fileID: 1615681772}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1615681774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1615681773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d71b38a60e6145418466c1c0ebf8bf5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LootBox
-  LootNames:
-  - Stim
-  - Grenade
-  - PistolAmmo
-  - AssaultAmmo
-  - ShotgunAmmo
-  - Bandage
-  LootCount: 0
-  CurrentLoot: []
-  Player: {fileID: 0}
-  IsLooted: 0
-  Randomized: 0
-  LootIMAGES:
-  - {fileID: 1348668621}
-  - {fileID: 953443430}
-  - {fileID: 2125892261}
-  - {fileID: 819243654}
-  PistolAmmoIMAGE: {fileID: 2800000, guid: b945493c28893c94abf20bc7b699569d, type: 3}
-  AssaultAmmoIMAGE: {fileID: 2800000, guid: 1481895638c661c4dbd2c1e6c0a73bda, type: 3}
-  ShotgunAmmoIMAGE: {fileID: 2800000, guid: 217fc87783a1a534089a05f449637042, type: 3}
-  StimIMAGE: {fileID: 2800000, guid: 074ea0d7bce35f3478f1ef04d2b06632, type: 3}
-  GrenadeIMAGE: {fileID: 2800000, guid: f9714909a7901a949ba6bd22b47b2a9a, type: 3}
-  EmptyIMAGE: {fileID: 2800000, guid: d31456e5a12aa9a4f9c32a230d2b7e51, type: 3}
-  BandageIMAGE: {fileID: 2800000, guid: 5d65cfd3244d3e44cb9ec5bb98ea170d, type: 3}
 --- !u!1 &1623855414
 GameObject:
   m_ObjectHideFlags: 0
@@ -40094,7 +40052,7 @@ MonoBehaviour:
   dial: {fileID: 1734250789}
   condensors: 0
   stims: 0
-  grenades: 3
+  grenades: 0
   bandages: 0
   pistolAmmo: 50
   assaultAmmo: 75
@@ -40131,7 +40089,7 @@ MonoBehaviour:
   CondensorNum: {fileID: 1008354666}
   StimNum: {fileID: 720864228}
   GrenadeNum: {fileID: 2056482170}
-  BandageNum: {fileID: 735384301}
+  BandageNum: {fileID: 1016647895}
   CurrentInvSelect: 0
   GrenadePrefab: {fileID: 8081649499652155768, guid: cc68b596be4a06041a34159ed6e78da0, type: 3}
   throwPoint: {fileID: 507317988}
