@@ -70,7 +70,15 @@ public class PlayerGrenadeDetect : MonoBehaviour
 
         for (int i = 0; i < activeEnemies.Count; i++) 
         {
-            activeEnemies[i].GetComponentInChildren<BanditHealth>().banditHealth -= 75;
+            if (activeEnemies[i].name.Contains("Bandit"))
+            {
+                activeEnemies[i].GetComponentInChildren<BanditHealth>().banditHealth -= 75;
+            }
+
+            else
+            {
+                activeEnemies[i].GetComponent<Enemy>().EnemyHealth -= 75;
+            }
         }
 
         if (transform.parent != null)
