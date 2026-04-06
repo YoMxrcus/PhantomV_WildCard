@@ -13,13 +13,16 @@ public class GeneratorScript : MonoBehaviour
     public GameObject doorThree;
 
     public AudioSource generatorSounds;
-    public AudioClip generatorCorrect, openDoor; //where do I put this?
+    public AudioClip generatorCorrect, generatorRunning, openDoor; //where do I put this?
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Player = GameObject.Find("MainPlayer");
+        //generatorSounds.loop = true;
+        //generatorSounds.clip = generatorRunning;
+        //generatorSounds.Play();
     }
 
     // Update is called once per frame
