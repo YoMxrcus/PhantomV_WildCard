@@ -39873,9 +39873,9 @@ MonoBehaviour:
   shotgunReload: {fileID: 8300000, guid: c4ccf620fb956d0478ccd99f0a00bb56, type: 3}
   shotgunRecock: {fileID: 8300000, guid: 5a315d44c27351e4aa829b1dd6d354ea, type: 3}
   shotgunShot: {fileID: 8300000, guid: 2104890068d15db4b8d70bcfbf326448, type: 3}
-  pistolReload: {fileID: 0}
+  pistolReload: {fileID: 8300000, guid: 4cb23833d81e3d44eb22208591b75ca7, type: 3}
   pistolShot: {fileID: 0}
-  rifleReload: {fileID: 0}
+  rifleReload: {fileID: 8300000, guid: 0c0576903085aaf46a9182d39369b53a, type: 3}
   rilfeShot: {fileID: 0}
   dash: {fileID: 8300000, guid: 6383a2d66868e4942ab8b4d52b74495c, type: 3}
   grunt1: {fileID: 8300000, guid: 4d74c770e46abb940b50928207b66860, type: 3}
@@ -39889,7 +39889,6 @@ MonoBehaviour:
   throwGrenade: {fileID: 0}
   lootTrashcan: {fileID: 8300000, guid: bf33d7c8ce5587e4e83068edce9aec31, type: 3}
   generatorStart: {fileID: 8300000, guid: 81d77f40617407f4785513a452ec368d, type: 3}
-  generatorRunning: {fileID: 8300000, guid: 90f5853364700d64fa46860d8039f0bc, type: 3}
   generatorStop: {fileID: 8300000, guid: b8073518371e623479699d022226d631, type: 3}
 --- !u!114 &1720478194
 MonoBehaviour:
