@@ -22985,6 +22985,7 @@ MonoBehaviour:
   Player: {fileID: 0}
   IsLooted: 0
   Randomized: 0
+  LootLight: {fileID: 0}
   LootIMAGES:
   - {fileID: 1348668621}
   - {fileID: 953443430}
@@ -22996,6 +22997,7 @@ MonoBehaviour:
   StimIMAGE: {fileID: 2800000, guid: 41a7fd7c18e368348b8d42c65f2e704d, type: 3}
   GrenadeIMAGE: {fileID: 2800000, guid: 67277c3f7154e004f9ee6026287457b2, type: 3}
   EmptyIMAGE: {fileID: 0}
+  BandageIMAGE: {fileID: 0}
 --- !u!4 &249226891
 Transform:
   m_ObjectHideFlags: 0
@@ -169085,6 +169087,7 @@ MonoBehaviour:
   condensors: 0
   stims: 0
   grenades: 0
+  bandages: 0
   pistolAmmo: 50
   assaultAmmo: 75
   shotgunAmmo: 30
@@ -169105,10 +169108,12 @@ MonoBehaviour:
   PistolImage: {fileID: 21300000, guid: 5d65cfd3244d3e44cb9ec5bb98ea170d, type: 3}
   AssaultRifleIMAGE: {fileID: 21300000, guid: fb32fd8340fa46f4c82d9408cef928cc, type: 3}
   ShotgunIMAGE: {fileID: 21300000, guid: 975c7850363b87044897b0ecd67a2484, type: 3}
+  BandageIMAGE: {fileID: 0}
   gunSlot: {fileID: 1475733887}
   invSlotTwo: {fileID: 1349477110}
   invSlotThree: {fileID: 829539000}
   invSlotFour: {fileID: 1173619692}
+  invSlotFive: {fileID: 0}
   InventorySelects:
   - {fileID: 79316866}
   - {fileID: 990674626}
@@ -169117,6 +169122,7 @@ MonoBehaviour:
   CondensorNum: {fileID: 1241258881}
   StimNum: {fileID: 1401507778}
   GrenadeNum: {fileID: 562884226}
+  BandageNum: {fileID: 0}
   CurrentInvSelect: 0
   GrenadePrefab: {fileID: 0}
   throwPoint: {fileID: 0}
@@ -169126,6 +169132,15 @@ MonoBehaviour:
   shotgunReload: {fileID: 0}
   shotgunRecock: {fileID: 0}
   shotgunShot: {fileID: 0}
+  dash: {fileID: 0}
+  takingDamage: {fileID: 0}
+  grunt: {fileID: 0}
+  switchWeapons: {fileID: 0}
+  syringe: {fileID: 0}
+  useCondensor: {fileID: 0}
+  throwGrenade: {fileID: 0}
+  lootBox: {fileID: 0}
+  lootTrashcan: {fileID: 0}
   generatorStart: {fileID: 0}
   generatorRunning: {fileID: 0}
   generatorStop: {fileID: 0}
