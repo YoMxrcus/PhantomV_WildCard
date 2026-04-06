@@ -67,6 +67,7 @@ public class PlayerGrenadeDetect : MonoBehaviour
 
     void BoomCountdown()
     {
+
         for (int i = 0; i < activeEnemies.Count; i++) 
         {
             activeEnemies[i].GetComponentInChildren<BanditHealth>().banditHealth -= 75;

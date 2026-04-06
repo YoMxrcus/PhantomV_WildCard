@@ -23,7 +23,7 @@ public class BanditEnemy : MonoBehaviour
     public bool hiding, fighting, healing, grenading;
     bool collectingInitial = true;
     private Rigidbody rb;
-    Vector3 movePos;
+    public Vector3 movePos;
     public bool moveTime = false;
     public bool moveRandom = false;
     public int shootFunction = 1;
