@@ -106,7 +106,7 @@ public class ThirdPersonController : MonoBehaviour
     //Vector3 targetPosition ;
 
     public AudioSource playerSounds;
-    public AudioClip walking, running, shotgunReload, shotgunRecock, shotgunShot, pistolReload, pistolShot, rifleReload, rilfeShot, dash, grunt1, grunt2, grunt3, grunt4, switchWeapons, syringe, bandage, useCondensor,throwGrenade, lootTrashcan, generatorStart, generatorStop;
+    public AudioClip walking, running, shotgunReload, shotgunRecock, shotgunShot, pistolReload, pistolShot, rifleReload, rifleShot, dash, grunt1, grunt2, grunt3, grunt4, switchWeapons, syringe, bandage, useCondensor,throwGrenade, lootTrashcan, generatorStart, generatorStop;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -177,7 +177,7 @@ public class ThirdPersonController : MonoBehaviour
                 playerSounds.Play();
             }
         }
-        else {playerSounds.Stop();}
+        else { }//.Stop();}
     }
 
     private void FixedUpdate()
@@ -204,7 +204,7 @@ public class ThirdPersonController : MonoBehaviour
 
         if (Keyboard.current.shiftKey.wasPressedThisFrame)
         {
-            playerSounds.Stop();
+            //playerSounds.Stop();
             playerSounds.clip = running;
             if (moveInput.sqrMagnitude > 0)
             {
@@ -213,7 +213,7 @@ public class ThirdPersonController : MonoBehaviour
         }
         else if (Keyboard.current.shiftKey.wasReleasedThisFrame)
         {
-            playerSounds.Stop();
+            //playerSounds.Stop();
             playerSounds.clip = walking;
             if (moveInput.sqrMagnitude > 0)
             {
@@ -622,7 +622,7 @@ public class ThirdPersonController : MonoBehaviour
 
                 if (Physics.Raycast(ray, out hit, raycastDistance))
                 {
-
+                    playerSounds.PlayOneShot(pistolShot);
                     Debug.Log($"Raycast hit at: {hit.point}");
 
                     Vector3 impact = (hit.point - transform.position).normalized;
@@ -721,6 +721,7 @@ public class ThirdPersonController : MonoBehaviour
 
                 if (Physics.Raycast(ray, out hit, raycastDistance))
                 {
+                    playerSounds.PlayOneShot(rifleShot);
                     //handles direction
                     Vector3 impact = (hit.point - transform.position).normalized;
                     impact.y = 0;

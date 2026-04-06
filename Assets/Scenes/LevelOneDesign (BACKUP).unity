@@ -39874,9 +39874,9 @@ MonoBehaviour:
   shotgunRecock: {fileID: 8300000, guid: 5a315d44c27351e4aa829b1dd6d354ea, type: 3}
   shotgunShot: {fileID: 8300000, guid: 2104890068d15db4b8d70bcfbf326448, type: 3}
   pistolReload: {fileID: 8300000, guid: 4cb23833d81e3d44eb22208591b75ca7, type: 3}
-  pistolShot: {fileID: 0}
+  pistolShot: {fileID: 8300000, guid: 4234f0c6e6b4f8a4eb8ce64364857079, type: 3}
   rifleReload: {fileID: 8300000, guid: 0c0576903085aaf46a9182d39369b53a, type: 3}
-  rilfeShot: {fileID: 0}
+  rifleShot: {fileID: 8300000, guid: 4d31ef21c12c20a4ba55af54f6975f5d, type: 3}
   dash: {fileID: 8300000, guid: 6383a2d66868e4942ab8b4d52b74495c, type: 3}
   grunt1: {fileID: 8300000, guid: 4d74c770e46abb940b50928207b66860, type: 3}
   grunt2: {fileID: 8300000, guid: 30c8e0b6689941745a899f8f229b118b, type: 3}
