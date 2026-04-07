@@ -107,6 +107,7 @@ public class ThirdPersonController : MonoBehaviour
 
     public AudioSource playerSounds;
     public AudioClip walking, running, shotgunReload, shotgunRecock, shotgunShot, pistolReload, pistolShot, rifleReload, rifleShot, dash, grunt1, grunt2, grunt3, grunt4, switchWeapons, syringe, bandage, useCondensor,throwGrenade, lootTrashcan, generatorStart, generatorStop;
+    public Animator PlayerAnimator;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -177,7 +178,7 @@ public class ThirdPersonController : MonoBehaviour
                 playerSounds.Play();
             }
         }
-        else { }//.Stop();}
+        else { playerSounds.loop = false; }
     }
 
     private void FixedUpdate()
@@ -197,10 +198,68 @@ public class ThirdPersonController : MonoBehaviour
         { Time.timeScale = 0; }
     }
 
-
-    void Update()
+    public void SetAllBoolsFalse()
     {
-      
+        if (PlayerAnimator == null) return;
+
+        // Loop through all parameters in the Animator
+        foreach (AnimatorControllerParameter param in PlayerAnimator.parameters)
+        {
+            // Only set bool parameters
+            if (param.type == AnimatorControllerParameterType.Bool)
+            {
+                PlayerAnimator.SetBool(param.name, false);
+            }
+        }
+
+    }
+
+
+    public void CheckIdleAnimations()
+    {
+        if (CurrentInvSelect != 0 && moveInput.sqrMagnitude == 0)
+        {
+            if (PlayerAnimator.GetBool("isIdle") != true)
+            {
+            SetAllBoolsFalse();
+            PlayerAnimator.SetBool("isIdle", true);
+            }
+        }
+
+        else if (CurrentInvSelect == 0 && moveInput.sqrMagnitude == 0)
+        {
+            switch (activeGun) 
+            {
+                case 0:
+                    if (PlayerAnimator.GetBool("isPistolIdle") != true)
+                    {
+                        SetAllBoolsFalse();
+                        PlayerAnimator.SetBool("isPistolIdle", true);
+                    }
+                    break;
+
+                case 1:
+                    if (PlayerAnimator.GetBool("IsRifleIdle") != true)
+                    {
+                    SetAllBoolsFalse();
+                    PlayerAnimator.SetBool("IsRifleIdle", true);
+                    }
+
+                    break;
+                case 2:
+                    if (PlayerAnimator.GetBool("IsRifleIdle") != true)
+                    {
+                        SetAllBoolsFalse();
+                        PlayerAnimator.SetBool("IsRifleIdle", true);
+                    }
+                    break;
+            }
+
+        }
+    }
+        void Update()
+    {
+        CheckIdleAnimations();
 
         if (Keyboard.current.shiftKey.wasPressedThisFrame)
         {
@@ -209,6 +268,17 @@ public class ThirdPersonController : MonoBehaviour
             if (moveInput.sqrMagnitude > 0)
             {
                 playerSounds.Play();
+
+                if (CurrentInvSelect == 0)
+                {
+                    switch (activeGun)
+                    {
+                        case 0:
+                            SetAllBoolsFalse();
+                            PlayerAnimator.SetBool("IsPistolRunning", true);
+                            break;
+                    }
+                }
             }
         }
         else if (Keyboard.current.shiftKey.wasReleasedThisFrame)
@@ -291,6 +361,7 @@ public class ThirdPersonController : MonoBehaviour
                 Shotgun();
                 return;
         }
+
     }
 
     IEnumerator Dash()
