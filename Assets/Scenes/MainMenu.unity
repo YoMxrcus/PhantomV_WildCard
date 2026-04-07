@@ -781,7 +781,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MenuSounds
   audioSource: {fileID: 132806272}
   windAmbient: {fileID: 8300000, guid: 301250bfe70b4ef4cb1f305bbef4ce44, type: 3}
-  minWaitTime: 2
+  minWaitTime: 5
   maxWaitTime: 10
   sound: 0
 --- !u!82 &132806272
@@ -2742,9 +2742,21 @@ MonoBehaviour:
 
 
 
+    MUSIC:
 
 
-'
+
+    Egypt Egyptian Desert Music - HitsLab (Pixabay)
+
+
+
+    Echoes
+    of the Desert - DesiFreeMusic (Pixabay)
+
+
+
+    Industrial Revolution Age Ambient
+    - VifotoFreeSounds (Pixabay)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fc2015f03f9b97e43883d06e73d97c8d, type: 2}
   m_sharedMaterial: {fileID: -5405297428808977908, guid: fc2015f03f9b97e43883d06e73d97c8d, type: 2}
@@ -2863,7 +2875,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1159394253
 RectTransform:
   m_ObjectHideFlags: 0
