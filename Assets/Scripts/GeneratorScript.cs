@@ -51,6 +51,7 @@ public class GeneratorScript : MonoBehaviour
                     case "Generator03":
                         doorOne = GameObject.Find("Door_01");
                         doorTwo = GameObject.Find("Door_02");
+                        generatorSounds.PlayOneShot(openDoor);
 
                         doorOne.SetActive(false);
                         doorTwo.SetActive(false);
@@ -64,6 +65,7 @@ public class GeneratorScript : MonoBehaviour
                     case "Generator01_02":
                         doorOne = GameObject.Find("Door_01");
                         doorTwo = GameObject.Find("Door_02");
+                        generatorSounds.PlayOneShot(openDoor);
 
                         doorOne.SetActive(false);
                         doorTwo.SetActive(false);
@@ -71,11 +73,12 @@ public class GeneratorScript : MonoBehaviour
                     case "Generator02_02":
                         doorOne = GameObject.Find("Door_03");
                         doorOne.SetActive(false);
+                        generatorSounds.PlayOneShot(openDoor);
                         break;
                     case "Generator03_02":
                         doorOne = GameObject.Find("Door_04");
                         doorOne.SetActive(false);
-
+                        generatorSounds.PlayOneShot(openDoor);
                         SceneManager.LoadScene("LevelThree_F");
                         break;
 
@@ -83,29 +86,34 @@ public class GeneratorScript : MonoBehaviour
                     case "Generator01_03":
                         doorOne = GameObject.Find("Door_01");
                         doorOne.SetActive(false);
+                        generatorSounds.PlayOneShot(openDoor);
                         break;
                     case "Generator02_03":
                         doorOne = GameObject.Find("Door_02");
                         doorOne.SetActive(false);
+                        generatorSounds.PlayOneShot(openDoor);
                         break;
                     case "Generator03_03":
                         doorOne = GameObject.Find("Door_03");
                         doorOne.SetActive(false);
+                        generatorSounds.PlayOneShot(openDoor);
                         break;
                     case "Generator04_03":
                         doorOne = GameObject.Find("Door_04");
                         doorOne.SetActive(false);
+                        generatorSounds.PlayOneShot(openDoor);
                         break;
                     case "Generator05_03":
                         SceneManager.LoadScene("WIN");
                         doorOne = GameObject.Find("Door_05");
                         doorOne.SetActive(false);
+                        generatorSounds.PlayOneShot(openDoor);
                         break;
                     case "Generator06_03":
                         doorOne = GameObject.Find("Door_06");
                         doorOne.SetActive(false);
+                        generatorSounds.PlayOneShot(openDoor);
 
-                        
                         break;
 
                     default:
