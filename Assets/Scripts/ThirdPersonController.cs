@@ -106,11 +106,12 @@ public class ThirdPersonController : MonoBehaviour
     //Vector3 targetPosition ;
 
     public AudioSource playerSounds;
-    public AudioClip walking, running, shotgunReload, shotgunRecock, shotgunShot, pistolReload, pistolShot, rifleReload, rifleShot, dash, grunt1, grunt2, grunt3, grunt4, switchWeapons, syringe, bandage, useCondensor,throwGrenade, lootTrashcan, generatorStart, generatorStop;
+    public AudioClip walking, running, shotgunReload, shotgunRecock, shotgunShot, pistolReload, pistolShot, rifleReload, rifleShot, dash, grunt1, grunt2, grunt3, grunt4, switchWeapons, syringe, bandage, useCondensor,throwGrenade, lootTrashcan, looting2, generatorStart, generatorStop;
     public Animator PlayerAnimator;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
+        playerSounds.loop = false;
     }
 
     public IEnumerator HeatCoroutine()
@@ -178,7 +179,7 @@ public class ThirdPersonController : MonoBehaviour
                 playerSounds.Play();
             }
         }
-        else { playerSounds.loop = false; }
+        else { playerSounds.clip = null; }
     }
 
     private void FixedUpdate()
@@ -295,32 +296,38 @@ public class ThirdPersonController : MonoBehaviour
         {
             if (CurrentInvSelect == 0)
             {
+                playerSounds.PlayOneShot(switchWeapons);
                 activeGun++;
                 if (activeGun > 2)
                 {
                     activeGun = 0;
                 }
             }
+            playerSounds.PlayOneShot(switchWeapons);
             CurrentInvSelect = 0;
             UpdateUI();
         }
         if (Keyboard.current[Key.Digit2].wasPressedThisFrame && !InPuzzle)
         {
+            playerSounds.PlayOneShot(switchWeapons);
             CurrentInvSelect = 1;
             UpdateUI();
         }
         if (Keyboard.current[Key.Digit3].wasPressedThisFrame && !InPuzzle)
         {
+            playerSounds.PlayOneShot(switchWeapons);
             CurrentInvSelect = 2;
             UpdateUI();
         }
         if (Keyboard.current[Key.Digit4].wasPressedThisFrame && !InPuzzle)
         {
+            playerSounds.PlayOneShot(switchWeapons);
             CurrentInvSelect = 3;
             UpdateUI();
         }
         if (Keyboard.current[Key.Digit5].wasPressedThisFrame && !InPuzzle)
         {
+            playerSounds.PlayOneShot(switchWeapons);
             CurrentInvSelect = 4;
             UpdateUI();
         }
@@ -982,6 +989,7 @@ public class ThirdPersonController : MonoBehaviour
         if (CurrentInvSelect == 2 && stims > 0 && !InPuzzle && Mouse.current.leftButton.wasPressedThisFrame)
         {
             stims--;
+            playerSounds.PlayOneShot(syringe);
             stamina = 100;
             stimActive = true;
             CancelInvoke("ResetStim");
@@ -1098,6 +1106,7 @@ public class ThirdPersonController : MonoBehaviour
     {
         if (Keyboard.current.eKey.wasPressedThisFrame && InLoot)
         {
+            playerSounds.PlayOneShot(looting2);
             switch (currentLootBox.GetComponent<LootBox>().CurrentLoot[0])
             {
                 case "Stim":
