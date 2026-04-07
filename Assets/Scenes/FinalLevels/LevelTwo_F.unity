@@ -401440,6 +401440,10 @@ MonoBehaviour:
   shotgunReload: {fileID: 0}
   shotgunRecock: {fileID: 0}
   shotgunShot: {fileID: 0}
+  pistolReload: {fileID: 0}
+  pistolShot: {fileID: 0}
+  rifleReload: {fileID: 0}
+  rifleShot: {fileID: 0}
   dash: {fileID: 0}
   grunt1: {fileID: 0}
   grunt2: {fileID: 0}
@@ -401452,7 +401456,6 @@ MonoBehaviour:
   throwGrenade: {fileID: 0}
   lootTrashcan: {fileID: 0}
   generatorStart: {fileID: 0}
-  generatorRunning: {fileID: 0}
   generatorStop: {fileID: 0}
 --- !u!114 &1720478194
 MonoBehaviour:
