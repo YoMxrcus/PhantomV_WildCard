@@ -56,6 +56,7 @@ public class ThirdPersonController : MonoBehaviour
     public bool InLootTrigger = false;
     public bool condensorActive = false;
     public bool stimActive = false;
+    public bool isSprinting = false;
     
 
     public GameObject CurrentGenerator;
@@ -258,9 +259,62 @@ public class ThirdPersonController : MonoBehaviour
 
         }
     }
-        void Update()
+
+
+    public void CheckWalkAnimations()
+    {
+        if (CurrentInvSelect != 0 && moveInput.sqrMagnitude > 0)
+        {
+            if (!isSprinting)
+            {
+                if (PlayerAnimator.GetBool("isRunning") != true)
+                {
+                    SetAllBoolsFalse();
+                    PlayerAnimator.SetBool("isRunning", true);
+                }
+            }
+          
+        }
+
+        else if (CurrentInvSelect == 0 && moveInput.sqrMagnitude > 0)
+        {
+            if (!isSprinting)
+            {
+                switch (activeGun)
+                {
+                    case 0:
+                        if (PlayerAnimator.GetBool("isPistolWalk") != true)
+                        {
+                            SetAllBoolsFalse();
+                            PlayerAnimator.SetBool("isPistolWalk", true);
+                        }
+                        break;
+
+                    case 1:
+                        if (PlayerAnimator.GetBool("isRifleWalk") != true)
+                        {
+                            SetAllBoolsFalse();
+                            PlayerAnimator.SetBool("isRifleWalk", true);
+                        }
+
+                        break;
+                    case 2:
+                        if (PlayerAnimator.GetBool("isRifleWalk") != true)
+                        {
+                            SetAllBoolsFalse();
+                            PlayerAnimator.SetBool("isRifleWalk", true);
+                        }
+                        break;
+                }
+
+            }
+
+        }
+    }
+    void Update()
     {
         CheckIdleAnimations();
+        CheckWalkAnimations();
 
         if (Keyboard.current.shiftKey.wasPressedThisFrame)
         {
@@ -270,6 +324,7 @@ public class ThirdPersonController : MonoBehaviour
             {
                 playerSounds.Play();
 
+
                 if (CurrentInvSelect == 0)
                 {
                     switch (activeGun)
@@ -277,6 +332,17 @@ public class ThirdPersonController : MonoBehaviour
                         case 0:
                             SetAllBoolsFalse();
                             PlayerAnimator.SetBool("IsPistolRunning", true);
+                            isSprinting = true;
+                            break;
+                        case 1:
+                            SetAllBoolsFalse();
+                            PlayerAnimator.SetBool("IsRifleRunning", true);
+                            isSprinting = true;
+                            break;
+                        case 2:
+                            SetAllBoolsFalse();
+                            PlayerAnimator.SetBool("IsRifleRunning", true);
+                            isSprinting = true;
                             break;
                     }
                 }
@@ -286,9 +352,11 @@ public class ThirdPersonController : MonoBehaviour
         {
             //playerSounds.Stop();
             playerSounds.clip = walking;
+            isSprinting = false;
             if (moveInput.sqrMagnitude > 0)
             {
                 playerSounds.Play();
+                
             }
         }
 
