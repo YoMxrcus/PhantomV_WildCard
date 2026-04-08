@@ -25,7 +25,7 @@ public class PlayerGrenadeDetect : MonoBehaviour
     {
         switch (other.gameObject.tag)
         {
-            case "Enemy":
+            case "BanditHitbox":
 
                 if (!activeEnemies.Contains(other.gameObject))
                 {
@@ -40,7 +40,7 @@ public class PlayerGrenadeDetect : MonoBehaviour
     {
         switch (other.gameObject.tag)
         {
-            case "Enemy":
+            case "BanditHitbox":
                 activeEnemies.RemoveAll(item => item == null);
 
                 if (activeEnemies.Contains(other.gameObject))
@@ -54,7 +54,7 @@ public class PlayerGrenadeDetect : MonoBehaviour
     {
         switch (other.gameObject.tag)
         {
-            case "Enemy":
+            case "BanditHitbox":
                 activeEnemies.RemoveAll(item => item == null);
 
                 if (!activeEnemies.Contains(other.gameObject))
