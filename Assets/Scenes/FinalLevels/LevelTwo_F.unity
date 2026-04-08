@@ -141138,15 +141138,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2092924488665330080, guid: b785c3c473682864e8488d9f91750dd7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 96.733
+      value: 97.13
       objectReference: {fileID: 0}
     - target: {fileID: 2092924488665330080, guid: b785c3c473682864e8488d9f91750dd7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.7865
+      value: -6.089999
       objectReference: {fileID: 0}
     - target: {fileID: 2092924488665330080, guid: b785c3c473682864e8488d9f91750dd7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -55.057
+      value: -54.945
       objectReference: {fileID: 0}
     - target: {fileID: 2092924488665330080, guid: b785c3c473682864e8488d9f91750dd7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -231555,7 +231555,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 2
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -367692,15 +367692,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2092924488665330080, guid: b785c3c473682864e8488d9f91750dd7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 94.85
+      value: 95.246994
       objectReference: {fileID: 0}
     - target: {fileID: 2092924488665330080, guid: b785c3c473682864e8488d9f91750dd7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.0565
+      value: -8.36
       objectReference: {fileID: 0}
     - target: {fileID: 2092924488665330080, guid: b785c3c473682864e8488d9f91750dd7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -53.88
+      value: -53.768
       objectReference: {fileID: 0}
     - target: {fileID: 2092924488665330080, guid: b785c3c473682864e8488d9f91750dd7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -377864,7 +377864,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: a70ec5e636066e842b3bd36b4d68c76f, type: 2}
-  - {fileID: 2100000, guid: 11a97fbf83339604d933884a6d83c1fa, type: 2}
+  - {fileID: 2100000, guid: 715fb5a0967143c4f9eae594c7ceb206, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -433278,7 +433278,7 @@ MeshRenderer:
   - {fileID: 2100000, guid: e7be0ee684a1c1c4283af8260a6f6c31, type: 2}
   - {fileID: 2100000, guid: e7be0ee684a1c1c4283af8260a6f6c31, type: 2}
   - {fileID: 2100000, guid: e7be0ee684a1c1c4283af8260a6f6c31, type: 2}
-  - {fileID: 2100000, guid: 11a97fbf83339604d933884a6d83c1fa, type: 2}
+  - {fileID: 2100000, guid: 715fb5a0967143c4f9eae594c7ceb206, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -439895,6 +439895,7 @@ MonoBehaviour:
   InLootTrigger: 0
   condensorActive: 0
   stimActive: 0
+  isSprinting: 0
   CurrentGenerator: {fileID: 0}
   InteractText: {fileID: 723368177}
   interactTextNum: 0
@@ -439969,6 +439970,7 @@ MonoBehaviour:
   useCondensor: {fileID: 0}
   throwGrenade: {fileID: 0}
   lootTrashcan: {fileID: 0}
+  looting2: {fileID: 0}
   generatorStart: {fileID: 0}
   generatorStop: {fileID: 0}
   PlayerAnimator: {fileID: 0}
@@ -443373,7 +443375,7 @@ Transform:
   m_GameObject: {fileID: 1743962861}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.12, y: -9.1, z: 45.65}
+  m_LocalPosition: {x: -8.6, y: -9.1, z: 58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -455316,7 +455318,7 @@ Transform:
   m_GameObject: {fileID: 1833486706}
   serializedVersion: 2
   m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
-  m_LocalPosition: {x: 104.00554, y: 8.150002, z: -94.36448}
+  m_LocalPosition: {x: 94.28553, y: 8.150003, z: -82.01448}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -492104,15 +492106,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2092924488665330080, guid: b785c3c473682864e8488d9f91750dd7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 95.523
+      value: 95.92
       objectReference: {fileID: 0}
     - target: {fileID: 2092924488665330080, guid: b785c3c473682864e8488d9f91750dd7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.0565
+      value: -8.36
       objectReference: {fileID: 0}
     - target: {fileID: 2092924488665330080, guid: b785c3c473682864e8488d9f91750dd7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -57.072
+      value: -56.96
       objectReference: {fileID: 0}
     - target: {fileID: 2092924488665330080, guid: b785c3c473682864e8488d9f91750dd7, type: 3}
       propertyPath: m_LocalRotation.w
