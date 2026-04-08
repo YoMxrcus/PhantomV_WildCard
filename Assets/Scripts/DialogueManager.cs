@@ -247,6 +247,16 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "DioTrigger")
+        {
+            int num = int.Parse(other.gameObject.name);
+            OpenTextBox(num);
+        }
+        
+    }
+
     /*Ref For Using Dialouge
      * 
     public IEnumerator Lvl01Dio01()
