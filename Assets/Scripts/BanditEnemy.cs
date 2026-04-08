@@ -37,6 +37,8 @@ public class BanditEnemy : MonoBehaviour
     public GameObject ActiveCoverObject;
     public Animator BanditAnimator;
     public bool PlayerInVicinity = false;
+    public bool Grenading = false;
+    GameObject BanditPrefab;
 
     public GameObject GrenadePrefab;
     [SerializeField] Transform throwPoint;
@@ -55,6 +57,7 @@ public class BanditEnemy : MonoBehaviour
         fighting = false;
         healing = false;
         grenading = false;
+        BanditPrefab = transform.parent.gameObject;
     }
 
     IEnumerator IntialScan()
@@ -67,11 +70,12 @@ public class BanditEnemy : MonoBehaviour
         yPosition = player.transform.position.y;
         playerPos = playerMover.transform.position;
 
-        if (!PlayerInVicinity)
+        if (!PlayerInVicinity || !Grenading && !BanditPrefab.GetComponent<BanditHealth>().isDead && !fighting && !hiding)
         {
             if (BanditAnimator.GetBool("IsIdle") != true)
             {
-
+                SetAllBoolsFalse();
+                BanditAnimator.SetBool("IsIdle", true);
             }
         }
 
@@ -97,19 +101,31 @@ public class BanditEnemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-       
-       
 
-        if (moveTime)
+
+
+        if (moveTime && !BanditPrefab.GetComponent<BanditHealth>().isDead)
         {
-            Vector3 MoveFunction = Vector3.MoveTowards(enemy.transform.position, new Vector3 (movePos.x, yPosition, movePos.z), speed * Time.deltaTime);
+            Vector3 MoveFunction = Vector3.MoveTowards(enemy.transform.position, new Vector3(movePos.x, yPosition, movePos.z), speed * Time.deltaTime);
             enemy.transform.position = MoveFunction;
 
+            if (BanditAnimator.GetBool("IsRunning") != true)
+            {
+                SetAllBoolsFalse();
+                BanditAnimator.SetBool("IsRunning", true);
+            }
 
-            
+            if (enemy.transform.position == new Vector3 (movePos.x, yPosition, movePos.z))
+            {
+                if (BanditAnimator.GetBool("IsCrouching") != true)
+                {
+                    SetAllBoolsFalse();
+                    BanditAnimator.SetBool("IsCrouching", true);
+                }
+            }
         }
 
-        if (moveRandom)
+        if (moveRandom && !BanditPrefab.GetComponent<BanditHealth>().isDead)
         {
             EndShootCoroutine();
             Vector3 MoveFunction = Vector3.MoveTowards(enemy.transform.position, randomPos, speed * Time.deltaTime);
@@ -119,12 +135,24 @@ public class BanditEnemy : MonoBehaviour
                 moveRandom = false;
                 shootFunction = 1;
             }
+
+            if (BanditAnimator.GetBool("IsRunning") != true)
+            {
+                SetAllBoolsFalse();
+                BanditAnimator.SetBool("IsRunning", true);
+            }
         }
 
-        if (!moveRandom && fighting && shootFunction == 1)
+        if (!moveRandom && fighting && shootFunction == 1 && !BanditPrefab.GetComponent<BanditHealth>().isDead)
         {
             ShootCoroutine = StartCoroutine(ShootProjectile(firePoint));
             shootFunction = 0;
+
+            if (BanditAnimator.GetBool("RifleAiming") != true)
+            {
+                SetAllBoolsFalse();
+                BanditAnimator.SetBool("RifleAiming", true);
+            }
         }
     }
 
@@ -236,7 +264,7 @@ public class BanditEnemy : MonoBehaviour
 
     public IEnumerator ShootProjectile(Transform firePoint)
     {
-        while (!moveRandom)
+        while (!moveRandom && !BanditPrefab.GetComponent<BanditHealth>().isDead)
         {
 
             yield return new WaitForSeconds(1f);
@@ -388,9 +416,23 @@ public class BanditEnemy : MonoBehaviour
         return velocity;
     }
 
+
+    void EndGrenading()
+    {
+        Grenading = false;
+    }
+
     void ThrowGrenade(Vector3 targetPosition)
     {
         EndShootCoroutine();
+        Grenading = true;
+        Invoke("EndGrenading", 1f);
+
+        if (BanditAnimator.GetBool("ThrowingGrenade") != true && !BanditPrefab.GetComponent<BanditHealth>().isDead)
+        {
+            SetAllBoolsFalse();
+            BanditAnimator.SetBool("ThrowingGrenade", true);
+        }
 
         GameObject grenade = Instantiate(GrenadePrefab, throwPoint.position, Quaternion.identity);
 

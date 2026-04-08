@@ -9,12 +9,18 @@ public class RotateToPlayer : MonoBehaviour
 
     public bool playerInTrigger = false;
     public GameObject Player;
-
+    public bool IsBandit; 
 
     private void Start()
     {
         Player = GameObject.Find("ThirdPersonTEST");
         if (Player != null) { playerTransform = Player.transform; }
+        if (gameObject.GetComponentInChildren<BanditHealth>() != null)
+        {
+            IsBandit = true;
+        }
+
+        else { IsBandit = false; }
     }
 
     void OnTriggerEnter(Collider other)
@@ -44,7 +50,7 @@ public class RotateToPlayer : MonoBehaviour
 
     void Update()
     {
-        if (playerInTrigger && playerTransform != null)
+        if (playerInTrigger && playerTransform != null && !gameObject.GetComponentInChildren<BanditHealth>().isDead)
         {
             // Calculate the direction to the player
             if (!gameObject.GetComponentInChildren<BanditEnemy>().moveTime)
@@ -61,7 +67,7 @@ public class RotateToPlayer : MonoBehaviour
             }
 
 
-            else if (gameObject.GetComponentInChildren<BanditEnemy>().moveTime)
+            else if (gameObject.GetComponentInChildren<BanditEnemy>().moveTime && !gameObject.GetComponentInChildren<BanditHealth>().isDead)
             {
                 Vector3 directionToCover = gameObject.GetComponentInChildren<BanditEnemy>().movePos - transform.position;
                 directionToCover.y = 0;
