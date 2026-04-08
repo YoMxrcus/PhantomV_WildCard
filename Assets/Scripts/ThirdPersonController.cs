@@ -267,10 +267,10 @@ public class ThirdPersonController : MonoBehaviour
         {
             if (!isSprinting)
             {
-                if (PlayerAnimator.GetBool("isRunning") != true)
+                if (PlayerAnimator.GetBool("isWalking") != true)
                 {
                     SetAllBoolsFalse();
-                    PlayerAnimator.SetBool("isRunning", true);
+                    PlayerAnimator.SetBool("isWalking", true);
                 }
             }
           
@@ -320,33 +320,51 @@ public class ThirdPersonController : MonoBehaviour
         {
             //playerSounds.Stop();
             playerSounds.clip = running;
-            if (moveInput.sqrMagnitude > 0)
-            {
-                playerSounds.Play();
 
+            isSprinting = true;
+                
 
-                if (CurrentInvSelect == 0)
+                if (CurrentInvSelect != 0 && moveInput.sqrMagnitude > 0)
                 {
-                    switch (activeGun)
-                    {
-                        case 0:
+                    
+                        if (PlayerAnimator.GetBool("isRunning") != true)
+                        {
                             SetAllBoolsFalse();
-                            PlayerAnimator.SetBool("IsPistolRunning", true);
-                            isSprinting = true;
-                            break;
-                        case 1:
-                            SetAllBoolsFalse();
-                            PlayerAnimator.SetBool("IsRifleRunning", true);
-                            isSprinting = true;
-                            break;
-                        case 2:
-                            SetAllBoolsFalse();
-                            PlayerAnimator.SetBool("IsRifleRunning", true);
-                            isSprinting = true;
-                            break;
-                    }
+                            PlayerAnimator.SetBool("isRunning", true);
+                            playerSounds.Play();
+                        }
+                    
+
                 }
-            }
+
+                else if (CurrentInvSelect == 0 && moveInput.sqrMagnitude > 0)
+                {
+                        switch (activeGun)
+                        {
+                            case 0:
+                                SetAllBoolsFalse();
+                                PlayerAnimator.SetBool("IsPistolRunning", true);
+                                isSprinting = true;
+                                break;
+                            case 1:
+                                SetAllBoolsFalse();
+                                PlayerAnimator.SetBool("IsRifleRunning", true);
+                                isSprinting = true;
+                                break;
+                            case 2:
+                                SetAllBoolsFalse();
+                                PlayerAnimator.SetBool("IsRifleRunning", true);
+                                isSprinting = true;
+                                break;
+                        }
+                    
+                }
+
+
+
+
+
+            
         }
         else if (Keyboard.current.shiftKey.wasReleasedThisFrame)
         {
