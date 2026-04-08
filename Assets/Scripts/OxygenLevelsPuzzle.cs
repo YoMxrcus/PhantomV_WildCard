@@ -20,6 +20,7 @@ public class OxygenLevelsPuzzle : MonoBehaviour
 
     RectTransform clickAreaPos, clickAreaPos2, clickAreaPos3;
     public GameObject clickArea, clickArea2, clickArea3;
+    public GameObject light1, light2, light3;
     public GameObject OxygenMinigame;
     public GameObject Player;
     public int oxygenResetNum;
@@ -39,9 +40,9 @@ public class OxygenLevelsPuzzle : MonoBehaviour
         clickAreaPos3 = clickArea3.GetComponent<RectTransform>(); // Fixed this
 
         // Apply it to the anchoredPosition (this stays within the UI Canvas)
-        clickAreaPos.anchoredPosition = new Vector2(0, (min+max)*.5f-50);
-        clickAreaPos2.anchoredPosition = new Vector2(0, (min2 + max2)*.5f-50);
-        clickAreaPos3.anchoredPosition = new Vector2(0, (min3 + max3)*.5f-50);
+        clickAreaPos.anchoredPosition = new Vector2(0, (min+max)*.5f- 50f);
+        clickAreaPos2.anchoredPosition = new Vector2(0, (min2 + max2)*.5f- 50f);
+        clickAreaPos3.anchoredPosition = new Vector2(0, (min3 + max3)*.5f- 50f);
 
         UpdateUI();
     }
@@ -77,7 +78,7 @@ public class OxygenLevelsPuzzle : MonoBehaviour
         if (oxygen > min && oxygen < max && !complete)
         {
             time -= Time.deltaTime;
-            if (time <= 0) { complete = true; time = 0; fillImage.color = Color.green; CheckWin(); }
+            if (time <= 0) { complete = true; time = 0; fillImage.color = Color.green; light1.SetActive(true); CheckWin();  }
         }
         else if (!complete) { time = 3; }
 
@@ -85,7 +86,7 @@ public class OxygenLevelsPuzzle : MonoBehaviour
         if (oxygen2 > min2 && oxygen2 < max2 && !complete2)
         {
             time2 -= Time.deltaTime;
-            if (time2 <= 0) { complete2 = true; time2 = 0; fillImage2.color = Color.green; CheckWin(); }
+            if (time2 <= 0) { complete2 = true; time2 = 0; fillImage2.color = Color.green; light2.SetActive(true); CheckWin(); }
         }
         else if (!complete2) { time2 = 3; }
 
@@ -93,7 +94,7 @@ public class OxygenLevelsPuzzle : MonoBehaviour
         if (oxygen3 > min3 && oxygen3 < max3 && !complete3)
         {
             time3 -= Time.deltaTime;
-            if (time3 <= 0) { complete3 = true; time3 = 0; fillImage3.color = Color.green; CheckWin(); }
+            if (time3 <= 0) { complete3 = true; time3 = 0; fillImage3.color = Color.green; light3.SetActive(true); CheckWin(); }
         }
         else if (!complete3) { time3 = 3; }
     }
@@ -138,7 +139,9 @@ public class OxygenLevelsPuzzle : MonoBehaviour
         fillImage.color = Color.white;
         fillImage2.color = Color.white;
         fillImage3.color = Color.white;
-
+        light1.SetActive(false);
+        light2.SetActive(false);
+        light3.SetActive(false);
 
         OxygenMinigame.SetActive(false);
 
