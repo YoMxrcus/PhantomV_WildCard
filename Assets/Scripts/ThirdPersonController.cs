@@ -58,6 +58,8 @@ public class ThirdPersonController : MonoBehaviour
     public bool stimActive = false;
     public bool isSprinting = false;
     public bool CondensorAnimation = false;
+    public bool Grenading = false;
+    public bool isDead = false;
     
     
 
@@ -224,7 +226,7 @@ public class ThirdPersonController : MonoBehaviour
     {
         if (CurrentInvSelect != 0 && moveInput.sqrMagnitude == 0)
         {
-            if (PlayerAnimator.GetBool("isIdle") != true && !InLoot && !InPuzzle && !CondensorAnimation)
+            if (PlayerAnimator.GetBool("isIdle") != true && !InLoot && !InPuzzle && !CondensorAnimation && !Grenading)
             {
             SetAllBoolsFalse();
             PlayerAnimator.SetBool("isIdle", true && !InLoot && !InPuzzle);
@@ -366,6 +368,18 @@ public class ThirdPersonController : MonoBehaviour
     {
         CheckIdleAnimations();
         CheckWalkAnimations();
+
+        if (health <= 0)
+        {
+            
+            if (!isDead)
+            {
+                SetAllBoolsFalse();
+                PlayerAnimator.SetTrigger("isDead");
+                isDead = true;
+
+            }
+        }
 
         if (Keyboard.current.shiftKey.wasPressedThisFrame)
         {
@@ -1068,12 +1082,27 @@ public class ThirdPersonController : MonoBehaviour
 
         
     }
+
+
+    void ResetGrenading()
+    {
+        Grenading = false;
+    }
+
     void CheckGrenade()
     {
        
         if (Mouse.current.leftButton.wasPressedThisFrame && aiming && CurrentInvSelect == 3 && grenades > 0)
         {
-           
+            if (PlayerAnimator.GetBool("isGrenadingStill") != true && moveInput.magnitude == 0)
+            {
+                SetAllBoolsFalse();
+                PlayerAnimator.SetBool("isGrenadingStill", true);
+                Grenading = true;
+                Invoke("ResetGrenading", 1f);
+            }
+
+
             Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.value);
 
             RaycastHit hit;
