@@ -21,6 +21,7 @@ TagManager:
   - BanditHitbox
   - enemyProjectile
   - playerGrenade
+  - DioTrigger
   layers:
   - Default
   - TransparentFX
