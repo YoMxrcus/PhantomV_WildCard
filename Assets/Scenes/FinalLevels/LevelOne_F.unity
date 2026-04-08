@@ -168705,6 +168705,7 @@ MonoBehaviour:
   lootTrashcan: {fileID: 0}
   generatorStart: {fileID: 0}
   generatorStop: {fileID: 0}
+  PlayerAnimator: {fileID: 0}
 --- !u!114 &1720478194
 MonoBehaviour:
   m_ObjectHideFlags: 0
