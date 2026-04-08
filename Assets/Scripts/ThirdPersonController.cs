@@ -56,6 +56,7 @@ public class ThirdPersonController : MonoBehaviour
     public bool InLootTrigger = false;
     public bool condensorActive = false;
     public bool stimActive = false;
+    public bool isSprinting = false;
     
 
     public GameObject CurrentGenerator;
@@ -106,11 +107,12 @@ public class ThirdPersonController : MonoBehaviour
     //Vector3 targetPosition ;
 
     public AudioSource playerSounds;
-    public AudioClip walking, running, shotgunReload, shotgunRecock, shotgunShot, pistolReload, pistolShot, rifleReload, rifleShot, dash, grunt1, grunt2, grunt3, grunt4, switchWeapons, syringe, bandage, useCondensor,throwGrenade, lootTrashcan, generatorStart, generatorStop;
+    public AudioClip walking, running, shotgunReload, shotgunRecock, shotgunShot, pistolReload, pistolShot, rifleReload, rifleShot, dash, grunt1, grunt2, grunt3, grunt4, switchWeapons, syringe, bandage, useCondensor,throwGrenade, lootTrashcan, looting2, generatorStart, generatorStop;
     public Animator PlayerAnimator;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
+        playerSounds.loop = false;
     }
 
     public IEnumerator HeatCoroutine()
@@ -178,7 +180,7 @@ public class ThirdPersonController : MonoBehaviour
                 playerSounds.Play();
             }
         }
-        else { playerSounds.loop = false; }
+        else { playerSounds.clip = null; }
     }
 
     private void FixedUpdate()
@@ -257,37 +259,122 @@ public class ThirdPersonController : MonoBehaviour
 
         }
     }
-        void Update()
+
+
+    public void CheckWalkAnimations()
+    {
+        if (CurrentInvSelect != 0 && moveInput.sqrMagnitude > 0)
+        {
+            if (!isSprinting)
+            {
+                if (PlayerAnimator.GetBool("isWalking") != true)
+                {
+                    SetAllBoolsFalse();
+                    PlayerAnimator.SetBool("isWalking", true);
+                }
+            }
+          
+        }
+
+        else if (CurrentInvSelect == 0 && moveInput.sqrMagnitude > 0)
+        {
+            if (!isSprinting)
+            {
+                switch (activeGun)
+                {
+                    case 0:
+                        if (PlayerAnimator.GetBool("isPistolWalk") != true)
+                        {
+                            SetAllBoolsFalse();
+                            PlayerAnimator.SetBool("isPistolWalk", true);
+                        }
+                        break;
+
+                    case 1:
+                        if (PlayerAnimator.GetBool("isRifleWalk") != true)
+                        {
+                            SetAllBoolsFalse();
+                            PlayerAnimator.SetBool("isRifleWalk", true);
+                        }
+
+                        break;
+                    case 2:
+                        if (PlayerAnimator.GetBool("isRifleWalk") != true)
+                        {
+                            SetAllBoolsFalse();
+                            PlayerAnimator.SetBool("isRifleWalk", true);
+                        }
+                        break;
+                }
+
+            }
+
+        }
+    }
+    void Update()
     {
         CheckIdleAnimations();
+        CheckWalkAnimations();
 
         if (Keyboard.current.shiftKey.wasPressedThisFrame)
         {
             //playerSounds.Stop();
             playerSounds.clip = running;
-            if (moveInput.sqrMagnitude > 0)
-            {
-                playerSounds.Play();
 
-                if (CurrentInvSelect == 0)
+            isSprinting = true;
+                
+
+                if (CurrentInvSelect != 0 && moveInput.sqrMagnitude > 0)
                 {
-                    switch (activeGun)
-                    {
-                        case 0:
+                    
+                        if (PlayerAnimator.GetBool("isRunning") != true)
+                        {
                             SetAllBoolsFalse();
-                            PlayerAnimator.SetBool("IsPistolRunning", true);
-                            break;
-                    }
+                            PlayerAnimator.SetBool("isRunning", true);
+                            playerSounds.Play();
+                        }
+                    
+
                 }
-            }
+
+                else if (CurrentInvSelect == 0 && moveInput.sqrMagnitude > 0)
+                {
+                        switch (activeGun)
+                        {
+                            case 0:
+                                SetAllBoolsFalse();
+                                PlayerAnimator.SetBool("IsPistolRunning", true);
+                                isSprinting = true;
+                                break;
+                            case 1:
+                                SetAllBoolsFalse();
+                                PlayerAnimator.SetBool("IsRifleRunning", true);
+                                isSprinting = true;
+                                break;
+                            case 2:
+                                SetAllBoolsFalse();
+                                PlayerAnimator.SetBool("IsRifleRunning", true);
+                                isSprinting = true;
+                                break;
+                        }
+                    
+                }
+
+
+
+
+
+            
         }
         else if (Keyboard.current.shiftKey.wasReleasedThisFrame)
         {
             //playerSounds.Stop();
             playerSounds.clip = walking;
+            isSprinting = false;
             if (moveInput.sqrMagnitude > 0)
             {
                 playerSounds.Play();
+                
             }
         }
 
@@ -295,32 +382,38 @@ public class ThirdPersonController : MonoBehaviour
         {
             if (CurrentInvSelect == 0)
             {
+                playerSounds.PlayOneShot(switchWeapons);
                 activeGun++;
                 if (activeGun > 2)
                 {
                     activeGun = 0;
                 }
             }
+            playerSounds.PlayOneShot(switchWeapons);
             CurrentInvSelect = 0;
             UpdateUI();
         }
         if (Keyboard.current[Key.Digit2].wasPressedThisFrame && !InPuzzle)
         {
+            playerSounds.PlayOneShot(switchWeapons);
             CurrentInvSelect = 1;
             UpdateUI();
         }
         if (Keyboard.current[Key.Digit3].wasPressedThisFrame && !InPuzzle)
         {
+            playerSounds.PlayOneShot(switchWeapons);
             CurrentInvSelect = 2;
             UpdateUI();
         }
         if (Keyboard.current[Key.Digit4].wasPressedThisFrame && !InPuzzle)
         {
+            playerSounds.PlayOneShot(switchWeapons);
             CurrentInvSelect = 3;
             UpdateUI();
         }
         if (Keyboard.current[Key.Digit5].wasPressedThisFrame && !InPuzzle)
         {
+            playerSounds.PlayOneShot(switchWeapons);
             CurrentInvSelect = 4;
             UpdateUI();
         }
@@ -982,6 +1075,7 @@ public class ThirdPersonController : MonoBehaviour
         if (CurrentInvSelect == 2 && stims > 0 && !InPuzzle && Mouse.current.leftButton.wasPressedThisFrame)
         {
             stims--;
+            playerSounds.PlayOneShot(syringe);
             stamina = 100;
             stimActive = true;
             CancelInvoke("ResetStim");
@@ -1098,6 +1192,7 @@ public class ThirdPersonController : MonoBehaviour
     {
         if (Keyboard.current.eKey.wasPressedThisFrame && InLoot)
         {
+            playerSounds.PlayOneShot(looting2);
             switch (currentLootBox.GetComponent<LootBox>().CurrentLoot[0])
             {
                 case "Stim":

@@ -39550,6 +39550,7 @@ MonoBehaviour:
   InLootTrigger: 0
   condensorActive: 0
   stimActive: 0
+  isSprinting: 0
   CurrentGenerator: {fileID: 0}
   InteractText: {fileID: 1524327175}
   interactTextNum: 0
@@ -39619,12 +39620,13 @@ MonoBehaviour:
   grunt2: {fileID: 8300000, guid: 30c8e0b6689941745a899f8f229b118b, type: 3}
   grunt3: {fileID: 8300000, guid: 888efb5eedf246844b6c593a8afbf382, type: 3}
   grunt4: {fileID: 8300000, guid: 94c2656547d3ed34cb707ccddfe0ca60, type: 3}
-  switchWeapons: {fileID: 0}
-  syringe: {fileID: 0}
+  switchWeapons: {fileID: 8300000, guid: 28c2555e223930142a026b6db360ccf1, type: 3}
+  syringe: {fileID: 8300000, guid: 987ea25bc19ba1c4dbc1d47f6d8556cd, type: 3}
   bandage: {fileID: 8300000, guid: 6cee27c0a8b8bb2439acb2c241af63de, type: 3}
   useCondensor: {fileID: 8300000, guid: 9548afc43b8fd8b4881e9b8930d58753, type: 3}
   throwGrenade: {fileID: 0}
   lootTrashcan: {fileID: 8300000, guid: bf33d7c8ce5587e4e83068edce9aec31, type: 3}
+  looting2: {fileID: 8300000, guid: 8e3857590d5fcd14c97b158099ceb757, type: 3}
   generatorStart: {fileID: 8300000, guid: 81d77f40617407f4785513a452ec368d, type: 3}
   generatorStop: {fileID: 8300000, guid: b8073518371e623479699d022226d631, type: 3}
   PlayerAnimator: {fileID: 2194525330990290263}
@@ -47876,7 +47878,7 @@ Transform:
   m_GameObject: {fileID: 2121078400}
   serializedVersion: 2
   m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
-  m_LocalPosition: {x: -41.347446, y: 10.500002, z: 28.252554}
+  m_LocalPosition: {x: -41.34745, y: 10.500001, z: 28.252552}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -50093,7 +50095,7 @@ Transform:
   m_GameObject: {fileID: 4890761110414185879}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.182, y: -1.08, z: -0.281}
+  m_LocalPosition: {x: -0.126, y: -1.08, z: -0.167}
   m_LocalScale: {x: 44.06582, y: 44.06582, z: 44.06582}
   m_ConstrainProportionsScale: 0
   m_Children:
