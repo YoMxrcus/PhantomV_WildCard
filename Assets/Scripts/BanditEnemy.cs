@@ -35,6 +35,8 @@ public class BanditEnemy : MonoBehaviour
     public bool ActionStarted = false;
     float yPosition;
     public GameObject ActiveCoverObject;
+    public Animator BanditAnimator;
+    public bool PlayerInVicinity = false;
 
     public GameObject GrenadePrefab;
     [SerializeField] Transform throwPoint;
@@ -64,8 +66,35 @@ public class BanditEnemy : MonoBehaviour
     {
         yPosition = player.transform.position.y;
         playerPos = playerMover.transform.position;
+
+        if (!PlayerInVicinity)
+        {
+            if (BanditAnimator.GetBool("IsIdle") != true)
+            {
+
+            }
+        }
+
         
     }
+
+
+    public void SetAllBoolsFalse()
+    {
+        if (BanditAnimator == null) return;
+
+        // Loop through all parameters in the Animator
+        foreach (AnimatorControllerParameter param in BanditAnimator.parameters)
+        {
+            // Only set bool parameters
+            if (param.type == AnimatorControllerParameterType.Bool)
+            {
+                BanditAnimator.SetBool(param.name, false);
+            }
+        }
+
+    }
+
     private void FixedUpdate()
     {
        
@@ -75,6 +104,8 @@ public class BanditEnemy : MonoBehaviour
         {
             Vector3 MoveFunction = Vector3.MoveTowards(enemy.transform.position, new Vector3 (movePos.x, yPosition, movePos.z), speed * Time.deltaTime);
             enemy.transform.position = MoveFunction;
+
+
             
         }
 
@@ -123,7 +154,7 @@ public class BanditEnemy : MonoBehaviour
                     activeActionNum = Random.Range(0, 3);
                     currentActionStr = possibleActions[activeActionNum];
                     StartActionCoroutine = StartCoroutine(SwitchActionCoroutine(currentActionStr));
-                    
+                PlayerInVicinity = true;
                 
                 break;
 
@@ -145,10 +176,7 @@ public class BanditEnemy : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case "Player":
-                if (canShoot)
-                {
-                  
-                }
+                PlayerInVicinity = true;
                 break;
 
             case "CoverObject":
@@ -185,6 +213,7 @@ public class BanditEnemy : MonoBehaviour
                 StartActionCoroutine = null;
                 ShootCoroutine = null;
                 MoveRandomCoroutine = null;
+                PlayerInVicinity = false;
                 break;
         }
     }
