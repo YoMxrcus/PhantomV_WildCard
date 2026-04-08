@@ -96,6 +96,7 @@ public class ThirdPersonController : MonoBehaviour
     public Sprite StimIMAGE, GrenadeIMAGE, EmptyIMAGE,CondensorImage, PistolImage, AssaultRifleIMAGE, ShotgunIMAGE, BandageIMAGE;
     public GameObject gunSlot, invSlotTwo, invSlotThree, invSlotFour, invSlotFive;
     public GameObject[] InventorySelects;
+    public GameObject PistolObject, RifleObject, ShotgunObject;
     public TMP_Text CondensorNum, StimNum, GrenadeNum, BandageNum;
 
     [SerializeField] Coroutine heatCoroutine, condensorHealthCoroutine, condensorActiveCoroutine;
@@ -241,18 +242,42 @@ public class ThirdPersonController : MonoBehaviour
                     break;
 
                 case 1:
-                    if (PlayerAnimator.GetBool("IsRifleIdle") != true)
+                    if (!aiming)
                     {
-                    SetAllBoolsFalse();
-                    PlayerAnimator.SetBool("IsRifleIdle", true);
-                    }
-
-                    break;
-                case 2:
-                    if (PlayerAnimator.GetBool("IsRifleIdle") != true)
-                    {
+                        if (PlayerAnimator.GetBool("IsRifleIdle") != true)
+                        {
                         SetAllBoolsFalse();
                         PlayerAnimator.SetBool("IsRifleIdle", true);
+                        }
+                    }
+
+                    else if (aiming)
+                    {
+                        if (PlayerAnimator.GetBool("RifleAimIdle") != true)
+                        {
+                            SetAllBoolsFalse();
+                            PlayerAnimator.SetBool("RifleAimIdle", true);
+                        }
+                    }
+
+                        break;
+                case 2:
+                    if (!aiming)
+                    {
+                        if (PlayerAnimator.GetBool("IsRifleIdle") != true)
+                        {
+                            SetAllBoolsFalse();
+                            PlayerAnimator.SetBool("IsRifleIdle", true);
+                        }
+                    }
+
+                    else if (aiming)
+                    {
+                        if (PlayerAnimator.GetBool("RifleAimIdle") != true)
+                        {
+                            SetAllBoolsFalse();
+                            PlayerAnimator.SetBool("RifleAimIdle", true);
+                        }
                     }
                     break;
             }
@@ -291,18 +316,42 @@ public class ThirdPersonController : MonoBehaviour
                         break;
 
                     case 1:
-                        if (PlayerAnimator.GetBool("isRifleWalk") != true)
+                        if (!aiming)
                         {
-                            SetAllBoolsFalse();
-                            PlayerAnimator.SetBool("isRifleWalk", true);
+                            if (PlayerAnimator.GetBool("isRifleWalk") != true)
+                            {
+                                SetAllBoolsFalse();
+                                PlayerAnimator.SetBool("isRifleWalk", true);
+                            }
+                        }
+
+                        else if (aiming)
+                        {
+                            if (PlayerAnimator.GetBool("RifleAimWalk") != true)
+                            {
+                                SetAllBoolsFalse();
+                                PlayerAnimator.SetBool("RifleAimWalk", true);
+                            }
                         }
 
                         break;
                     case 2:
-                        if (PlayerAnimator.GetBool("isRifleWalk") != true)
+                        if (!aiming)
                         {
-                            SetAllBoolsFalse();
-                            PlayerAnimator.SetBool("isRifleWalk", true);
+                            if (PlayerAnimator.GetBool("isRifleWalk") != true)
+                            {
+                                SetAllBoolsFalse();
+                                PlayerAnimator.SetBool("isRifleWalk", true);
+                            }
+                        }
+
+                        else if (aiming)
+                        {
+                            if (PlayerAnimator.GetBool("RifleAimWalk") != true)
+                            {
+                                SetAllBoolsFalse();
+                                PlayerAnimator.SetBool("RifleAimWalk", true);
+                            }
                         }
                         break;
                 }
@@ -346,16 +395,50 @@ public class ThirdPersonController : MonoBehaviour
                                 PlayerAnimator.SetBool("IsPistolRunning", true);
                                 isSprinting = true;
                                 break;
+
                             case 1:
-                                SetAllBoolsFalse();
-                                PlayerAnimator.SetBool("IsRifleRunning", true);
-                                isSprinting = true;
+                                if (!aiming)
+                                {
+                                    if (PlayerAnimator.GetBool("IsRifleRunning") != true)
+                                    {
+                                        SetAllBoolsFalse();
+                                        PlayerAnimator.SetBool("IsRifleRunning", true);
+                                        isSprinting = true;
+                                    }
+                                }
+
+                                else if (aiming)
+                                {
+                                    if (PlayerAnimator.GetBool("RifleAimRun") != true)
+                                    {
+                                        SetAllBoolsFalse();
+                                        PlayerAnimator.SetBool("RifleAimRun", true);
+                                        isSprinting = true;
+                                    }
+                                }
                                 break;
+
                             case 2:
-                                SetAllBoolsFalse();
-                                PlayerAnimator.SetBool("IsRifleRunning", true);
-                                isSprinting = true;
-                                break;
+                                if (!aiming)
+                                {
+                                    if (PlayerAnimator.GetBool("IsRifleRunning") != true)
+                                    {
+                                        SetAllBoolsFalse();
+                                        PlayerAnimator.SetBool("IsRifleRunning", true);
+                                        isSprinting = true;
+                                    }
+                                }
+
+                                else if (aiming)
+                                {
+                                    if (PlayerAnimator.GetBool("RifleAimRun") != true)
+                                    {
+                                        SetAllBoolsFalse();
+                                        PlayerAnimator.SetBool("RifleAimRun", true);
+                                        isSprinting = true;
+                                    }
+                                }
+                                    break;
                         }
                     
                 }
@@ -442,18 +525,60 @@ public class ThirdPersonController : MonoBehaviour
             case 0:
                 currentDamage = 35;
                 Shoot();
-                return;
+                if (CurrentInvSelect == 0)
+                {
+                    RifleObject.SetActive(false);
+                    PistolObject.SetActive(true);
+                    ShotgunObject.SetActive(false);
+                }
+
+
+                else
+                {
+                    RifleObject.SetActive(false);
+                    PistolObject.SetActive(false);
+                    ShotgunObject.SetActive(false);
+                }
+                    return;
 
             case 1:
                 currentDamage = 15;
                 AssaultRifle();
+                if (CurrentInvSelect == 0)
+                {
+                    RifleObject.SetActive(true);
+                    PistolObject.SetActive(false);
+                    ShotgunObject.SetActive(false);
+                }
+
+                else
+                {
+                    RifleObject.SetActive(false);
+                    PistolObject.SetActive(false);
+                    ShotgunObject.SetActive(false);
+                }
                 return;
 
             case 2:
                 currentDamage = 45;
                 Shotgun();
+                if (CurrentInvSelect == 0)
+                {
+                    RifleObject.SetActive(false);
+                    PistolObject.SetActive(false);
+                    ShotgunObject.SetActive(true);
+                }
+
+                else
+                {
+                    RifleObject.SetActive(false);
+                    PistolObject.SetActive(false);
+                    ShotgunObject.SetActive(false);
+                }
                 return;
         }
+
+        
 
     }
 
