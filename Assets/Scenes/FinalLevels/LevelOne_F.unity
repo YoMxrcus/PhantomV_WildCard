@@ -168628,6 +168628,7 @@ MonoBehaviour:
   InLootTrigger: 0
   condensorActive: 0
   stimActive: 0
+  isSprinting: 0
   CurrentGenerator: {fileID: 0}
   InteractText: {fileID: 1560256635}
   interactTextNum: 0
@@ -168675,6 +168676,9 @@ MonoBehaviour:
   - {fileID: 2014012217}
   - {fileID: 525945671}
   - {fileID: 663795705}
+  PistolObject: {fileID: 0}
+  RifleObject: {fileID: 0}
+  ShotgunObject: {fileID: 0}
   CondensorNum: {fileID: 1133074980}
   StimNum: {fileID: 98712126}
   GrenadeNum: {fileID: 454024618}
@@ -168703,6 +168707,7 @@ MonoBehaviour:
   useCondensor: {fileID: 0}
   throwGrenade: {fileID: 0}
   lootTrashcan: {fileID: 0}
+  looting2: {fileID: 0}
   generatorStart: {fileID: 0}
   generatorStop: {fileID: 0}
   PlayerAnimator: {fileID: 0}
