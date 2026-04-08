@@ -57,6 +57,8 @@ public class ThirdPersonController : MonoBehaviour
     public bool condensorActive = false;
     public bool stimActive = false;
     public bool isSprinting = false;
+    public bool CondensorAnimation = false;
+    
     
 
     public GameObject CurrentGenerator;
@@ -222,10 +224,10 @@ public class ThirdPersonController : MonoBehaviour
     {
         if (CurrentInvSelect != 0 && moveInput.sqrMagnitude == 0)
         {
-            if (PlayerAnimator.GetBool("isIdle") != true)
+            if (PlayerAnimator.GetBool("isIdle") != true && !InLoot && !InPuzzle && !CondensorAnimation)
             {
             SetAllBoolsFalse();
-            PlayerAnimator.SetBool("isIdle", true);
+            PlayerAnimator.SetBool("isIdle", true && !InLoot && !InPuzzle);
             }
         }
 
@@ -234,7 +236,7 @@ public class ThirdPersonController : MonoBehaviour
             switch (activeGun) 
             {
                 case 0:
-                    if (PlayerAnimator.GetBool("isPistolIdle") != true)
+                    if (PlayerAnimator.GetBool("isPistolIdle") != true && !InLoot && !InPuzzle)
                     {
                         SetAllBoolsFalse();
                         PlayerAnimator.SetBool("isPistolIdle", true);
@@ -244,7 +246,7 @@ public class ThirdPersonController : MonoBehaviour
                 case 1:
                     if (!aiming)
                     {
-                        if (PlayerAnimator.GetBool("IsRifleIdle") != true)
+                        if (PlayerAnimator.GetBool("IsRifleIdle") != true && !InLoot && !InPuzzle)
                         {
                         SetAllBoolsFalse();
                         PlayerAnimator.SetBool("IsRifleIdle", true);
@@ -253,7 +255,7 @@ public class ThirdPersonController : MonoBehaviour
 
                     else if (aiming)
                     {
-                        if (PlayerAnimator.GetBool("RifleAimIdle") != true)
+                        if (PlayerAnimator.GetBool("RifleAimIdle") != true && !InLoot && !InPuzzle)
                         {
                             SetAllBoolsFalse();
                             PlayerAnimator.SetBool("RifleAimIdle", true);
@@ -264,7 +266,7 @@ public class ThirdPersonController : MonoBehaviour
                 case 2:
                     if (!aiming)
                     {
-                        if (PlayerAnimator.GetBool("IsRifleIdle") != true)
+                        if (PlayerAnimator.GetBool("IsRifleIdle") != true && !InLoot && !InPuzzle)
                         {
                             SetAllBoolsFalse();
                             PlayerAnimator.SetBool("IsRifleIdle", true);
@@ -273,7 +275,7 @@ public class ThirdPersonController : MonoBehaviour
 
                     else if (aiming)
                     {
-                        if (PlayerAnimator.GetBool("RifleAimIdle") != true)
+                        if (PlayerAnimator.GetBool("RifleAimIdle") != true && !InLoot && !InPuzzle)
                         {
                             SetAllBoolsFalse();
                             PlayerAnimator.SetBool("RifleAimIdle", true);
@@ -525,7 +527,7 @@ public class ThirdPersonController : MonoBehaviour
             case 0:
                 currentDamage = 35;
                 Shoot();
-                if (CurrentInvSelect == 0)
+                if (CurrentInvSelect == 0 && !InLoot)
                 {
                     RifleObject.SetActive(false);
                     PistolObject.SetActive(true);
@@ -544,7 +546,7 @@ public class ThirdPersonController : MonoBehaviour
             case 1:
                 currentDamage = 15;
                 AssaultRifle();
-                if (CurrentInvSelect == 0)
+                if (CurrentInvSelect == 0 && !InLoot)
                 {
                     RifleObject.SetActive(true);
                     PistolObject.SetActive(false);
@@ -562,7 +564,7 @@ public class ThirdPersonController : MonoBehaviour
             case 2:
                 currentDamage = 45;
                 Shotgun();
-                if (CurrentInvSelect == 0)
+                if (CurrentInvSelect == 0 && !InLoot)
                 {
                     RifleObject.SetActive(false);
                     PistolObject.SetActive(false);
@@ -796,6 +798,11 @@ public class ThirdPersonController : MonoBehaviour
                 if (Keyboard.current.fKey.isPressed == true && currentLootBox.GetComponent<LootBox>().IsLooted == false && !InLoot)
                 {
                     InLoot = true;
+                    if (PlayerAnimator.GetBool("isRummage") != true)
+                    {
+                        SetAllBoolsFalse();
+                        PlayerAnimator.SetBool("isRummage", true);
+                    }
                     if (interactTextNum == 1)
                     {
                         interactTextNum = -1;
@@ -1165,12 +1172,19 @@ public class ThirdPersonController : MonoBehaviour
     }
     
 
+    void ResetCondensorAnimation()
+    {
+        CondensorAnimation = false;
+    }
+
     void CondensorActivate()
     {
         
 
         if(CurrentInvSelect == 1 && condensors > 0 && !InPuzzle && Mouse.current.leftButton.wasPressedThisFrame)
         {
+            CondensorAnimation = true;
+            Invoke("ResetCondensorAnimation", 1f);
             if (condensorActive)
             {
                 condensorHealth = 50;
@@ -1178,8 +1192,15 @@ public class ThirdPersonController : MonoBehaviour
                 return;
             }
 
-            condensorActive = true;
-            playerSounds.PlayOneShot(useCondensor);
+            if (PlayerAnimator.GetBool("isCondensor") != true)
+            {
+                SetAllBoolsFalse();
+                PlayerAnimator.SetBool("isCondensor", true);
+                condensorActive = true;
+                playerSounds.PlayOneShot(useCondensor);
+               
+            }
+
 
             condensors--;
             condensorHealth = 50;
