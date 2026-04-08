@@ -34,6 +34,9 @@ public class DialogueManager : MonoBehaviour
     public int currentTextIndex;
     public int lengthOfDialouge;
     public Coroutine dioCor;
+
+    //animator
+    public Animator textBoxAnimator;
  
 
 
@@ -222,14 +225,14 @@ public class DialogueManager : MonoBehaviour
             case "Aidan":
                 SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("PlaceHolderFace2");
                 break;
-            case "Good Spellow":
-                SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("GoodSpellowHeadshot");
+            case "Test One":
+                SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("Bandit");
                 break;
-            case "Arthur Good-Spellow":
-                SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("GoodSpellowHeadshot");
+            case "Test Two":
+                SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("Lady");
                 break;
-            case "Kaslvas The EVIL":
-                SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("KaslavasTheEvilHeadshot");
+            case "Test Three":
+                SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("MC");
                 break;
             case "Evil Wizards":
                 SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("EvilWizardHeadshot");
