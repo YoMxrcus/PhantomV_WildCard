@@ -364,6 +364,12 @@ public class ThirdPersonController : MonoBehaviour
 
         }
     }
+
+
+    void StopGame()
+    {
+        Time.timeScale = 0;
+    }
     void Update()
     {
         CheckIdleAnimations();
@@ -377,6 +383,7 @@ public class ThirdPersonController : MonoBehaviour
                 SetAllBoolsFalse();
                 PlayerAnimator.SetTrigger("isDead");
                 isDead = true;
+                Invoke("StopGame", 5f);
 
             }
         }
