@@ -660708,6 +660708,7 @@ MonoBehaviour:
   heartBeatAnimator: {fileID: 0}
   targetImageLine: {fileID: 0}
   heartBeatText: {fileID: 0}
+  DeathPanel: {fileID: 0}
 --- !u!114 &1720478194
 MonoBehaviour:
   m_ObjectHideFlags: 0
