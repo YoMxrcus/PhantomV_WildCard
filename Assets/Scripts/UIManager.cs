@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public GameObject main;
     public GameObject credits;
     public GameObject help;
+    public GameObject settings;
     string winScene = "WIN";
     string levelThreeActual = "LevelThree";
 
@@ -118,11 +119,19 @@ public class UIManager : MonoBehaviour
         main.SetActive(false);
         buttonSounds.PlayOneShot(click1);
     }
+    public void GetSettings()
+    {
+        Debug.Log("Settings Scene");
+        settings.SetActive(true);
+        main.SetActive(false);
+        buttonSounds.PlayOneShot(click1);
+    }
     public void BackToMenu()
     {
         Debug.Log("Menu");
         credits.SetActive(false);
         help.SetActive(false);
+        settings.SetActive(false);
         main.SetActive(true);
         buttonSounds.PlayOneShot(click2);
     }
