@@ -63,7 +63,6 @@ public class BanditHealth : MonoBehaviour
     }
     private void Update()
     {
-
         CheckDestroy();
     }
 
@@ -76,10 +75,15 @@ public class BanditHealth : MonoBehaviour
             if (!isDead)
             {
                 isDead = true;
+                if (gameObject.GetComponentInChildren<BanditEnemy>().ActiveCoverObject != null)
+                { 
+                    gameObject.GetComponentInChildren<BanditEnemy>().ActiveCoverObject.GetComponentInChildren<CoverPointScript>().isCovered = false; 
+                }
                 gameObject.GetComponentInChildren<BanditEnemy>().BanditAnimator.SetTrigger("isDead");
                 Invoke("DestroyBandit", 5f);
-
+                    
             }
+
         }
     }
 }

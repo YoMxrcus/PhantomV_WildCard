@@ -149,7 +149,6 @@ public class BanditEnemy : MonoBehaviour
         if (!moveRandom && fighting && shootFunction == 1 && !BanditPrefab.GetComponent<BanditHealth>().isDead)
         {
             ShootCoroutine = StartCoroutine(ShootProjectile(firePoint));
-            
             shootFunction = 0;
 
             if (BanditAnimator.GetBool("RifleAiming") != true)
@@ -255,6 +254,8 @@ public class BanditEnemy : MonoBehaviour
     {
         moveRandom = true;
         randomPos = new Vector3(transform.position.x + Random.Range(-3, 4), yPosition, transform.position.z + Random.Range(-3, 4));
+        banditSounds.clip = banditWalking;
+        banditSounds.Play();
 
         while (fighting)
         {
@@ -262,7 +263,6 @@ public class BanditEnemy : MonoBehaviour
             moveRandom = true;
             randomPos = new Vector3(transform.position.x + Random.Range(-3, 4), yPosition, transform.position.z + Random.Range(-3, 4));
         }
-
     }
 
 
@@ -270,11 +270,13 @@ public class BanditEnemy : MonoBehaviour
     {
         while (!moveRandom && !BanditPrefab.GetComponent<BanditHealth>().isDead)
         {
+           banditSounds.clip = null;
 
             yield return new WaitForSeconds(1f);
 
             playerPos = playerMover.transform.position;
 
+            banditSounds.PlayOneShot(banditShoot);
             var projectileObj = Instantiate(fireBall, firePoint.position, Quaternion.identity); 
             direction = (playerPos - firePoint.position).normalized;
             projectileObj.GetComponent<EnemyProjectile>().targetDirection = direction;
@@ -286,11 +288,17 @@ public class BanditEnemy : MonoBehaviour
 
     void Hide()
     {
+        //banditSounds.clip = null;
+        //banditSounds.clip = banditSprint;
+        //banditSounds.Play();
+
         EndShootCoroutine(); // Stops shooting when hiding
         for (int i = 0; i < activeCovers.Count; i++)
         {
             if (!activeCovers[i].GetComponentInChildren<CoverPointScript>().isCovered)
             {
+                banditSounds.clip = null;
+
                 if (ActiveCoverObject != null)
                 {
                     ActiveCoverObject.GetComponentInChildren<CoverPointScript>().isCovered = false;
