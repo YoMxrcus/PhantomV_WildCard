@@ -6,6 +6,8 @@ public class GrenadeDetectScript : MonoBehaviour
     public GameObject Player;
     [SerializeField] GameObject ParentGrenade;
     public ParticleSystem Explosion;
+    public AudioSource enemyGrenade;
+    public AudioClip grenadeBoom;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -54,10 +56,10 @@ public class GrenadeDetectScript : MonoBehaviour
         }
 
         Explosion.Play();
-
+        enemyGrenade.PlayOneShot(grenadeBoom);
         if (transform.parent != null)
         {
-            Invoke("DestroyGrenade", .25f);
+            Invoke("DestroyGrenade", .5f);
         }
     }
 }
