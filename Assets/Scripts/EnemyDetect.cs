@@ -39,7 +39,7 @@ public class EnemyDetect : MonoBehaviour
                         SetAllBoolsFalse();
                         SnakeAnimator.SetBool("LungingFast", true);
                     }
-
+                    Invoke("SlowSnake", 3f);
                     Invoke("DisallowLunge", .25f);
                     Invoke("AllowLunge", 5f);
                 }
@@ -52,6 +52,12 @@ public class EnemyDetect : MonoBehaviour
             }
             else
             {
+
+                if (SnakeAnimator.GetBool("Attacking") != true)
+                {
+                    SetAllBoolsFalse();
+                    SnakeAnimator.SetBool("Attacking", true);
+                }
 
                 //GoblinAnim.SetBool("Attack", true);
                 StopMovement();
@@ -71,7 +77,11 @@ public class EnemyDetect : MonoBehaviour
     }    
     void SlowSnake()
     {
-
+        if (SnakeAnimator.GetBool("SlitheringSlow") != true)
+        {
+            SetAllBoolsFalse();
+            SnakeAnimator.SetBool("SlitheringSlow", true);
+        }
     }
 
     public void SetAllBoolsFalse()

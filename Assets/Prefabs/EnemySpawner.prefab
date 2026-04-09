@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0c0f81813a961d45ac3068f0bb2f9ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawnerScript
-  EnemyPrefab: {fileID: 5206159375067576357, guid: 6e2972a3f2f519648a6b347e9ed7b976, type: 3}
+  EnemyPrefab: {fileID: 4459306860537220284, guid: f17bbc720e85b4542a14dc5e9398981c, type: 3}
   Spawners:
   - {fileID: 6657593973718031798}
   - {fileID: 3570766230212500432}
