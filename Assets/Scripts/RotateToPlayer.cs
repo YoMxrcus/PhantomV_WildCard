@@ -50,31 +50,53 @@ public class RotateToPlayer : MonoBehaviour
 
     void Update()
     {
-        if (playerInTrigger && playerTransform != null && !gameObject.GetComponentInChildren<BanditHealth>().isDead)
+        if (IsBandit)
         {
-            // Calculate the direction to the player
-            if (!gameObject.GetComponentInChildren<BanditEnemy>().moveTime)
+            if (playerInTrigger && playerTransform != null && !gameObject.GetComponentInChildren<BanditHealth>().isDead)
             {
-                Vector3 directionToPlayer = playerTransform.position - transform.position;
-                directionToPlayer.y = 0; // Keep the rotation on the Y-axis (horizontal)
+                // Calculate the direction to the player
+                if (!gameObject.GetComponentInChildren<BanditEnemy>().moveTime)
+                {
+                    Vector3 directionToPlayer = playerTransform.position - transform.position;
+                    directionToPlayer.y = 0; // Keep the rotation on the Y-axis (horizontal)
 
-                // Create a target rotation looking at the player
-                Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+                    // Create a target rotation looking at the player
+                    Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
 
-                // Smoothly rotate towards the target rotation
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                    // Smoothly rotate towards the target rotation
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
+                }
+
+
+                else if (gameObject.GetComponentInChildren<BanditEnemy>().moveTime && !gameObject.GetComponentInChildren<BanditHealth>().isDead)
+                {
+                    Vector3 directionToCover = gameObject.GetComponentInChildren<BanditEnemy>().movePos - transform.position;
+                    directionToCover.y = 0;
+
+                    Quaternion targetRotation = Quaternion.LookRotation(directionToCover);
+
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                }
             }
+        }
 
-
-            else if (gameObject.GetComponentInChildren<BanditEnemy>().moveTime && !gameObject.GetComponentInChildren<BanditHealth>().isDead)
+        else
+        {
+            if (playerInTrigger && playerTransform != null)
             {
-                Vector3 directionToCover = gameObject.GetComponentInChildren<BanditEnemy>().movePos - transform.position;
-                directionToCover.y = 0;
+                // Calculate the direction to the player
+                
+                    Vector3 directionToPlayer = playerTransform.position - transform.position;
+                    directionToPlayer.y = 0; // Keep the rotation on the Y-axis (horizontal)
 
-                Quaternion targetRotation = Quaternion.LookRotation(directionToCover);
+                    // Create a target rotation looking at the player
+                    Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
 
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                    // Smoothly rotate towards the target rotation
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+                
             }
         }
     }
