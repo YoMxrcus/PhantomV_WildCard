@@ -388,7 +388,7 @@ public class ThirdPersonController : MonoBehaviour
                 SetAllBoolsFalse();
                 PlayerAnimator.SetTrigger("isDead");
                 isDead = true;
-                Invoke("StopGame", 5f);
+                Invoke("StopGame", 7f);
 
             }
         }
