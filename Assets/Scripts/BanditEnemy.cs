@@ -43,6 +43,9 @@ public class BanditEnemy : MonoBehaviour
     public GameObject GrenadePrefab;
     [SerializeField] Transform throwPoint;
     [SerializeField] float launchAngle = 45f;
+
+    public AudioSource banditSounds;
+    public AudioClip banditWalking, banditSprint, banditShoot, banditGrenade, banditGrenade2;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
 
