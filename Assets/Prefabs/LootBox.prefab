@@ -348,7 +348,7 @@ MonoBehaviour:
   StimIMAGE: {fileID: 2800000, guid: 074ea0d7bce35f3478f1ef04d2b06632, type: 3}
   GrenadeIMAGE: {fileID: 2800000, guid: f9714909a7901a949ba6bd22b47b2a9a, type: 3}
   EmptyIMAGE: {fileID: 2800000, guid: d31456e5a12aa9a4f9c32a230d2b7e51, type: 3}
-  BandageIMAGE: {fileID: 2800000, guid: 5d65cfd3244d3e44cb9ec5bb98ea170d, type: 3}
+  BandageIMAGE: {fileID: 2800000, guid: b71b96e98c404004badcd15128bdb06f, type: 3}
 --- !u!65 &6664039348150779528
 BoxCollider:
   m_ObjectHideFlags: 0
