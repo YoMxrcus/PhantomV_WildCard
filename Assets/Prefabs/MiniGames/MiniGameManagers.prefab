@@ -1,0 +1,296 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &633219959479262900
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4156402121662977482}
+  - component: {fileID: 25635537393547939}
+  m_Layer: 0
+  m_Name: WirePuzzleLogic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4156402121662977482
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633219959479262900}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.87867, y: 1.87867, z: 1.87867}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3753942892872636373}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &25635537393547939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633219959479262900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6469ad95819fec44d9336edbd895f56a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Puzzles
+  wires:
+  - {fileID: -1243957704, guid: 8b9bf50f674d02a4ab3fe950533c396d, type: 3}
+  - {fileID: -947908499, guid: 8b9bf50f674d02a4ab3fe950533c396d, type: 3}
+  - {fileID: -784770850, guid: 8b9bf50f674d02a4ab3fe950533c396d, type: 3}
+  - {fileID: 458695329, guid: 8b9bf50f674d02a4ab3fe950533c396d, type: 3}
+  - {fileID: 1922599499, guid: 8b9bf50f674d02a4ab3fe950533c396d, type: 3}
+  - {fileID: 1701182819, guid: 8b9bf50f674d02a4ab3fe950533c396d, type: 3}
+  - {fileID: -424374668, guid: 8b9bf50f674d02a4ab3fe950533c396d, type: 3}
+  - {fileID: -1960935034, guid: 8b9bf50f674d02a4ab3fe950533c396d, type: 3}
+  - {fileID: 1594832069, guid: 8b9bf50f674d02a4ab3fe950533c396d, type: 3}
+  currentButton: 
+  lastClickedButton: 
+  redWire: {fileID: 0}
+  blueWire: {fileID: 0}
+  yellowWire: {fileID: 0}
+  wireMinigame: {fileID: 0}
+  redConnected: 0
+  blueConnected: 0
+  yellowConnected: 0
+  positions: 1c02000048030000f0000000
+  positions2: 1c02000048030000f0000000
+  Player: {fileID: 0}
+--- !u!1 &1499702566527680480
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3753942892872636373}
+  m_Layer: 0
+  m_Name: MiniGameManagers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3753942892872636373
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499702566527680480}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1367.2004, y: 301.2753, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4488192052667421383}
+  - {fileID: 6013642614294748182}
+  - {fileID: 3595349291120797560}
+  - {fileID: 4156402121662977482}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1954377271851483464
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6013642614294748182}
+  - component: {fileID: 8570429606356702086}
+  m_Layer: 0
+  m_Name: PasswordPuzzleLogic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6013642614294748182
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954377271851483464}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1369.8054, y: -302.858, z: 2.5380821}
+  m_LocalScale: {x: 1.87867, y: 1.87867, z: 1.87867}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3753942892872636373}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8570429606356702086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954377271851483464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a93c54e669d46974ba8c0838d4baa6b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PasswordMinigameManager
+  comboLetters:
+  - q
+  - e
+  - r
+  - f
+  PlayerInput: 0
+  currentPassword: 
+  passwordText: {fileID: 0}
+  correctOne: {fileID: 0}
+  correctTwo: {fileID: 0}
+  correctThree: {fileID: 0}
+  correctFour: {fileID: 0}
+  correctFive: {fileID: 0}
+  correctCounter: 0
+  PasswordMinigame: {fileID: 0}
+  Player: {fileID: 0}
+--- !u!1 &6260201335168386324
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3595349291120797560}
+  - component: {fileID: 5735730222654660413}
+  m_Layer: 0
+  m_Name: OxygenBarManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &3595349291120797560
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6260201335168386324}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 478.51758, y: 661.4525, z: 0}
+  m_LocalScale: {x: 1.87867, y: 1.87867, z: 1.87867}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3753942892872636373}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5735730222654660413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6260201335168386324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94df7b9a254c5f34198850ad65bc1087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OxygenLevelsPuzzle
+  oxygen: 0
+  oxygen2: 0
+  oxygen3: 0
+  min: 0
+  min2: 0
+  min3: 0
+  max: 0
+  max2: 0
+  max3: 0
+  oxygenBar: {fileID: 0}
+  oxygenBar2: {fileID: 0}
+  oxygenBar3: {fileID: 0}
+  fillImage: {fileID: 0}
+  fillImage2: {fileID: 0}
+  fillImage3: {fileID: 0}
+  timer: {fileID: 0}
+  timer2: {fileID: 0}
+  timer3: {fileID: 0}
+  time: 3
+  time2: 3
+  time3: 3
+  complete: 0
+  complete2: 0
+  complete3: 0
+  clickArea: {fileID: 0}
+  clickArea2: {fileID: 0}
+  clickArea3: {fileID: 0}
+  light1: {fileID: 0}
+  light2: {fileID: 0}
+  light3: {fileID: 0}
+  OxygenMinigame: {fileID: 0}
+  Player: {fileID: 0}
+  oxygenResetNum: 0
+--- !u!1 &7502451139579334099
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4488192052667421383}
+  - component: {fileID: 7963219425672652470}
+  m_Layer: 0
+  m_Name: HeatMeterManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4488192052667421383
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7502451139579334099}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 559.07544, y: 698.3971, z: 0}
+  m_LocalScale: {x: 1.87867, y: 1.87867, z: 1.87867}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3753942892872636373}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7963219425672652470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7502451139579334099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5159685ea86794244b0af0c0b6095291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HeatMeter
+  heatBar: {fileID: 0}
+  heatBar2: {fileID: 0}
+  heatBar3: {fileID: 0}
+  clickArea: {fileID: 0}
+  clickArea2: {fileID: 0}
+  clickArea3: {fileID: 0}
+  heat: 0
+  heat2: 0
+  heat3: 0
+  tolerance: 5
+  HeatMinigame: {fileID: 0}
+  Player: {fileID: 0}
