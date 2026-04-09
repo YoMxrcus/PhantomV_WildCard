@@ -6,6 +6,8 @@ public class EnemyProjectile : MonoBehaviour
     private float speed = 20f;
     public GameObject Player;
     public float initialYPos;
+    public AudioSource playerSounds;
+    public AudioClip grunt1, grunt2, grunt3, grunt4;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -43,14 +45,34 @@ public class EnemyProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-       if (other.gameObject.CompareTag("Player"))
-       {
+        if (other.gameObject.CompareTag("Player"))
+        {
             other.gameObject.GetComponent<ThirdPersonController>().health -= 5;
             Destroy(gameObject);
-       }
+            playerSounds.loop = false;
+            int grunt = Random.Range(1, 5);
+            switch (grunt)
+            {
+                case 1:
+                    playerSounds.clip = grunt1;
+                    playerSounds.Play();
+                    break;
+                case 2:
+                    playerSounds.clip = grunt2;
+                    playerSounds.Play();
+                    break;
+                case 3:
+                    playerSounds.clip = grunt3;
+                    playerSounds.Play();
+                    break;
+                case 4:
+                    playerSounds.clip = grunt4;
+                    playerSounds.Play();
+                    break;
+            }
 
-      
+
+        }
+
     }
-
-   
 }
