@@ -155255,6 +155255,7 @@ MonoBehaviour:
   main: {fileID: 0}
   credits: {fileID: 0}
   help: {fileID: 0}
+  settings: {fileID: 0}
   buttonSounds: {fileID: 0}
   click1: {fileID: 0}
   click2: {fileID: 0}
@@ -230842,7 +230843,7 @@ MonoBehaviour:
   PistolImage: {fileID: 21300000, guid: 5d65cfd3244d3e44cb9ec5bb98ea170d, type: 3}
   AssaultRifleIMAGE: {fileID: 21300000, guid: fb32fd8340fa46f4c82d9408cef928cc, type: 3}
   ShotgunIMAGE: {fileID: 21300000, guid: 975c7850363b87044897b0ecd67a2484, type: 3}
-  BandageIMAGE: {fileID: 21300000, guid: 5d65cfd3244d3e44cb9ec5bb98ea170d, type: 3}
+  BandageIMAGE: {fileID: 21300000, guid: b71b96e98c404004badcd15128bdb06f, type: 3}
   gunSlot: {fileID: 1887097610}
   invSlotTwo: {fileID: 1234354876}
   invSlotThree: {fileID: 1958576573}
