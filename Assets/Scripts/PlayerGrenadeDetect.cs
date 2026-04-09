@@ -7,6 +7,7 @@ public class PlayerGrenadeDetect : MonoBehaviour
     public GameObject Player;
     [SerializeField] GameObject ParentGrenade;
     public List<GameObject> activeEnemies = new List<GameObject>();
+    public ParticleSystem Explosion;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -65,6 +66,11 @@ public class PlayerGrenadeDetect : MonoBehaviour
         }
     }
 
+
+void DestroyGrenade()
+    {
+        Destroy(transform.parent.gameObject);
+    }
     void BoomCountdown()
     {
 
@@ -81,9 +87,11 @@ public class PlayerGrenadeDetect : MonoBehaviour
             }
         }
 
+        Explosion.Play();
+
         if (transform.parent != null)
         {
-            Destroy(transform.parent.gameObject);
+            Invoke("DestroyGrenade", .25f);
         }
     }
 }

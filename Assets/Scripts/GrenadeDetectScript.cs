@@ -5,6 +5,7 @@ public class GrenadeDetectScript : MonoBehaviour
     [SerializeField] bool PlayerInField = false;
     public GameObject Player;
     [SerializeField] GameObject ParentGrenade;
+    public ParticleSystem Explosion;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -39,6 +40,11 @@ public class GrenadeDetectScript : MonoBehaviour
         }
     }
 
+    void DestroyGrenade()
+    {
+        Destroy(transform.parent.gameObject);
+    }
+
     void BoomCountdown()
     {
         if (PlayerInField)
@@ -47,9 +53,11 @@ public class GrenadeDetectScript : MonoBehaviour
            
         }
 
+        Explosion.Play();
+
         if (transform.parent != null)
         {
-            Destroy(transform.parent.gameObject);
+            Invoke("DestroyGrenade", .25f);
         }
     }
 }
