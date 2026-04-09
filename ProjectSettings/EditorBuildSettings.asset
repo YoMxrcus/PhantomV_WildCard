@@ -17,6 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ALEJANDROPORTSCENES/LevelOnePort.unity
     guid: 19943dcfda2913d41b975b15bacff34f
+  - enabled: 1
+    path: Assets/Scenes/ALEJANDROPORTSCENES/LevelTwoPort.unity
+    guid: 11b56f596ce95804793b58f5e759c32d
+  - enabled: 1
+    path: Assets/Scenes/ALEJANDROPORTSCENES/LevelThreePort.unity
+    guid: 5aaf954dd010b114eb7bfc585b5a7d61
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
