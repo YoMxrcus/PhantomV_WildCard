@@ -119,6 +119,7 @@ public class ThirdPersonController : MonoBehaviour
     public Animator heartBeatAnimator;
     public Image targetImageLine;
     public TMP_Text heartBeatText;
+    public GameObject DeathPanel;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -388,6 +389,7 @@ public class ThirdPersonController : MonoBehaviour
                 SetAllBoolsFalse();
                 PlayerAnimator.SetTrigger("isDead");
                 isDead = true;
+                DeathPanel.SetActive(true);
                 Invoke("StopGame", 7f);
 
             }
