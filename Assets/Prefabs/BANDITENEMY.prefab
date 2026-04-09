@@ -706,10 +706,10 @@ MonoBehaviour:
   GrenadePrefab: {fileID: 6557050663983580341, guid: aa4bbb5665a09514a9cb961e2b66e522, type: 3}
   throwPoint: {fileID: 8174072724547089707}
   launchAngle: 45
-  banditSounds: {fileID: 0}
-  banditWalking: {fileID: 0}
-  banditSprint: {fileID: 0}
-  banditShoot: {fileID: 0}
+  banditSounds: {fileID: 373202928816964969}
+  banditWalking: {fileID: 8300000, guid: e4cdf40e16e57e64188b9feea69ed1f0, type: 3}
+  banditSprint: {fileID: 8300000, guid: a755187f7b43f4948bd5af50aeff9b2f, type: 3}
+  banditShoot: {fileID: 8300000, guid: 4d31ef21c12c20a4ba55af54f6975f5d, type: 3}
   banditGrenade: {fileID: 0}
   banditGrenade2: {fileID: 0}
 --- !u!54 &5221325360032959925
@@ -761,9 +761,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0

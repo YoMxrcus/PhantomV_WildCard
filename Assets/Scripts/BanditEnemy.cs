@@ -149,6 +149,7 @@ public class BanditEnemy : MonoBehaviour
         if (!moveRandom && fighting && shootFunction == 1 && !BanditPrefab.GetComponent<BanditHealth>().isDead)
         {
             ShootCoroutine = StartCoroutine(ShootProjectile(firePoint));
+            
             shootFunction = 0;
 
             if (BanditAnimator.GetBool("RifleAiming") != true)
