@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerGrenadeDetect : MonoBehaviour
 {
+    public AudioSource playerGrenade;
+    public AudioClip grenadeBoom;
     [SerializeField] bool PlayerInField = false;
     public GameObject Player;
     [SerializeField] GameObject ParentGrenade;
@@ -88,10 +90,11 @@ void DestroyGrenade()
         }
 
         Explosion.Play();
+        playerGrenade.PlayOneShot(grenadeBoom);
 
         if (transform.parent != null)
         {
-            Invoke("DestroyGrenade", .25f);
+            Invoke("DestroyGrenade", .5f);
         }
     }
 }
