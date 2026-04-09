@@ -5,9 +5,9 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     string mainMenuScene = "MainMenu";
-    string Level1 = "LevelOne_F";
-    string levelTwo = "LevelTwo_F";
-    string levelThree = "LevelThree_F";
+    string Level1 = "LevelOnePort";
+    string levelTwo = "LevelTwoPort";
+    string levelThree = "LevelThreePort";
     string levelBoss = "LevelTwoDesign";
     public GameObject main;
     public GameObject credits;
