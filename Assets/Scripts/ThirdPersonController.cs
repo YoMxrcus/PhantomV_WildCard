@@ -207,7 +207,7 @@ public class ThirdPersonController : MonoBehaviour
         UpdateUI();
 
         if (HeaterUp >=120)
-        { Time.timeScale = 0; }
+        { health = 0; }
     }
 
     public void SetAllBoolsFalse()
@@ -369,6 +369,12 @@ public class ThirdPersonController : MonoBehaviour
 
         }
     }
+
+
+    void StopGame()
+    {
+        Time.timeScale = 0;
+    }
     void Update()
     {
         CheckIdleAnimations();
@@ -382,6 +388,7 @@ public class ThirdPersonController : MonoBehaviour
                 SetAllBoolsFalse();
                 PlayerAnimator.SetTrigger("isDead");
                 isDead = true;
+                Invoke("StopGame", 5f);
 
             }
         }
