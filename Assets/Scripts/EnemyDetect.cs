@@ -9,6 +9,7 @@ public class EnemyDetect : MonoBehaviour
     float speed = 2f;
     public bool canLunge = true;
     public bool canMove = true;
+    public Animator SnakeAnimator;
     //public GameObject[] enemyStance = new GameObject[4];
     //public float animationSpeed = 1f; // Time between stance swaps
 
@@ -33,6 +34,12 @@ public class EnemyDetect : MonoBehaviour
                 if (canLunge)
                 {
                     AllowLunge();
+                    if (SnakeAnimator.GetBool("LungingFast") != true)
+                    {
+                        SetAllBoolsFalse();
+                        SnakeAnimator.SetBool("LungingFast", true);
+                    }
+
                     Invoke("DisallowLunge", .25f);
                     Invoke("AllowLunge", 5f);
                 }
@@ -62,6 +69,26 @@ public class EnemyDetect : MonoBehaviour
         canLunge = false;
         speed = 2;
     }    
+    void SlowSnake()
+    {
+
+    }
+
+    public void SetAllBoolsFalse()
+    {
+        if (SnakeAnimator == null) return;
+
+        // Loop through all parameters in the Animator
+        foreach (AnimatorControllerParameter param in SnakeAnimator.parameters)
+        {
+            // Only set bool parameters
+            if (param.type == AnimatorControllerParameterType.Bool)
+            {
+                SnakeAnimator.SetBool(param.name, false);
+            }
+        }
+
+    }
 
     /*private void OnTriggerExit(Collider other)
     {
