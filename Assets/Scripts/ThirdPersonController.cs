@@ -202,7 +202,7 @@ public class ThirdPersonController : MonoBehaviour
         UpdateUI();
 
         if (HeaterUp >=120)
-        { Time.timeScale = 0; }
+        { health = 0; }
     }
 
     public void SetAllBoolsFalse()
