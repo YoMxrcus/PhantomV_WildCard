@@ -5088,8 +5088,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -179.77911}
-  m_SizeDelta: {x: 709.7022, y: 303.1028}
+  m_AnchoredPosition: {x: 0, y: -175}
+  m_SizeDelta: {x: 1039.4033, y: 303.1028}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1026793785
 MonoBehaviour:
@@ -5119,8 +5119,8 @@ MonoBehaviour:
 
 
 
-    Programmer
-    - Marcus Gaudreau
+    UI
+    Programmer/Sound Design - Marcus Gaudreau
 
 
 
@@ -5128,8 +5128,10 @@ MonoBehaviour:
 
 
 
-    3D Modeler -
-    Alivia Simmions
+    3D
+    Artist/Modeler - Alivia Simmons
+
+
 
 
 
@@ -5137,17 +5139,63 @@ MonoBehaviour:
 
 
 
-    Egypt Egyptian Desert Music - HitsLab (Pixabay)
+    Egypt Egyptian Desert
+    Music - HitsLab (Pixabay)
 
 
 
-    Echoes
-    of the Desert - DesiFreeMusic (Pixabay)
+    Echoes of the Desert - DesiFreeMusic (Pixabay)
 
 
 
-    Industrial Revolution Age Ambient
-    - VifotoFreeSounds (Pixabay)'
+    Industrial
+    Revolution Age Ambient - VifotoFreeSounds (Pixabay)
+
+
+
+
+
+    ANIMATIONS:
+
+
+
+    Character
+    Animations - Mixamo
+
+
+
+    Snake Animations - Anything World
+
+
+
+
+
+    TEXT:
+
+
+
+    Michroma
+    - Google Fonts
+
+
+
+    Aldrich - Google Fonts
+
+
+    
+
+    Press Start 2P - Google
+    Fonts
+
+
+
+
+
+    PARTICLE EFFECTS:
+
+
+
+    Unity Asset Store - Unity Technologies'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fc2015f03f9b97e43883d06e73d97c8d, type: 2}
   m_sharedMaterial: {fileID: -5405297428808977908, guid: fc2015f03f9b97e43883d06e73d97c8d, type: 2}
