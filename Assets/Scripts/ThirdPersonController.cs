@@ -114,6 +114,11 @@ public class ThirdPersonController : MonoBehaviour
     public AudioSource playerSounds;
     public AudioClip walking, running, shotgunReload, shotgunRecock, shotgunShot, pistolReload, pistolShot, rifleReload, rifleShot, dash, grunt1, grunt2, grunt3, grunt4, switchWeapons, syringe, bandage, useCondensor,throwGrenade, lootTrashcan, looting2, generatorStart, generatorStop;
     public Animator PlayerAnimator;
+
+    //heartbeatsensor
+    public Animator heartBeatAnimator;
+    public Image targetImageLine;
+    public TMP_Text heartBeatText;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -1148,9 +1153,41 @@ public class ThirdPersonController : MonoBehaviour
        
         arrow.transform.rotation = Quaternion.Euler(0, 0, ((360 / 100) * HeaterUp) * -1);
         staminaBar.value = stamina;
-        healthSlider.value = health;
+
 
         if (health > 100) { health = 100; }
+
+        //heartbeat UI
+        if (health >= 80)
+        {
+            heartBeatAnimator.speed = 0.4f;
+            heartBeatText.text = "80";
+            targetImageLine.color = Color.cyan;
+        }
+        else if (health >= 60)
+        {
+            heartBeatAnimator.speed = 0.6f;
+            heartBeatText.text = "90";
+            targetImageLine.color = Color.cyan;
+        }
+        else if (health >= 40)
+        {
+            heartBeatAnimator.speed = 0.8f;
+            heartBeatText.text = "100";
+            targetImageLine.color = Color.orange;
+        }
+        else if (health >= 20)
+        {
+            heartBeatAnimator.speed = 1.0f;
+            heartBeatText.text = "110";
+            targetImageLine.color = Color.orangeRed;
+        }
+        else if (health < 20)
+        {
+            heartBeatAnimator.speed = 1.2f;
+            heartBeatText.text = "120";
+            targetImageLine.color = Color.red;
+        }
 
         switch (activeGun)
         {

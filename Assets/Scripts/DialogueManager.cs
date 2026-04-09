@@ -253,6 +253,7 @@ public class DialogueManager : MonoBehaviour
         {
             int num = int.Parse(other.gameObject.name);
             OpenTextBox(num);
+            Destroy(other.gameObject);
         }
         
     }

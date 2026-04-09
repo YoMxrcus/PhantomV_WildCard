@@ -12359,6 +12359,7 @@ Transform:
   - {fileID: 35853342}
   - {fileID: 2041643331}
   - {fileID: 687242768}
+  - {fileID: 1769883030}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -15.229, z: 0}
 --- !u!43 &238838872
@@ -148029,6 +148030,9 @@ MonoBehaviour:
   clickArea: {fileID: 156226765}
   clickArea2: {fileID: 169093250}
   clickArea3: {fileID: 1463317481}
+  light1: {fileID: 0}
+  light2: {fileID: 0}
+  light3: {fileID: 0}
   OxygenMinigame: {fileID: 1088569943}
   Player: {fileID: 1720478192}
   oxygenResetNum: 0
@@ -168629,6 +168633,9 @@ MonoBehaviour:
   condensorActive: 0
   stimActive: 0
   isSprinting: 0
+  CondensorAnimation: 0
+  Grenading: 0
+  isDead: 0
   CurrentGenerator: {fileID: 0}
   InteractText: {fileID: 1560256635}
   interactTextNum: 0
@@ -168711,6 +168718,9 @@ MonoBehaviour:
   generatorStart: {fileID: 0}
   generatorStop: {fileID: 0}
   PlayerAnimator: {fileID: 0}
+  heartBeatAnimator: {fileID: 0}
+  targetImageLine: {fileID: 0}
+  heartBeatText: {fileID: 0}
 --- !u!114 &1720478194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181820,12 +181830,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1769883024}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.1264193, z: -0, w: 0.991977}
-  m_LocalPosition: {x: 10.3, y: -11.8, z: -248.8}
+  m_LocalRotation: {x: -0, y: 0.25674865, z: -0, w: 0.96647817}
+  m_LocalPosition: {x: -98.24475, y: -9.422133, z: 9.788868}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 227701280}
   m_LocalEulerAnglesHint: {x: 0, y: 14.525, z: 0}
 --- !u!1 &1779522280
 GameObject:
@@ -227347,4 +227357,3 @@ SceneRoots:
   - {fileID: 1417782981}
   - {fileID: 786459186}
   - {fileID: 1323775296}
-  - {fileID: 1769883030}
