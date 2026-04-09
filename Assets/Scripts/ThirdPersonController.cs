@@ -869,9 +869,9 @@ public class ThirdPersonController : MonoBehaviour
         {
 
             case "Enemy":
-                if (health > 10)
+                if (health > 0)
                 { 
-                    health -= 10;
+                    health -= 5;
                     playerSounds.loop = false;
                     int grunt = Random.Range(1,5);
                     switch (grunt)
