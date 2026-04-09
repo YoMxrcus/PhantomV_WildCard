@@ -46242,11 +46242,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 912331770700442531, guid: f40eff7d1dcba344f85d0466d0f5ff72, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1596718803585093206, guid: f40eff7d1dcba344f85d0466d0f5ff72, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2133515975388256136, guid: f40eff7d1dcba344f85d0466d0f5ff72, type: 3}
       propertyPath: Player
@@ -46254,15 +46254,19 @@ PrefabInstance:
       objectReference: {fileID: 1720478192}
     - target: {fileID: 5835919286858242521, guid: f40eff7d1dcba344f85d0466d0f5ff72, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6951566699861471959, guid: f40eff7d1dcba344f85d0466d0f5ff72, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7364341081247515650, guid: f40eff7d1dcba344f85d0466d0f5ff72, type: 3}
       propertyPath: m_Name
       value: HeatMeterStuff
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364341081247515650, guid: f40eff7d1dcba344f85d0466d0f5ff72, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8084153182135826104, guid: f40eff7d1dcba344f85d0466d0f5ff72, type: 3}
       propertyPath: m_Pivot.x
@@ -46346,11 +46350,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8647919747006726258, guid: f40eff7d1dcba344f85d0466d0f5ff72, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9204922478643025212, guid: f40eff7d1dcba344f85d0466d0f5ff72, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

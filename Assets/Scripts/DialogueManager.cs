@@ -45,7 +45,7 @@ public class DialogueManager : MonoBehaviour
     {
         //How to call items in the CSV - grid[x, y] where x and y are numbers starting from 0 (A1 on the excel sheet would be 0,0 and A2 on the excell sheet would be 0,1)
         //How to call certain characters - grid[2 + currentTextIndex, characterID]
-        csvDialogue = Resources.Load<TextAsset>("CSVFiles/TestingDio_01");
+        csvDialogue = Resources.Load<TextAsset>("CSVFiles/TestingDio_01 1");
         dialougeGrid = getCSVGrid(csvDialogue.text);
 
         dialougeBox.SetActive(false);
@@ -225,13 +225,17 @@ public class DialogueManager : MonoBehaviour
             case "Aidan":
                 SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("PlaceHolderFace2");
                 break;
-            case "Test One":
+            case "Raider":
                 SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("Bandit");
                 break;
-            case "Test Two":
+            case "Raiders":
+                SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("Bandit");
+                break;
+
+            case "HQ":
                 SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("Lady");
                 break;
-            case "Test Three":
+            case "L30":
                 SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("MC");
                 break;
             case "Evil Wizards":
