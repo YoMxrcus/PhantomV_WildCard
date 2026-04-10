@@ -45,6 +45,12 @@ public class EnemyProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.tag == null || other.gameObject.tag == "CoverObject")
+        {
+            Destroy(gameObject);
+        }
+   
+
         if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.GetComponent<ThirdPersonController>().health -= 5;

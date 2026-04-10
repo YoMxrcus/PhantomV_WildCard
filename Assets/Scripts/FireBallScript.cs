@@ -44,12 +44,11 @@ public class FireBallScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        switch (other.gameObject.tag)
+        if (other.gameObject.tag == "CoverObject" || other.gameObject.tag == "Building")
         {
-            case "CoverObject":
-                Destroy(gameObject);
-                break;
+            Destroy(gameObject);
         }
+
     }
 
 
