@@ -196,7 +196,10 @@ public class ThirdPersonController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        HandleMovement();
+        if (!isDead)
+        {
+            HandleMovement();
+        }
         if (Mouse.current.rightButton.isPressed)
         {
             aiming = true;
@@ -375,6 +378,7 @@ public class ThirdPersonController : MonoBehaviour
     void StopGame()
     {
         Time.timeScale = 0;
+        DeathPanel.SetActive(true);
     }
     void Update()
     {
@@ -389,7 +393,6 @@ public class ThirdPersonController : MonoBehaviour
                 SetAllBoolsFalse();
                 PlayerAnimator.SetTrigger("isDead");
                 isDead = true;
-                DeathPanel.SetActive(true);
                 Invoke("StopGame", 7f);
 
             }
@@ -403,7 +406,7 @@ public class ThirdPersonController : MonoBehaviour
             isSprinting = true;
                 
 
-                if (CurrentInvSelect != 0 && moveInput.sqrMagnitude > 0)
+                if (CurrentInvSelect != 0 && moveInput.sqrMagnitude > 0 && !isDead)
                 {
                     
                         if (PlayerAnimator.GetBool("isRunning") != true)
@@ -416,7 +419,7 @@ public class ThirdPersonController : MonoBehaviour
 
                 }
 
-                else if (CurrentInvSelect == 0 && moveInput.sqrMagnitude > 0)
+                else if (CurrentInvSelect == 0 && moveInput.sqrMagnitude > 0 && !isDead)
                 {
                         switch (activeGun)
                         {
@@ -479,7 +482,7 @@ public class ThirdPersonController : MonoBehaviour
 
             
         }
-        else if (Keyboard.current.shiftKey.wasReleasedThisFrame)
+        else if (Keyboard.current.shiftKey.wasReleasedThisFrame && !isDead)
         {
             //playerSounds.Stop();
             playerSounds.clip = walking;
@@ -491,7 +494,7 @@ public class ThirdPersonController : MonoBehaviour
             }
         }
 
-        if (Keyboard.current[Key.Digit1].wasPressedThisFrame && !InPuzzle)
+        if (Keyboard.current[Key.Digit1].wasPressedThisFrame && !InPuzzle && !isDead)
         {
             if (CurrentInvSelect == 0)
             {
@@ -506,106 +509,114 @@ public class ThirdPersonController : MonoBehaviour
             CurrentInvSelect = 0;
             UpdateUI();
         }
-        if (Keyboard.current[Key.Digit2].wasPressedThisFrame && !InPuzzle)
+        if (Keyboard.current[Key.Digit2].wasPressedThisFrame && !InPuzzle && !isDead)
         {
             playerSounds.PlayOneShot(switchWeapons);
             CurrentInvSelect = 1;
             UpdateUI();
         }
-        if (Keyboard.current[Key.Digit3].wasPressedThisFrame && !InPuzzle)
+        if (Keyboard.current[Key.Digit3].wasPressedThisFrame && !InPuzzle && !isDead)
         {
             playerSounds.PlayOneShot(switchWeapons);
             CurrentInvSelect = 2;
             UpdateUI();
         }
-        if (Keyboard.current[Key.Digit4].wasPressedThisFrame && !InPuzzle)
+        if (Keyboard.current[Key.Digit4].wasPressedThisFrame && !InPuzzle && !isDead)
         {
             playerSounds.PlayOneShot(switchWeapons);
             CurrentInvSelect = 3;
             UpdateUI();
         }
-        if (Keyboard.current[Key.Digit5].wasPressedThisFrame && !InPuzzle)
+        if (Keyboard.current[Key.Digit5].wasPressedThisFrame && !InPuzzle && !isDead)
         {
             playerSounds.PlayOneShot(switchWeapons);
             CurrentInvSelect = 4;
             UpdateUI();
         }
 
-        if (Keyboard.current.spaceKey.wasPressedThisFrame && canDash && stamina >= 30 && !InPuzzle)
+        if (Keyboard.current.spaceKey.wasPressedThisFrame && canDash && stamina >= 30 && !InPuzzle && !isDead)
         {
             StartCoroutine(Dash());
             playerSounds.PlayOneShot(dash);
         }
 
-        else if (Keyboard.current.cKey.isPressed && InPuzzle)
+        else if (Keyboard.current.cKey.isPressed && InPuzzle && !isDead)
         {
             StartCoroutine(Dash());
             playerSounds.PlayOneShot(dash);
             playerSounds.PlayOneShot(generatorStop);
         }
-        CheckGrenade();
-        CheckBandage();
-        CheckLoot();
-        CheckReload();
-        StimActivate();
-        CondensorActivate();
 
-        switch (activeGun)
+        if (!isDead)
         {
-            case 0:
-                currentDamage = 35;
-                Shoot();
-                if (CurrentInvSelect == 0 && !InLoot)
-                {
-                    RifleObject.SetActive(false);
-                    PistolObject.SetActive(true);
-                    ShotgunObject.SetActive(false);
-                }
+            CheckGrenade();
+            CheckBandage();
+            CheckLoot();
+            CheckReload();
+            StimActivate();
+            CondensorActivate();
+        }
+
+        if (!isDead)
+        {
+
+            switch (activeGun)
+            {
+                case 0:
+                    currentDamage = 35;
+                    Shoot();
+                    if (CurrentInvSelect == 0 && !InLoot && !isDead)
+                    {
+                        RifleObject.SetActive(false);
+                        PistolObject.SetActive(true);
+                        ShotgunObject.SetActive(false);
+                    }
 
 
-                else
-                {
-                    RifleObject.SetActive(false);
-                    PistolObject.SetActive(false);
-                    ShotgunObject.SetActive(false);
-                }
+                    else
+                    {
+                        RifleObject.SetActive(false);
+                        PistolObject.SetActive(false);
+                        ShotgunObject.SetActive(false);
+                    }
+                        return;
+
+                case 1:
+                    currentDamage = 15;
+                    AssaultRifle();
+                    if (CurrentInvSelect == 0 && !InLoot && !isDead)
+                    {
+                        RifleObject.SetActive(true);
+                        PistolObject.SetActive(false);
+                        ShotgunObject.SetActive(false);
+                    }
+
+                    else
+                    {
+                        RifleObject.SetActive(false);
+                        PistolObject.SetActive(false);
+                        ShotgunObject.SetActive(false);
+                    }
                     return;
 
-            case 1:
-                currentDamage = 15;
-                AssaultRifle();
-                if (CurrentInvSelect == 0 && !InLoot)
-                {
-                    RifleObject.SetActive(true);
-                    PistolObject.SetActive(false);
-                    ShotgunObject.SetActive(false);
-                }
+                case 2:
+                    currentDamage = 45;
+                    Shotgun();
+                    if (CurrentInvSelect == 0 && !InLoot && !isDead)
+                    {
+                        RifleObject.SetActive(false);
+                        PistolObject.SetActive(false);
+                        ShotgunObject.SetActive(true);
+                    }
 
-                else
-                {
-                    RifleObject.SetActive(false);
-                    PistolObject.SetActive(false);
-                    ShotgunObject.SetActive(false);
-                }
-                return;
-
-            case 2:
-                currentDamage = 45;
-                Shotgun();
-                if (CurrentInvSelect == 0 && !InLoot)
-                {
-                    RifleObject.SetActive(false);
-                    PistolObject.SetActive(false);
-                    ShotgunObject.SetActive(true);
-                }
-
-                else
-                {
-                    RifleObject.SetActive(false);
-                    PistolObject.SetActive(false);
-                    ShotgunObject.SetActive(false);
-                }
-                return;
+                    else
+                    {
+                        RifleObject.SetActive(false);
+                        PistolObject.SetActive(false);
+                        ShotgunObject.SetActive(false);
+                    }
+                    return;
+            }
         }
 
         
@@ -640,7 +651,7 @@ public class ThirdPersonController : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (!InPuzzle || DashOut)
+        if (!InPuzzle || DashOut && !isDead)
         {
 
             if (stamina <= 5)
@@ -710,7 +721,7 @@ public class ThirdPersonController : MonoBehaviour
 
         }
 
-        if (Keyboard.current.cKey.isPressed && InPuzzle)
+        if (Keyboard.current.cKey.isPressed && InPuzzle && !isDead)
         {
             ExitAllMinigames();
             lootPanel.SetActive(false);
@@ -730,7 +741,7 @@ public class ThirdPersonController : MonoBehaviour
 
             Vector3 direction = (lookPoint - transform.position).normalized;
 
-            if (direction != Vector3.zero)
+            if (direction != Vector3.zero && !isDead)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 15f * Time.deltaTime);
