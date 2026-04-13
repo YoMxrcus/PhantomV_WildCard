@@ -112,7 +112,7 @@ public class ThirdPersonController : MonoBehaviour
     //Vector3 targetPosition ;
 
     public AudioSource playerSounds;
-    public AudioClip walking, running, shotgunReload, shotgunRecock, shotgunShot, pistolReload, pistolShot, rifleReload, rifleShot, dash, grunt1, grunt2, grunt3, grunt4, switchWeapons, syringe, bandage, useCondensor,throwGrenade, lootTrashcan, looting2, generatorStart, generatorStop;
+    public AudioClip walking, running, shotgunReload, shotgunRecock, shotgunShot, pistolReload, pistolShot, rifleReload, rifleShot, dash, grunt1, grunt2, grunt3, grunt4, switchWeapons, syringe, bandage, useCondensor,throwGrenade, lootTrashcan, looting2, generatorStart, generatorStop, tickingSound;
     public Animator PlayerAnimator;
 
     //heartbeatsensor
@@ -134,6 +134,7 @@ public class ThirdPersonController : MonoBehaviour
             yield return new WaitForSeconds(1f);
 
             HeaterUp++;
+
             
         }
     }
