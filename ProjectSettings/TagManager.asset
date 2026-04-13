@@ -22,6 +22,8 @@ TagManager:
   - enemyProjectile
   - playerGrenade
   - DioTrigger
+  - PlayerTag
+  - BanditTag
   layers:
   - Default
   - TransparentFX

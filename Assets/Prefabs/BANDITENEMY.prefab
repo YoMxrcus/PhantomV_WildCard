@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -8176749289351825987}
   m_Layer: 0
   m_Name: BANDITENEMY
-  m_TagString: Untagged
+  m_TagString: PlayerTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 5192882805441534085}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: PlayerTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -582,7 +582,7 @@ GameObject:
   - component: {fileID: 8174072724547089707}
   m_Layer: 0
   m_Name: ThrowPoint
-  m_TagString: Untagged
+  m_TagString: PlayerTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -844,6 +844,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6502535724700123694}
     m_Modifications:
+    - target: {fileID: -9042470624366484969, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -9032884009695698161, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -8968792423256235175, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
       propertyPath: m_LocalScale.x
       value: 42.077522
@@ -896,6 +908,58 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8609396671818673626, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -8296240974272260531, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -8211040492062670731, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -7364296003954249581, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -7089826851414894297, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -7001225759513866431, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -6998465263398994479, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -6919608879873526724, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -6640717815733051128, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -6326478672849136431, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -6042541025168778003, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -5920034151015046148, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -5647753521277810896, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
     - target: {fileID: -5324531855699944674, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -920,14 +984,214 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[5]'
       value: 
       objectReference: {fileID: 2100000, guid: 8c349b93362104d40acaddc415ef8fa1, type: 2}
+    - target: {fileID: -5215754884079518389, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -5135902320833545029, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -4953499709512668494, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -4938299532133592720, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -4365345465542019675, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -4331269752099212625, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -4163750073351003892, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -4095641180003979982, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -3972750204277297112, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -3602927797655225239, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -3029032871660112297, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -1965222906866567748, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -1536677632162101182, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -1477529084944989413, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -1330462418490802952, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -1259087756241503499, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -1169188703503674595, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -1131436335893318798, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -490776096944264708, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: -189440986930384578, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 297651058001472763, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 755447372732822984, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
       propertyPath: m_Name
       value: RaiderModelRIG2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934570315941802603, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 2005654007498955086, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 2076388887227504347, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 3201479682207236327, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 3586868319588768285, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 4486560178744554825, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919026496327831927, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 4978703182783164358, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 5444880758866220791, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 5450770927967777056, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585765651774483762, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695506091934247910, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 5826022482076333789, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: aad730d8158911f40980b68866b4110c, type: 2}
+    - target: {fileID: 5911246011145857956, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049252759404543502, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 6199694062023670209, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 6228364799056090001, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343868622285827923, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 6361995626693675765, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543634398405580480, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689265569413522815, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 6702345771282490600, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 7238399520154082944, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 7389525874829154859, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 8347604646014216276, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 8784595029104593549, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 8803675079958943670, guid: 4caa3c11b8b81ac478243e051c4e8656, type: 3}
+      propertyPath: m_TagString
+      value: PlayerTag
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

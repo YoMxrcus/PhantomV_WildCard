@@ -44,8 +44,10 @@ public class FireBallScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "CoverObject" || other.gameObject.tag == "Building")
+        if (other.gameObject.tag != "PlayerTag" && other.gameObject.tag != "Player" && other.gameObject.tag != "MainCamera" && other.gameObject.tag != "Enemy" && other.gameObject.tag != "BanditHitbox" && other.gameObject.tag != "CoverObject" && other.gameObject.tag != "DioTrigger" && other.gameObject.tag != "Building" && other.gameObject.tag != "EnemySpawner" && other.gameObject.tag != "Hitbox" && other.gameObject.tag != "projectile")
         {
+            Debug.Log("Object Name"+ other.gameObject.name);
+            Debug.Log(other.gameObject.tag);
             Destroy(gameObject);
         }
 
