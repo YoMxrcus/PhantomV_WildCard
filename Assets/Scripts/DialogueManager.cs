@@ -37,7 +37,11 @@ public class DialogueManager : MonoBehaviour
 
     //animator
     public Animator textBoxAnimator;
- 
+
+    //Audio
+    public AudioSource TalkAudio;
+    public AudioClip[] TalkSounds;
+    public AudioClip CurrentSound; 
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -109,6 +113,8 @@ public class DialogueManager : MonoBehaviour
         foreach (char c in newDialogue)
         {
             dialougeTxt.text += c;
+            TalkAudio.clip = CurrentSound;
+            TalkAudio.Play();
             yield return new WaitForSeconds(dialogueType);
         }
 
@@ -227,16 +233,20 @@ public class DialogueManager : MonoBehaviour
                 break;
             case "Raider":
                 SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("Bandit");
+                CurrentSound = TalkSounds[2];
                 break;
             case "Raiders":
                 SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("Bandit");
+                CurrentSound = TalkSounds[2];
                 break;
 
             case "HQ":
                 SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("Lady");
+                CurrentSound = TalkSounds[1];
                 break;
             case "L30":
                 SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("MC");
+                CurrentSound = TalkSounds[0];
                 break;
             case "Evil Wizards":
                 SpeakingFace.GetComponent<Image>().sprite = Resources.Load<Sprite>("EvilWizardHeadshot");
