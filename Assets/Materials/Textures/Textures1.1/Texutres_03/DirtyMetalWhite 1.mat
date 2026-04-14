@@ -23,19 +23,23 @@ Material:
   m_Name: DirtyMetalWhite 1
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 2100000, guid: 18bbeb22e096e4b4e81561b4eb50e161, type: 2}
-  m_ModifiedSerializedProperties: 0
+  m_ModifiedSerializedProperties: 16
   m_ValidKeywords:
+  - _ALPHAPREMULTIPLY_ON
   - _METALLICSPECGLOSSMAP
   - _PARALLAXMAP
+  - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap:
-    RenderType: Opaque
+    RenderType: Transparent
   disabledShaderPasses:
   - MOTIONVECTORS
+  - DepthOnly
+  - SHADOWCASTER
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -49,9 +53,13 @@ Material:
         m_Scale: {x: 0.01, y: 0.01}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _DstBlend: 10
+    - _DstBlendAlpha: 10
+    - _Surface: 1
+    - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 0.6698113, g: 0.5119659, b: 0.5086774, a: 1}
-    - _Color: {r: 0.6698113, g: 0.51196593, b: 0.50867736, a: 1}
+    - _BaseColor: {r: 0.6698113, g: 0.51196593, b: 0.50867736, a: 0.5803922}
+    - _Color: {r: 0.6698113, g: 0.51196593, b: 0.5086773, a: 0.5803922}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
