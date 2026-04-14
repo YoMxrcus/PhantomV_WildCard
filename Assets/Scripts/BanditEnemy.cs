@@ -165,10 +165,10 @@ public class BanditEnemy : MonoBehaviour
 
         while (true)
         {
-            Debug.Log("reached here");
+           
             yield return new WaitForSeconds(8f);
 
-            Debug.Log("reached here2");
+           
             activeActionNum = Random.Range(0, 3);
             currentActionStr = possibleActions[activeActionNum];
             Debug.Log(currentActionStr);
