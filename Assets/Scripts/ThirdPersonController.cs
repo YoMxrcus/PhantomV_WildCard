@@ -120,6 +120,12 @@ public class ThirdPersonController : MonoBehaviour
     public Image targetImageLine;
     public TMP_Text heartBeatText;
     public GameObject DeathPanel;
+
+    //canvas groups 
+    public CanvasGroup UICanvasGroup;
+    public CanvasGroup HeatWarningCanvasGroup;
+
+    //
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -773,6 +779,7 @@ public class ThirdPersonController : MonoBehaviour
                     if (!InPuzzle)
                     {
                         playerSounds.PlayOneShot(generatorStart);
+                        
                     }
                     if (interactTextNum == 1)
                     {
@@ -783,10 +790,12 @@ public class ThirdPersonController : MonoBehaviour
 
                     int randomNum = Random.Range(1, 5);
 
-                  
+
+                    UITransparent();
 
                     switch (randomNum)
                     {
+
                         case 1:
                             if (InPuzzle == false)
                             {
@@ -1175,6 +1184,10 @@ public class ThirdPersonController : MonoBehaviour
         arrow.transform.rotation = Quaternion.Euler(0, 0, ((360 / 100) * HeaterUp) * -1);
         staminaBar.value = stamina;
 
+        float HeatValueFloat = HeaterUp;
+        Debug.Log(HeatValueFloat/100f);
+
+        HeatWarningCanvasGroup.alpha = (HeatValueFloat/100);
 
         if (health > 100) { health = 100; }
 
@@ -1252,6 +1265,7 @@ public class ThirdPersonController : MonoBehaviour
    
     void ExitAllMinigames()
     {
+        UIOpaque();
         PuzzleManager.GetComponent<Puzzles>().CloseMinigame();
         PasswordManager.GetComponent<PasswordMinigameManager>().CloseMinigame();
         HeatMinigameManager.GetComponent<HeatMeter>().CloseMinigame();
@@ -1419,6 +1433,16 @@ public class ThirdPersonController : MonoBehaviour
                 playerSounds.PlayOneShot(shotgunReload);
             }
         }
+    }
+
+    public void UITransparent()
+    {
+        UICanvasGroup.alpha = 0.4f;
+    }
+
+    public void UIOpaque()
+    {
+        UICanvasGroup.alpha = 1f;
     }
 
     void CheckLoot()

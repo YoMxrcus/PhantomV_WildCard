@@ -153,6 +153,8 @@ public class HeatMeter : MonoBehaviour
 
         HeatMinigame.SetActive(false);
 
+        Player.GetComponent<ThirdPersonController>().UIOpaque();
+
 
     }
 

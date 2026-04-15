@@ -208,7 +208,9 @@ public class WireMinigameManager : MonoBehaviour
     {
         wireMinigame.SetActive(false);
         Player.GetComponent<ThirdPersonController>().InPuzzle = false;
-        
+
+        Player.GetComponent<ThirdPersonController>().UIOpaque();
+
     }
 
     public void ResetPositions()

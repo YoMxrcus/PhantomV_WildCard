@@ -152,6 +152,8 @@ public class PasswordMinigameManager : MonoBehaviour
         correctFive.GetComponent<Image>().color = Color.red;
 
         correctCounter = 0;
+
+        Player.GetComponent<ThirdPersonController>().UIOpaque();
     }
 
    public void ResetInteractNum()
