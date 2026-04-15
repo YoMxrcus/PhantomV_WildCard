@@ -85822,6 +85822,10 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 1379
       objectReference: {fileID: 0}
+    - target: {fileID: 7882766098312567023, guid: e759e6003aa1f524db2d4467822f9517, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: fb6b5816200f5394b8880ab40bfcf9c1, type: 2}
     - target: {fileID: 8150324368069481155, guid: e759e6003aa1f524db2d4467822f9517, type: 3}
       propertyPath: m_LocalPosition.x
       value: -134.31
@@ -133693,6 +133697,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1251423064}
     m_Modifications:
+    - target: {fileID: -8176749289351825987, guid: 14326e370e092e34b866deccfbe1cca5, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: fb6b5816200f5394b8880ab40bfcf9c1, type: 2}
+    - target: {fileID: 373202928816964969, guid: 14326e370e092e34b866deccfbe1cca5, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: fb6b5816200f5394b8880ab40bfcf9c1, type: 2}
     - target: {fileID: 1374339992642933116, guid: 14326e370e092e34b866deccfbe1cca5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -67.22626
@@ -133737,6 +133749,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BANDITENEMY (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6143679203116429000, guid: 14326e370e092e34b866deccfbe1cca5, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: fb6b5816200f5394b8880ab40bfcf9c1, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -149129,6 +149145,10 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 1379
       objectReference: {fileID: 0}
+    - target: {fileID: 7882766098312567023, guid: e759e6003aa1f524db2d4467822f9517, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: fb6b5816200f5394b8880ab40bfcf9c1, type: 2}
     - target: {fileID: 8150324368069481155, guid: e759e6003aa1f524db2d4467822f9517, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.4708472
@@ -171573,6 +171593,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1251423064}
     m_Modifications:
+    - target: {fileID: -8176749289351825987, guid: 14326e370e092e34b866deccfbe1cca5, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: fb6b5816200f5394b8880ab40bfcf9c1, type: 2}
+    - target: {fileID: 373202928816964969, guid: 14326e370e092e34b866deccfbe1cca5, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: fb6b5816200f5394b8880ab40bfcf9c1, type: 2}
     - target: {fileID: 1374339992642933116, guid: 14326e370e092e34b866deccfbe1cca5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -62.282345
@@ -171617,6 +171645,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BANDITENEMY (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6143679203116429000, guid: 14326e370e092e34b866deccfbe1cca5, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: fb6b5816200f5394b8880ab40bfcf9c1, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -174963,6 +174995,10 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 1379
       objectReference: {fileID: 0}
+    - target: {fileID: 7882766098312567023, guid: e759e6003aa1f524db2d4467822f9517, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: fb6b5816200f5394b8880ab40bfcf9c1, type: 2}
     - target: {fileID: 8150324368069481155, guid: e759e6003aa1f524db2d4467822f9517, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.4708472
@@ -231287,7 +231323,7 @@ AudioSource:
   m_GameObject: {fileID: 1720478192}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: fb6b5816200f5394b8880ab40bfcf9c1, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
@@ -237273,7 +237309,7 @@ AudioSource:
   m_GameObject: {fileID: 1752461917}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: fb6b5816200f5394b8880ab40bfcf9c1, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 958afd18b499574469f6593299efeb0b, type: 3}
   m_PlayOnAwake: 1
@@ -250868,7 +250904,7 @@ AudioSource:
   m_GameObject: {fileID: 1977759288}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: fb6b5816200f5394b8880ab40bfcf9c1, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
@@ -251520,6 +251556,10 @@ PrefabInstance:
       propertyPath: rolloffMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7882766098312567023, guid: e759e6003aa1f524db2d4467822f9517, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: fb6b5816200f5394b8880ab40bfcf9c1, type: 2}
     - target: {fileID: 7882766098312567023, guid: e759e6003aa1f524db2d4467822f9517, type: 3}
       propertyPath: spreadCustomCurve.m_Curve.Array.data[0].value
       value: 0
@@ -267127,6 +267167,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1251423064}
     m_Modifications:
+    - target: {fileID: -8176749289351825987, guid: 14326e370e092e34b866deccfbe1cca5, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: fb6b5816200f5394b8880ab40bfcf9c1, type: 2}
+    - target: {fileID: 373202928816964969, guid: 14326e370e092e34b866deccfbe1cca5, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: fb6b5816200f5394b8880ab40bfcf9c1, type: 2}
     - target: {fileID: 1374339992642933116, guid: 14326e370e092e34b866deccfbe1cca5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -58.907917
@@ -267171,6 +267219,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BANDITENEMY
       objectReference: {fileID: 0}
+    - target: {fileID: 6143679203116429000, guid: 14326e370e092e34b866deccfbe1cca5, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: fb6b5816200f5394b8880ab40bfcf9c1, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
