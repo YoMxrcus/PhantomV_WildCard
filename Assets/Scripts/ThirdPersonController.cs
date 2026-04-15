@@ -888,9 +888,7 @@ public class ThirdPersonController : MonoBehaviour
         switch (other.gameObject.tag)
 
         {
-            case "DeathPlane":
-                health = 0;
-                break;
+
             case "Enemy":
                 if (health > 0)
                 { 
@@ -1187,13 +1185,9 @@ public class ThirdPersonController : MonoBehaviour
         staminaBar.value = stamina;
 
         float HeatValueFloat = HeaterUp;
-        Debug.Log(HeatValueFloat);
         Debug.Log(HeatValueFloat/100f);
-        if (HeatValueFloat >= 60)
-        {
-            HeatWarningCanvasGroup.alpha = ((HeatValueFloat - 60) / 100);
-        }
-        
+
+        HeatWarningCanvasGroup.alpha = (HeatValueFloat/100);
 
         if (health > 100) { health = 100; }
 

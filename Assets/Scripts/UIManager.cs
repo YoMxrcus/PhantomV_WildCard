@@ -90,11 +90,7 @@ public class UIManager : MonoBehaviour
 
     //--------------Functions----------------
 
-    public void OpenAllDoors()
-    {
-        GameObject allDoors = GameObject.Find("DoorsObject");
-        allDoors.SetActive(false);
-    }
+
     public void StartGame()
     {
         SceneManager.LoadScene(Level1);
