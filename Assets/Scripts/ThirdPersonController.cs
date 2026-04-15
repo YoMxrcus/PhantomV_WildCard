@@ -1187,8 +1187,7 @@ public class ThirdPersonController : MonoBehaviour
         staminaBar.value = stamina;
 
         float HeatValueFloat = HeaterUp;
-        Debug.Log(HeatValueFloat);
-        Debug.Log(HeatValueFloat/100f);
+
         if (HeatValueFloat >= 60)
         {
             HeatWarningCanvasGroup.alpha = ((HeatValueFloat - 60) / 100);

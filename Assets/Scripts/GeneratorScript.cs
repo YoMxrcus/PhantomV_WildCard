@@ -104,7 +104,7 @@ public class GeneratorScript : MonoBehaviour
                         generatorSounds.PlayOneShot(openDoor);
                         break;
                     case "Generator05_03":
-                        SceneManager.LoadScene("WIN");
+                        
                         doorOne = GameObject.Find("Door_05");
                         doorOne.SetActive(false);
                         generatorSounds.PlayOneShot(openDoor);
