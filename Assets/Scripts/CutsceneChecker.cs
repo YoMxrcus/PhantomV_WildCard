@@ -76,11 +76,7 @@ public class CutsceneChecker : MonoBehaviour
                 }
                     break;
 
-            case "DeathPlane":
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                
-                break;
-
+ 
         }
     }
 

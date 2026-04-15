@@ -2080,16 +2080,16 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7990308}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -69.26853, y: -1.59175, z: -163.05}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -184.69142, y: 12.071308, z: -358.657}
+  m_LocalScale: {x: 1.5803349, y: 1.5803349, z: 1.5803349}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 748721047}
   - {fileID: 261123838}
   - {fileID: 1012186019}
   - {fileID: 1527121676}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 209785725}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &8056825 stripped
 Transform:
@@ -92984,6 +92984,7 @@ Transform:
   - {fileID: 2036485981}
   - {fileID: 2094184941}
   - {fileID: 1367203740}
+  - {fileID: 7990309}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &210285921
@@ -437273,6 +437274,8 @@ MonoBehaviour:
   targetImageLine: {fileID: 1234205018}
   heartBeatText: {fileID: 1393860937}
   DeathPanel: {fileID: 1873652939}
+  UICanvasGroup: {fileID: 0}
+  HeatWarningCanvasGroup: {fileID: 0}
 --- !u!114 &1720478194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -622196,6 +622199,5 @@ SceneRoots:
   - {fileID: 8542862766624137720}
   - {fileID: 406656193}
   - {fileID: 1662127575}
-  - {fileID: 7990309}
   - {fileID: 209785725}
   - {fileID: 897760009}
