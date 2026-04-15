@@ -1,19 +1,20 @@
 
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class CutsceneChecker : MonoBehaviour
 {
     string mainMenuScene = "MainMenu";
-    string LevelOneIntro = "LevelOneIntroAnimation";
+    string LevelOneIntro = "ComicOneScene";
     string LevelOne = "LevelOneSKILLS";
     string LevelOneOutro = "OutroLevelOneAnimation";
-    string LevelTwoIntro = "LevelTwoIntroAnimations";
+    string LevelTwoIntro = "ComicTwoScene";
     string LevelTwo = "LevelTwoSkills";
     string LevelTwoOutro = "OutroLevelTwo";
-    string LevelThreeIntro = "IntroLevelThree";
-    string LevelThree = "LeveLThreeSKILLS";
+    string LevelThreeIntro = "ComicThreeScene";
+    string LevelThree = "LevelThreeSKILLS";
     string LevelThreeOutro = "OutroLevelThree";
     string winScene = "WIN";
 
@@ -22,39 +23,50 @@ public class CutsceneChecker : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == LevelOneIntro)
         {
-            Invoke("LoadLevelOne",10f);
-        }
-
-        if (SceneManager.GetActiveScene().name == LevelOneOutro)
-        {
-            Invoke("LoadLevelTwoIntro", 5f);
+            Invoke("LoadLevelTwo",21.25f);
         }
 
         if (SceneManager.GetActiveScene().name == LevelTwoIntro)
         {
-            Invoke("LoadLevelTwo", 8f);
+            Invoke("LoadLevelThree", 21.25f);
         }
 
-        if (SceneManager.GetActiveScene().name == LevelTwoOutro)
-        {
-            Invoke("LoadLevelThreeIntro", 7f);
-        }
 
         if (SceneManager.GetActiveScene().name == LevelThreeIntro)
         {
-            Invoke("LoadLeveLThree", 5f);
+            Invoke("LoadWinScene", 21.25f);
         }
 
-        if (SceneManager.GetActiveScene().name == LevelThreeOutro)
-        {
-            //
-        }
+   
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (SceneManager.GetActiveScene().name == LevelOneIntro)
+        {
+            if (Keyboard.current.fKey.wasPressedThisFrame)
+            {
+                LoadLevelTwo();
+            }
+        }
+
+        if (SceneManager.GetActiveScene().name == LevelTwoIntro)
+        {
+            if (Keyboard.current.fKey.wasPressedThisFrame)
+            {
+                LoadLeveLThree();
+            }
+        }
+
+
+        if (SceneManager.GetActiveScene().name == LevelThreeIntro)
+        {
+            if (Keyboard.current.fKey.wasPressedThisFrame)
+            {
+                LoadWinScene() ;
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -64,15 +76,15 @@ public class CutsceneChecker : MonoBehaviour
             case "NextLevel":
                 if (SceneManager.GetActiveScene().name == LevelOne)
                 {
-                    LoadLevelTwo();
+                    SceneManager.LoadScene(LevelOneIntro);
                 }
                 else if (SceneManager.GetActiveScene().name == LevelTwo)
                 {
-                    LoadLeveLThree();
+                    LoadLevelTwoIntro();
                 }
                 else if (SceneManager.GetActiveScene().name == LevelThree)
                 {
-                    LoadWinScene();
+                    LoadLevelThreeIntro();
                 }
                     break;
 

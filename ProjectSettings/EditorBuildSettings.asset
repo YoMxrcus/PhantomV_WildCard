@@ -15,14 +15,23 @@ EditorBuildSettings:
     path: Assets/Scenes/WIN.unity
     guid: 57d4cb344ff94e04b9a6832165bf73ba
   - enabled: 1
-    path: Assets/Scenes/ALEJANDROPORTSCENES/LevelOnePort.unity
-    guid: 19943dcfda2913d41b975b15bacff34f
+    path: Assets/Scenes/SkillsBuildScenes/LevelOneSKILLS.unity
+    guid: 83d95f919531aeb4f95520983f30a8fb
   - enabled: 1
-    path: Assets/Scenes/ALEJANDROPORTSCENES/LevelTwoPort.unity
-    guid: 11b56f596ce95804793b58f5e759c32d
+    path: Assets/Scenes/SkillsBuildScenes/LevelThreeSKILLS.unity
+    guid: 40e4ed99f400fa54083c5f4d40cd523b
   - enabled: 1
-    path: Assets/Scenes/ALEJANDROPORTSCENES/LevelThreePort.unity
-    guid: 5aaf954dd010b114eb7bfc585b5a7d61
+    path: Assets/Scenes/SkillsBuildScenes/LevelTwoSkills.unity
+    guid: 25d5061cecd045c4fa378da2a6576364
+  - enabled: 1
+    path: Assets/Scenes/ALEJANDROPORTSCENES/AnimationScenes/ComicOneScene.unity
+    guid: bd04d9be9af57394590cb38196577fe5
+  - enabled: 1
+    path: Assets/Scenes/ALEJANDROPORTSCENES/AnimationScenes/ComicThreeScene.unity
+    guid: 19cd5e1df0eee5543ab9fa8e9d626199
+  - enabled: 1
+    path: Assets/Scenes/ALEJANDROPORTSCENES/AnimationScenes/ComicTwoScene.unity
+    guid: e072de9b826acb343baf4a92ff5a15d8
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

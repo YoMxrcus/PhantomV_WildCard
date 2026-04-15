@@ -5,10 +5,15 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     string mainMenuScene = "MainMenu";
-    string Level1 = "LevelOnePort";
-    string levelTwo = "LevelTwoPort";
-    string levelThree = "LevelThreePort";
+    string Level1 = "LevelOneSKILLS";
+    string levelTwo = "LevelTwoSkills";
+    string levelThree = "LevelThreeSKILLS";
     string levelBoss = "LevelTwoDesign";
+
+    string LevelOneIntro = "ComicOneScene";
+    string LevelTwoIntro = "ComicTwoScene";
+    string LevelThreeIntro = "ComicThreeScene";
+
     public GameObject main;
     public GameObject credits;
     public GameObject help;
@@ -38,7 +43,7 @@ public class UIManager : MonoBehaviour
 
         Time.timeScale = 1.0f; //sets time scale
 
-        if ((SceneManager.GetActiveScene().name == levelTwo) || (SceneManager.GetActiveScene().name == levelBoss)
+        if ((SceneManager.GetActiveScene().name == levelTwo) || (SceneManager.GetActiveScene().name == Level1)
             || (SceneManager.GetActiveScene().name == levelTwo) || (SceneManager.GetActiveScene().name == levelThree)|| (SceneManager.GetActiveScene().name == levelThreeActual))
         {
             Debug.Log("Open Pause Close");
@@ -148,13 +153,13 @@ public class UIManager : MonoBehaviour
     public void SecondLevel()
     {
         Debug.Log("Level Two Scene");
-        SceneManager.LoadScene(levelTwo);
+        SceneManager.LoadScene(LevelOneIntro);
     }
 
     public void ThirdLevel()
     {
         Debug.Log("Level 3 Scene");
-        SceneManager.LoadScene(levelThree);
+        SceneManager.LoadScene(LevelTwoIntro);
     }
 
     public void BossLevel()
