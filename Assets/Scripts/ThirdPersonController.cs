@@ -547,7 +547,7 @@ public class ThirdPersonController : MonoBehaviour
             playerSounds.PlayOneShot(dash);
         }
 
-        else if (Keyboard.current.cKey.isPressed && InPuzzle && !isDead)
+        else if (Keyboard.current.cKey.isPressed && InPuzzle && !isDead) //POTNETIAL BUG - isPressed VS wasPressedThisFrame
         {
             StartCoroutine(Dash());
             playerSounds.PlayOneShot(dash);
