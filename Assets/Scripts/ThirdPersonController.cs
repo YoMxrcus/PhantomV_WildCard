@@ -125,6 +125,12 @@ public class ThirdPersonController : MonoBehaviour
     public CanvasGroup UICanvasGroup;
     public CanvasGroup HeatWarningCanvasGroup;
 
+    //Gun Backgrounds
+    public GameObject pistolBG;
+    public GameObject rifleBG;
+    public GameObject shotgunBG;
+
+
     //
     private void Awake()
     {
@@ -1190,7 +1196,7 @@ public class ThirdPersonController : MonoBehaviour
 
         if (HeatValueFloat >= 60)
         {
-            HeatWarningCanvasGroup.alpha = ((HeatValueFloat - 60) / 100);
+            HeatWarningCanvasGroup.alpha = (2 * ((HeatValueFloat - 60) / 100));
         }
         
 
@@ -1228,22 +1234,29 @@ public class ThirdPersonController : MonoBehaviour
             targetImageLine.color = Color.red;
         }
 
+        pistolBG.SetActive(false);
+        rifleBG.SetActive(false);
+        shotgunBG.SetActive(false);
+
         switch (activeGun)
         {
             case 0:
                 gunSlot.GetComponent<Image>().sprite = PistolImage;
+                pistolBG.SetActive (true);
                 MagNum.text = pistolMag.ToString();
                 MaxAmmo.text = pistolAmmo.ToString();
                 break;
 
             case 1:
                 gunSlot.GetComponent<Image>().sprite = AssaultRifleIMAGE;
+                rifleBG.SetActive (true);
                 MagNum.text = assaultMag.ToString();
                 MaxAmmo.text = assaultAmmo.ToString();
                 break;
 
             case 2:
                 gunSlot.GetComponent<Image>().sprite = ShotgunIMAGE;
+                shotgunBG.SetActive (true);
                 MagNum.text = shotgunMag.ToString();
                 MaxAmmo.text = shotgunAmmo.ToString();
                 break;
