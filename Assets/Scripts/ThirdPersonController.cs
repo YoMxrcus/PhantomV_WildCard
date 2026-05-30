@@ -1400,7 +1400,7 @@ public class ThirdPersonController : MonoBehaviour
 
     void CheckReload()
     {
-        if (Keyboard.current.rKey.wasPressedThisFrame && pistolMag == 0)
+        if (Keyboard.current.rKey.wasPressedThisFrame && pistolMag == 0 && pistolAmmo != 0)
         {
             if (pistolAmmo < 15)
             {
@@ -1417,7 +1417,7 @@ public class ThirdPersonController : MonoBehaviour
             }
         }
 
-        if (Keyboard.current.rKey.wasPressedThisFrame && assaultMag == 0)
+        if (Keyboard.current.rKey.wasPressedThisFrame && assaultMag == 0 && assaultAmmo != 0)
         {
             if (assaultAmmo < 25)
             {
@@ -1435,7 +1435,7 @@ public class ThirdPersonController : MonoBehaviour
 
         }
 
-        if (Keyboard.current.rKey.wasPressedThisFrame && shotgunMag == 0)
+        if (Keyboard.current.rKey.wasPressedThisFrame && shotgunMag == 0 && shotgunAmmo != 0)
         {
             if (shotgunAmmo < 10)
             {
