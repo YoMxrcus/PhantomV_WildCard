@@ -411,7 +411,7 @@ public class ThirdPersonController : MonoBehaviour
             }
         }
 
-        if (Keyboard.current.shiftKey.wasPressedThisFrame)
+        if (Keyboard.current.shiftKey.isPressed)
         {
             //playerSounds.Stop();
             playerSounds.clip = running;
