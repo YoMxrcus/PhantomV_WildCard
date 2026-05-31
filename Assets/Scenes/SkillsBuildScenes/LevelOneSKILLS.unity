@@ -206276,6 +206276,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1750102834}
   - component: {fileID: 1750102835}
+  - component: {fileID: 1750102836}
   m_Layer: 2
   m_Name: BuildingTrigger
   m_TagString: Building
@@ -206319,6 +206320,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 30.88797, y: 7.2617035, z: 41.727776}
   m_Center: {x: -2.0847468, y: 3.1307907, z: -10.187476}
+--- !u!54 &1750102836
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750102833}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &1752461917
 GameObject:
   m_ObjectHideFlags: 0

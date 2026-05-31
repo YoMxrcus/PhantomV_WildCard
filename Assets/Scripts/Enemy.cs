@@ -48,6 +48,8 @@ public class Enemy : MonoBehaviour
                 return;
 
 
+            case "Building":
+                DestroyEnemy(); return;
         }
 
   
