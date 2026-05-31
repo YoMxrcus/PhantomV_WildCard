@@ -125,13 +125,16 @@ public class ThirdPersonController : MonoBehaviour
     public CanvasGroup UICanvasGroup;
     public CanvasGroup HeatWarningCanvasGroup;
 
-    //Gun Backgrounds
+    //gun backgrounds
     public GameObject pistolBG;
     public GameObject rifleBG;
     public GameObject shotgunBG;
 
+    //reload button
+    public GameObject reloadButton;
 
-    //
+    //shotgun re-cock
+    public GameObject shotGunRack;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -1245,6 +1248,17 @@ public class ThirdPersonController : MonoBehaviour
                 pistolBG.SetActive (true);
                 MagNum.text = pistolMag.ToString();
                 MaxAmmo.text = pistolAmmo.ToString();
+
+                //reloadbutton
+                if (pistolMag == 0 && pistolAmmo != 0)
+                {
+                    reloadButton.SetActive (true);
+                }
+                else
+                {
+                    reloadButton.SetActive(false);
+                }
+
                 break;
 
             case 1:
@@ -1252,6 +1266,17 @@ public class ThirdPersonController : MonoBehaviour
                 rifleBG.SetActive (true);
                 MagNum.text = assaultMag.ToString();
                 MaxAmmo.text = assaultAmmo.ToString();
+
+                //reloadbutton
+                if (assaultMag == 0 && assaultAmmo != 0)
+                {
+                    reloadButton.SetActive(true);
+                }
+                else
+                {
+                    reloadButton.SetActive(false);
+                }
+
                 break;
 
             case 2:
@@ -1259,6 +1284,28 @@ public class ThirdPersonController : MonoBehaviour
                 shotgunBG.SetActive (true);
                 MagNum.text = shotgunMag.ToString();
                 MaxAmmo.text = shotgunAmmo.ToString();
+
+                //reloadbutton
+                if (shotgunMag == 0 && shotgunAmmo != 0)
+                {
+                    reloadButton.SetActive(true);
+                }
+                else
+                {
+                    reloadButton.SetActive(false);
+                }
+
+                //shotgun Cocked
+
+                if (!isCocked)
+                {
+                    shotGunRack.SetActive (true);
+                }
+
+                else
+                {
+                    shotGunRack.SetActive(false);
+                }
                 break;
         }
 
@@ -1279,6 +1326,7 @@ public class ThirdPersonController : MonoBehaviour
 
         InventorySelects[CurrentInvSelect].SetActive(true);
 
+        
     }
    
     void ExitAllMinigames()

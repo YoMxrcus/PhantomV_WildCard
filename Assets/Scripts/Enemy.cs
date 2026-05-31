@@ -34,6 +34,8 @@ public class Enemy : MonoBehaviour
     {
         switch(other.gameObject.tag)
         {
+            
+
             case "projectile":
                 EnemyHealth -= Player.GetComponent<ThirdPersonController>().currentDamage;
 
@@ -44,10 +46,12 @@ public class Enemy : MonoBehaviour
 
                 Destroy(other.gameObject);
                 return;
-            
+
+
         }
 
-        
+  
+
     }
 
     void OnTriggerStay(Collider other)
@@ -60,7 +64,15 @@ public class Enemy : MonoBehaviour
                 EnemyHealth -= 100;
                 Invoke("DestroyEnemy", 1f);
                 break;
+
+
+
+
+
         }
+
+
+
     }
 
     void DestroyEnemy()
