@@ -15,15 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/WIN.unity
     guid: 57d4cb344ff94e04b9a6832165bf73ba
   - enabled: 1
-    path: Assets/Scenes/SkillsBuildScenes/LevelOneSKILLS.unity
-    guid: 83d95f919531aeb4f95520983f30a8fb
-  - enabled: 1
-    path: Assets/Scenes/SkillsBuildScenes/LevelThreeSKILLS.unity
-    guid: 40e4ed99f400fa54083c5f4d40cd523b
-  - enabled: 1
-    path: Assets/Scenes/SkillsBuildScenes/LevelTwoSkills.unity
-    guid: 25d5061cecd045c4fa378da2a6576364
-  - enabled: 1
     path: Assets/Scenes/ALEJANDROPORTSCENES/AnimationScenes/ComicOneScene.unity
     guid: bd04d9be9af57394590cb38196577fe5
   - enabled: 1
@@ -32,6 +23,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ALEJANDROPORTSCENES/AnimationScenes/ComicTwoScene.unity
     guid: e072de9b826acb343baf4a92ff5a15d8
+  - enabled: 1
+    path: Assets/Scenes/SkillsBuildNationals/LevelOneSKILLS.unity
+    guid: a0d83ebdbd9ef59418d2fd55925ee166
+  - enabled: 1
+    path: Assets/Scenes/SkillsBuildNationals/LevelThreeSKILLS.unity
+    guid: bbdeb09b5610fc945b78196cf3c07104
+  - enabled: 1
+    path: Assets/Scenes/SkillsBuildNationals/LevelTwoSkills.unity
+    guid: 1ccf264cd836da04987574ac412a8aac
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -328064,7 +328064,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1212464785}
   m_Layer: 0
-  m_Name: Enviorment
+  m_Name: Enviorment(LevelTwo)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -472168,6 +472168,13 @@ MonoBehaviour:
   DeathPanel: {fileID: 1873652939}
   UICanvasGroup: {fileID: 166288428}
   HeatWarningCanvasGroup: {fileID: 784746581}
+  pistolBG: {fileID: 0}
+  rifleBG: {fileID: 0}
+  shotgunBG: {fileID: 0}
+  reloadButton: {fileID: 0}
+  shotGunRack: {fileID: 0}
+  sprintColor: {fileID: 0}
+  healthWarning: {fileID: 0}
 --- !u!114 &1720478194
 MonoBehaviour:
   m_ObjectHideFlags: 0

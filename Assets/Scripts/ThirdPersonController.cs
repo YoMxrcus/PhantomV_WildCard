@@ -135,6 +135,14 @@ public class ThirdPersonController : MonoBehaviour
 
     //shotgun re-cock
     public GameObject shotGunRack;
+
+    //sprint
+    public Image sprintColor;
+
+    //health image
+    public GameObject healthWarning;
+
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -1205,6 +1213,18 @@ public class ThirdPersonController : MonoBehaviour
 
         if (health > 100) { health = 100; }
 
+        if (health <= 40)
+        {
+            healthWarning.SetActive(true);
+        }
+
+        else
+        {
+            healthWarning.SetActive(false);
+        }
+
+
+
         //heartbeat UI
         if (health >= 80)
         {
@@ -1392,6 +1412,8 @@ public class ThirdPersonController : MonoBehaviour
             stamina = 100;
             stimActive = true;
             CancelInvoke("ResetStim");
+
+            sprintColor.color = Color.yellow;
             Invoke("ResetStim", 10f);
         }
     }
@@ -1442,6 +1464,7 @@ public class ThirdPersonController : MonoBehaviour
 
     void ResetStim()
     {
+        sprintColor.color = Color.white;
         stimActive = false;
     }
 
