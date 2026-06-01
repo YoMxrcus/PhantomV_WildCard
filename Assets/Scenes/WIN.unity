@@ -313,8 +313,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 773fb7ba6e96bf745bd5f33a80edc23f, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -360,6 +360,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b7cf7a8c44f7343ae89f98e3583f21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
+  main: {fileID: 0}
+  credits: {fileID: 0}
+  help: {fileID: 0}
+  settings: {fileID: 0}
+  buttonSounds: {fileID: 0}
+  click1: {fileID: 0}
+  click2: {fileID: 0}
   Paused: 0
   Player: {fileID: 0}
   gameOverMenu: {fileID: 0}
@@ -812,8 +819,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Demo End
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d1ac885bc7b0fba4a89210607aaf77b3, type: 2}
+  m_sharedMaterial: {fileID: 3340881732105320097, guid: d1ac885bc7b0fba4a89210607aaf77b3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1077,13 +1084,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 38.02
+  m_fontSizeBase: 38.02
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 17
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1189,8 +1196,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Thank you for playing the demo
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d1ac885bc7b0fba4a89210607aaf77b3, type: 2}
+  m_sharedMaterial: {fileID: 3340881732105320097, guid: d1ac885bc7b0fba4a89210607aaf77b3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

@@ -153,12 +153,14 @@ public class UIManager : MonoBehaviour
     public void SecondLevel()
     {
         Debug.Log("Level Two Scene");
+        Time.timeScale = 1f;
         SceneManager.LoadScene(LevelOneIntro);
     }
 
     public void ThirdLevel()
     {
         Debug.Log("Level 3 Scene");
+        Time.timeScale = 1f;
         SceneManager.LoadScene(LevelTwoIntro);
     }
 

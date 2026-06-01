@@ -83,6 +83,7 @@ MonoBehaviour:
   doorThree: {fileID: 0}
   generatorSounds: {fileID: 7882766098312567023}
   generatorCorrect: {fileID: 8300000, guid: e51a01924fa8945468fc2c89954c3e03, type: 3}
+  generatorRunning: {fileID: 0}
   openDoor: {fileID: 8300000, guid: a87c909ea1597ff47b7b75e1a8834045, type: 3}
 --- !u!82 &7882766098312567023
 AudioSource:

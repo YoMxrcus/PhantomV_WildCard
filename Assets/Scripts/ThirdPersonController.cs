@@ -142,6 +142,9 @@ public class ThirdPersonController : MonoBehaviour
     //health image
     public GameObject healthWarning;
 
+    public bool GodMode = false;
+    public GameObject GodModeNotice;
+
 
     private void Awake()
     {
@@ -195,7 +198,8 @@ public class ThirdPersonController : MonoBehaviour
 
     private void Start()
     {
-        StartHeatCoroutine(); 
+        StartHeatCoroutine();
+        GodMode = false;
     }
 
     // Called automatically by PlayerInput
@@ -233,6 +237,12 @@ public class ThirdPersonController : MonoBehaviour
         else { aiming = false; }
 
         UpdateUI();
+
+        if (GodMode)
+        {
+            health = 100;
+            HeaterUp = 0;
+        }
 
         if (HeaterUp >=120)
         { health = 0; }
@@ -1532,6 +1542,22 @@ public class ThirdPersonController : MonoBehaviour
     public void UIOpaque()
     {
         UICanvasGroup.alpha = 1f;
+    }
+
+    public void GodOn()
+    {
+        GodMode = true;
+        GodModeNotice.SetActive(true);
+    }
+
+    public void GodOff()
+    {
+        GodMode = false;
+        condensors += 2;
+        bandages += 3;
+        health = 40;
+        HeaterUp = 90;
+        GodModeNotice.SetActive(false);
     }
 
     void CheckLoot()
