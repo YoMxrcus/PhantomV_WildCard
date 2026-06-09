@@ -45,6 +45,19 @@ public class ThirdPersonController : MonoBehaviour
     public int health = 100;
     public Slider healthSlider;
 
+    [Header("Arena Heat Override")]
+    public bool arenaHeatOverride = false;
+    public bool arenaOverheatActive = false;
+    [SerializeField] private float arenaHeatPerSecond = 5f;
+    [SerializeField] private float arenaCondensorCoolingPerStack = 3f;
+    [SerializeField] private float arenaCondensorStackDuration = 8f;
+    [SerializeField] private float arenaHeatDamageThreshold = 90f;
+    [SerializeField] private float arenaHeatDamagePerSecond = 12f;
+    [SerializeField] private int arenaCondensorStacks = 0;
+    private float arenaHeatValue = 0f;
+    private float arenaCondensorStackTimeRemaining = 0f;
+    private float arenaHeatDamageAccumulator = 0f;
+
     public bool aiming = false;
 
     public GameObject PuzzleManager;
@@ -198,7 +211,11 @@ public class ThirdPersonController : MonoBehaviour
 
     private void Start()
     {
-        StartHeatCoroutine();
+        if (!arenaHeatOverride)
+        {
+            StartHeatCoroutine();
+        }
+
         GodMode = false;
     }
 
@@ -236,6 +253,11 @@ public class ThirdPersonController : MonoBehaviour
         }
         else { aiming = false; }
 
+        if (arenaHeatOverride)
+        {
+            UpdateArenaHeat();
+        }
+
         UpdateUI();
 
         if (GodMode)
@@ -244,8 +266,98 @@ public class ThirdPersonController : MonoBehaviour
             HeaterUp = 0;
         }
 
-        if (HeaterUp >=120)
+        if (!arenaHeatOverride && HeaterUp >=120)
         { health = 0; }
+    }
+
+    public void EnableArenaHeatOverride()
+    {
+        arenaHeatOverride = true;
+        arenaOverheatActive = false;
+        arenaHeatValue = 0f;
+        arenaCondensorStacks = 0;
+        arenaCondensorStackTimeRemaining = 0f;
+        HeaterUp = 0;
+        StopHeatCoroutine();
+        StopCondensorCoroutine();
+        StopCondensorDecrementCoroutine();
+    }
+
+    public void DisableArenaHeatOverride()
+    {
+        arenaHeatOverride = false;
+        arenaOverheatActive = false;
+        arenaCondensorStacks = 0;
+        arenaCondensorStackTimeRemaining = 0f;
+        arenaHeatValue = HeaterUp;
+        StartHeatCoroutine();
+    }
+
+    public void BeginArenaOverheat(float heatPerSecond, float condensorCoolingPerStack, float condensorStackDuration, float damageThreshold, float damagePerSecond, int startingHeat)
+    {
+        EnableArenaHeatOverride();
+        arenaOverheatActive = true;
+        arenaHeatPerSecond = heatPerSecond;
+        arenaCondensorCoolingPerStack = condensorCoolingPerStack;
+        arenaCondensorStackDuration = condensorStackDuration;
+        arenaHeatDamageThreshold = damageThreshold;
+        arenaHeatDamagePerSecond = damagePerSecond;
+        arenaHeatDamageAccumulator = 0f;
+        arenaHeatValue = Mathf.Clamp(startingHeat, 0, 120);
+        HeaterUp = Mathf.RoundToInt(arenaHeatValue);
+    }
+
+    public void EndArenaOverheat(bool clearHeat)
+    {
+        arenaOverheatActive = false;
+        arenaCondensorStacks = 0;
+        arenaCondensorStackTimeRemaining = 0f;
+        arenaHeatDamageAccumulator = 0f;
+
+        if (clearHeat)
+        {
+            arenaHeatValue = 0f;
+            HeaterUp = 0;
+        }
+    }
+
+    private void UpdateArenaHeat()
+    {
+        if (!arenaOverheatActive)
+        {
+            arenaHeatValue = Mathf.MoveTowards(arenaHeatValue, 0f, 20f * Time.fixedDeltaTime);
+            HeaterUp = Mathf.RoundToInt(arenaHeatValue);
+            return;
+        }
+
+        if (arenaCondensorStacks > 0)
+        {
+            arenaCondensorStackTimeRemaining -= Time.fixedDeltaTime;
+
+            if (arenaCondensorStackTimeRemaining <= 0f)
+            {
+                arenaCondensorStacks = 0;
+                arenaCondensorStackTimeRemaining = 0f;
+            }
+        }
+
+        float coolingPerSecond = arenaCondensorStacks * arenaCondensorCoolingPerStack;
+        arenaHeatValue += (arenaHeatPerSecond - coolingPerSecond) * Time.fixedDeltaTime;
+        arenaHeatValue = Mathf.Clamp(arenaHeatValue, 0f, 120f);
+        HeaterUp = Mathf.RoundToInt(arenaHeatValue);
+
+        if (arenaHeatValue >= arenaHeatDamageThreshold)
+        {
+            float dangerPercent = Mathf.InverseLerp(arenaHeatDamageThreshold, 120f, arenaHeatValue);
+            arenaHeatDamageAccumulator += arenaHeatDamagePerSecond * Mathf.Lerp(0.5f, 1.5f, dangerPercent) * Time.fixedDeltaTime;
+
+            if (arenaHeatDamageAccumulator >= 1f)
+            {
+                int damage = Mathf.FloorToInt(arenaHeatDamageAccumulator);
+                arenaHeatDamageAccumulator -= damage;
+                health -= damage;
+            }
+        }
     }
 
     public void SetAllBoolsFalse()
@@ -1380,6 +1492,12 @@ public class ThirdPersonController : MonoBehaviour
 
         if(CurrentInvSelect == 1 && condensors > 0 && !InPuzzle && Mouse.current.leftButton.wasPressedThisFrame)
         {
+            if (arenaHeatOverride)
+            {
+                ActivateArenaCondensor();
+                return;
+            }
+
             CondensorAnimation = true;
             Invoke("ResetCondensorAnimation", 1f);
             if (condensorActive)
@@ -1410,6 +1528,31 @@ public class ThirdPersonController : MonoBehaviour
             CancelInvoke("CondensorSecure");
             Invoke("CondensorSecure", 1.75f);
         }
+    }
+
+    void ActivateArenaCondensor()
+    {
+        if (!arenaOverheatActive)
+        {
+            return;
+        }
+
+        condensors--;
+        arenaCondensorStacks++;
+        arenaCondensorStackTimeRemaining = arenaCondensorStackDuration;
+        condensorActive = true;
+        condensorHealth = Mathf.RoundToInt(arenaCondensorStackTimeRemaining);
+        playerSounds.PlayOneShot(useCondensor);
+        CondensorAnimation = true;
+        Invoke("ResetCondensorAnimation", 1f);
+
+        if (PlayerAnimator.GetBool("isCondensor") != true)
+        {
+            SetAllBoolsFalse();
+            PlayerAnimator.SetBool("isCondensor", true);
+        }
+
+        UpdateUI();
     }
 
 

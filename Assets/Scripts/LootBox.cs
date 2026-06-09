@@ -1,9 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using JetBrains.Annotations;
+
 public class LootBox : MonoBehaviour
 {
+    private const int LootImageSlotCount = 4;
 
     [SerializeField] List<string> LootNames = new List<string>() { "Stim", "Grenade", "PistolAmmo", "AssaultAmmo", "ShotgunAmmo", "Bandage" };
     [SerializeField] int LootCount = 0;
@@ -20,12 +21,25 @@ public class LootBox : MonoBehaviour
     private void Awake()
     {
         Player = GameObject.Find("MainPlayer");
-        LootLight = transform.Find("LootLight").gameObject;
+
+        if (Player == null)
+        {
+            Player = GameObject.Find("ThirdPersonTEST");
+        }
+
+        Transform lootLightTransform = transform.Find("LootLight");
+
+        if (lootLightTransform != null)
+        {
+            LootLight = lootLightTransform.gameObject;
+        }
+
+        ResolveLootImages();
     }
 
     private void Update()
     {
-        if (IsLooted)
+        if (IsLooted && LootLight != null)
         {
             LootLight.SetActive(false);
         }
@@ -52,33 +66,39 @@ public class LootBox : MonoBehaviour
 
     public void AssignImages()
     {
+        ResolveLootImages();
+
         for (int i = 0; i < CurrentLoot.Count; i++)
         {
+            if (i >= LootIMAGES.Length || LootIMAGES[i] == null)
+            {
+                continue;
+            }
 
             switch (CurrentLoot[i])
             {
                 case "Stim":
-                    LootIMAGES[i].GetComponent<RawImage>().texture = StimIMAGE;
+                    SetLootImage(i, StimIMAGE);
                     continue;
 
                 case "Grenade":
-                    LootIMAGES[i].GetComponent<RawImage>().texture = GrenadeIMAGE;
+                    SetLootImage(i, GrenadeIMAGE);
                     continue;
 
                 case "PistolAmmo":
-                    LootIMAGES[i].GetComponent<RawImage>().texture = PistolAmmoIMAGE;
+                    SetLootImage(i, PistolAmmoIMAGE);
                     continue;
 
                 case "AssaultAmmo":
-                    LootIMAGES[i].GetComponent<RawImage>().texture = AssaultAmmoIMAGE;
+                    SetLootImage(i, AssaultAmmoIMAGE);
                     continue;
 
                 case "ShotgunAmmo":
-                    LootIMAGES[i].GetComponent<RawImage>().texture = ShotgunAmmoIMAGE;
+                    SetLootImage(i, ShotgunAmmoIMAGE);
                     continue;
 
                 case "Bandage":
-                    LootIMAGES[i].GetComponent<RawImage>().texture = BandageIMAGE;
+                    SetLootImage(i, BandageIMAGE);
                     continue;
             }
 
@@ -90,9 +110,61 @@ public class LootBox : MonoBehaviour
     }
         public void ResetImages()
         {
-            LootIMAGES[0].GetComponent<RawImage>().texture = EmptyIMAGE;
-            LootIMAGES[1].GetComponent<RawImage>().texture = EmptyIMAGE;
-            LootIMAGES[2].GetComponent<RawImage>().texture = EmptyIMAGE;
-            LootIMAGES[3].GetComponent<RawImage>().texture = EmptyIMAGE;
+            ResolveLootImages();
+
+            for (int i = 0; i < LootIMAGES.Length; i++)
+            {
+                SetLootImage(i, EmptyIMAGE);
+            }
         }
+
+    private void ResolveLootImages()
+    {
+        if (LootIMAGES == null || LootIMAGES.Length != LootImageSlotCount)
+        {
+            LootIMAGES = new GameObject[LootImageSlotCount];
+        }
+
+        LootIMAGES[0] = LootIMAGES[0] != null ? LootIMAGES[0] : FindSceneGameObjectEvenIfInactive("LootOne");
+        LootIMAGES[1] = LootIMAGES[1] != null ? LootIMAGES[1] : FindSceneGameObjectEvenIfInactive("LootTwo");
+        LootIMAGES[2] = LootIMAGES[2] != null ? LootIMAGES[2] : FindSceneGameObjectEvenIfInactive("LootThree");
+        LootIMAGES[3] = LootIMAGES[3] != null ? LootIMAGES[3] : FindSceneGameObjectEvenIfInactive("LootFour");
+    }
+
+    private GameObject FindSceneGameObjectEvenIfInactive(string objectName)
+    {
+        GameObject activeObject = GameObject.Find(objectName);
+
+        if (activeObject != null)
+        {
+            return activeObject;
+        }
+
+        GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+
+        foreach (GameObject sceneObject in allObjects)
+        {
+            if (sceneObject.name == objectName && sceneObject.scene.IsValid())
+            {
+                return sceneObject;
+            }
+        }
+
+        return null;
+    }
+
+    private void SetLootImage(int index, Texture texture)
+    {
+        if (index < 0 || LootIMAGES == null || index >= LootIMAGES.Length || LootIMAGES[index] == null)
+        {
+            return;
+        }
+
+        RawImage rawImage = LootIMAGES[index].GetComponent<RawImage>();
+
+        if (rawImage != null)
+        {
+            rawImage.texture = texture;
+        }
+    }
 }
