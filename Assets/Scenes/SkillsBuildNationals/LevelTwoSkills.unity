@@ -324444,6 +324444,7 @@ Transform:
   - {fileID: 937963840}
   - {fileID: 612169961}
   - {fileID: 1536560815}
+  - {fileID: 1502804851}
   m_Father: {fileID: 1414513917}
   m_LocalEulerAnglesHint: {x: 0, y: -3.91, z: 0}
 --- !u!43 &1218177708
@@ -384794,12 +384795,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1502804850}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.000000070940224, y: -0.034117743, z: -0.00000037874304, w: 0.99941784}
-  m_LocalPosition: {x: 152.89705, y: 24.16796, z: -243.3545}
-  m_LocalScale: {x: 1.5803348, y: 1.5803349, z: 1.5803348}
+  m_LocalRotation: {x: -0, y: -0, z: -1.2878585e-14, w: 1}
+  m_LocalPosition: {x: 11.820927, y: 15.667959, z: 4.179088}
+  m_LocalScale: {x: 1.5803347, y: 1.5803349, z: 1.5803347}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1664114988}
+  m_Father: {fileID: 1217147049}
   m_LocalEulerAnglesHint: {x: 0, y: -3.91, z: 0}
 --- !u!64 &1502804852
 MeshCollider:
@@ -448992,7 +448993,6 @@ Transform:
   - {fileID: 476263162}
   - {fileID: 1828388594}
   - {fileID: 1838588300}
-  - {fileID: 1502804851}
   - {fileID: 1422719042}
   - {fileID: 421640300}
   - {fileID: 2106128910}
@@ -463423,6 +463423,14 @@ MonoBehaviour:
   HeatDecrement: 0
   health: 100
   healthSlider: {fileID: 0}
+  arenaHeatOverride: 0
+  arenaOverheatActive: 0
+  arenaHeatPerSecond: 5
+  arenaCondensorCoolingPerStack: 3
+  arenaCondensorStackDuration: 8
+  arenaHeatDamageThreshold: 90
+  arenaHeatDamagePerSecond: 12
+  arenaCondensorStacks: 0
   aiming: 0
   PuzzleManager: {fileID: 3451185514303920933}
   PasswordManager: {fileID: 9076334989222955658}
