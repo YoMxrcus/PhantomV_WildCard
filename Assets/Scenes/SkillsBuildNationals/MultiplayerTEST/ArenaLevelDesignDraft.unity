@@ -309943,11 +309943,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 158076122923668079, guid: 09295c9d64bbd484da2fb657cb448e81, type: 3}
       propertyPath: m_SelectedEdges.Array.size
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 158076122923668079, guid: 09295c9d64bbd484da2fb657cb448e81, type: 3}
       propertyPath: m_SelectedFaces.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 158076122923668079, guid: 09295c9d64bbd484da2fb657cb448e81, type: 3}
       propertyPath: m_Tangents.Array.data[64].x
@@ -310911,7 +310911,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 158076122923668079, guid: 09295c9d64bbd484da2fb657cb448e81, type: 3}
       propertyPath: m_SelectedVertices.Array.size
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 158076122923668079, guid: 09295c9d64bbd484da2fb657cb448e81, type: 3}
       propertyPath: m_Textures0.Array.data[112].y
