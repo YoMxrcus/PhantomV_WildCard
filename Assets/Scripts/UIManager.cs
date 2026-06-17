@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
     string LevelOneIntro = "ComicOneScene";
     string LevelTwoIntro = "ComicTwoScene";
     string LevelThreeIntro = "ComicThreeScene";
+    string ArenaModeActual = "ArenaLevelDesignDraft";
+
 
     public GameObject main;
     public GameObject credits;
@@ -103,6 +105,11 @@ public class UIManager : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene(Level1);
+        buttonSounds.PlayOneShot(click1);
+    }
+    public void ArenaMode()
+    {
+        SceneManager.LoadScene(ArenaModeActual);
         buttonSounds.PlayOneShot(click1);
     }
 

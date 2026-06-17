@@ -32,6 +32,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SkillsBuildNationals/LevelTwoSkills.unity
     guid: 1ccf264cd836da04987574ac412a8aac
+  - enabled: 1
+    path: Assets/Scenes/SkillsBuildNationals/MultiplayerTEST/ArenaLevelDesignDraft.unity
+    guid: 4d9d08733d0a1e4409d7660d1ef27b4f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

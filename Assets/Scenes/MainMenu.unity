@@ -228,10 +228,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 873098687}
   - {fileID: 375320196}
   - {fileID: 749524213}
   - {fileID: 2122339184}
-  - {fileID: 873098687}
   m_Father: {fileID: 442364904}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9006,7 +9006,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 104311283}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: GetHelp
+        m_MethodName: ArenaMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
