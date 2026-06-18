@@ -6,6 +6,7 @@ public class ArenaLootManager : MonoBehaviour
     [Header("Loot References")]
     [SerializeField] private GameObject lootBoxPrefab;
     [SerializeField] private ArenaLootSpawnPoint[] lootSpawnPoints;
+    [SerializeField] private Texture condensorLootImage;
 
     [Header("Wave Rewards")]
     [SerializeField] private bool spawnLootAfterEveryWave = true;
@@ -16,8 +17,13 @@ public class ArenaLootManager : MonoBehaviour
     [SerializeField] private float despawnDelayAfterLooted = 1.5f;
     [SerializeField] private float occupiedSpawnRadius = 1.25f;
 
+    [Header("Arena Loot Pools")]
+    [SerializeField] private List<string> standardArenaLoot = new List<string> { "Stim", "Grenade", "PistolAmmo", "AssaultAmmo", "ShotgunAmmo", "Bandage" };
+    [SerializeField] private List<string> preOverheatLoot = new List<string> { "Condensor", "Condensor", "Stim", "PistolAmmo", "AssaultAmmo", "ShotgunAmmo", "Bandage" };
+
     [Header("Runtime Debug")]
     [SerializeField] private int inspectorActiveLootBoxes;
+    [SerializeField] private bool inspectorLastRewardPreparedForOverheat;
 
     private readonly List<GameObject> activeLootBoxes = new List<GameObject>();
 
@@ -34,9 +40,10 @@ public class ArenaLootManager : MonoBehaviour
         }
     }
 
-    public void SpawnLootForCompletedWave(int completedWave)
+    public void SpawnLootForCompletedWave(int completedWave, bool nextWaveIsOverheat = false)
     {
         RemoveMissingOrLootedBoxes();
+        inspectorLastRewardPreparedForOverheat = nextWaveIsOverheat;
 
         if (!spawnLootAfterEveryWave || completedWave < firstRewardWave)
         {
@@ -49,13 +56,13 @@ public class ArenaLootManager : MonoBehaviour
 
         for (int i = 0; i < boxesToSpawn; i++)
         {
-            SpawnLootBox();
+            SpawnLootBox(nextWaveIsOverheat);
         }
 
         UpdateInspectorDebug();
     }
 
-    private void SpawnLootBox()
+    private void SpawnLootBox(bool usePreOverheatLoot)
     {
         if (lootBoxPrefab == null || lootSpawnPoints == null || lootSpawnPoints.Length == 0)
         {
@@ -66,7 +73,25 @@ public class ArenaLootManager : MonoBehaviour
         ArenaLootSpawnPoint spawnPoint = GetRandomOpenSpawnPoint();
         Vector3 spawnPosition = spawnPoint.transform.position + new Vector3(0f, spawnHeightOffset, 0f);
         GameObject lootBox = Instantiate(lootBoxPrefab, spawnPosition, spawnPoint.transform.rotation);
+        ConfigureArenaLootBox(lootBox, usePreOverheatLoot);
         activeLootBoxes.Add(lootBox);
+    }
+
+    private void ConfigureArenaLootBox(GameObject lootBox, bool usePreOverheatLoot)
+    {
+        LootBox lootBoxScript = lootBox.GetComponent<LootBox>();
+
+        if (lootBoxScript == null)
+        {
+            return;
+        }
+
+        lootBoxScript.SetLootPool(usePreOverheatLoot ? preOverheatLoot : standardArenaLoot);
+
+        if (condensorLootImage != null)
+        {
+            lootBoxScript.CondensorIMAGE = condensorLootImage;
+        }
     }
 
     private ArenaLootSpawnPoint GetRandomOpenSpawnPoint()

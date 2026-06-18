@@ -3,8 +3,9 @@ using UnityEngine;
 
 public static class ArenaSetupMenu
 {
-    private const string SnakeEnemyPath = "Assets/Prefabs/EXTENDEDREACHSnakeEnemy.prefab";
+    private const string SnakeEnemyPath = "Assets/Prefabs/SNAKEENEMY.prefab";
     private const string LootBoxPath = "Assets/Prefabs/LOOTBOX 1.prefab";
+    private const string CondensorLootImagePath = "Assets/Images/LootImages/CondensorImage.png";
 
     [MenuItem("Tools/PhantomV/Arena/Create Basic Arena Setup")]
     public static void CreateBasicArenaSetup()
@@ -28,12 +29,15 @@ public static class ArenaSetupMenu
         Transform playerSpawn = CreateOrFindMarker("ArenaPlayerSpawn", player != null ? player.position : Vector3.zero);
         ArenaSpawnPoint[] spawnPoints = CreateSpawnPoints(playerSpawn.position);
         ArenaLootManager lootManager = CreateOrFindLootManager(playerSpawn.position);
+        ArenaOverheatManager overheatManager = CreateOrFindOverheatManager();
+        ArenaEnemyDirectionIndicator enemyDirectionIndicator = CreateOrFindEnemyDirectionIndicator();
         GameObject snakeEnemyPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(SnakeEnemyPath);
 
         SerializedObject serializedManager = new SerializedObject(manager);
         SetObjectReference(serializedManager, "playerSpawnPoint", playerSpawn);
         SetObjectReference(serializedManager, "player", player != null ? player.gameObject : null);
         SetObjectReference(serializedManager, "lootManager", lootManager);
+        SetObjectReference(serializedManager, "overheatManager", overheatManager);
         SetObjectArray(serializedManager, "spawnPoints", spawnPoints);
 
         if (snakeEnemyPrefab != null)
@@ -47,6 +51,7 @@ public static class ArenaSetupMenu
 
         serializedManager.ApplyModifiedProperties();
         EditorUtility.SetDirty(manager);
+        EditorUtility.SetDirty(enemyDirectionIndicator);
         Selection.activeObject = managerObject;
 
         Debug.Log("Created basic arena setup. Assign optional UI text fields on ArenaWaveManager if you want wave/enemy counters.");
@@ -122,6 +127,7 @@ public static class ArenaSetupMenu
 
         ArenaLootSpawnPoint[] lootSpawnPoints = CreateLootSpawnPoints(center);
         GameObject lootBoxPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(LootBoxPath);
+        Texture condensorLootImage = AssetDatabase.LoadAssetAtPath<Texture>(CondensorLootImagePath);
 
         SerializedObject serializedLootManager = new SerializedObject(lootManager);
         SetObjectArray(serializedLootManager, "lootSpawnPoints", lootSpawnPoints);
@@ -135,9 +141,60 @@ public static class ArenaSetupMenu
             Debug.LogWarning($"Could not find loot box prefab at {LootBoxPath}. Assign a loot box prefab to ArenaLootManager manually.");
         }
 
+        if (condensorLootImage != null)
+        {
+            SetObjectReference(serializedLootManager, "condensorLootImage", condensorLootImage);
+        }
+        else
+        {
+            Debug.LogWarning($"Could not find condenser loot image at {CondensorLootImagePath}. Assign it to ArenaLootManager manually.");
+        }
+
         serializedLootManager.ApplyModifiedProperties();
         EditorUtility.SetDirty(lootManager);
         return lootManager;
+    }
+
+    private static ArenaOverheatManager CreateOrFindOverheatManager()
+    {
+        GameObject managerObject = GameObject.Find("ArenaOverheatManager");
+
+        if (managerObject == null)
+        {
+            managerObject = new GameObject("ArenaOverheatManager");
+            Undo.RegisterCreatedObjectUndo(managerObject, "Create Arena Overheat Manager");
+        }
+
+        ArenaOverheatManager overheatManager = managerObject.GetComponent<ArenaOverheatManager>();
+
+        if (overheatManager == null)
+        {
+            overheatManager = Undo.AddComponent<ArenaOverheatManager>(managerObject);
+        }
+
+        EditorUtility.SetDirty(overheatManager);
+        return overheatManager;
+    }
+
+    private static ArenaEnemyDirectionIndicator CreateOrFindEnemyDirectionIndicator()
+    {
+        GameObject indicatorObject = GameObject.Find("ArenaEnemyDirectionIndicator");
+
+        if (indicatorObject == null)
+        {
+            indicatorObject = new GameObject("ArenaEnemyDirectionIndicator");
+            Undo.RegisterCreatedObjectUndo(indicatorObject, "Create Arena Enemy Direction Indicator");
+        }
+
+        ArenaEnemyDirectionIndicator indicator = indicatorObject.GetComponent<ArenaEnemyDirectionIndicator>();
+
+        if (indicator == null)
+        {
+            indicator = Undo.AddComponent<ArenaEnemyDirectionIndicator>(indicatorObject);
+        }
+
+        EditorUtility.SetDirty(indicator);
+        return indicator;
     }
 
     private static ArenaLootSpawnPoint[] CreateLootSpawnPoints(Vector3 center)

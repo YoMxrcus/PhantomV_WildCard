@@ -3,10 +3,14 @@ using UnityEngine;
 public class ArenaMenu : MonoBehaviour
 {
     public GameObject arenaPAN;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private bool pauseOnStart = false;
+
     void Start()
     {
-        Time.timeScale = 0;
+        if (pauseOnStart)
+        {
+            Time.timeScale = 0;
+        }
     }
 
     public void ArenaStart()

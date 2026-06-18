@@ -21,6 +21,7 @@ public class ArenaWaveManager : MonoBehaviour
     [SerializeField] private ArenaOverheatManager overheatManager;
     [SerializeField] private Transform playerSpawnPoint;
     [SerializeField] private GameObject player;
+    [SerializeField] private bool movePlayerToSpawnOnStart = false;
 
     [Header("Wave Tuning")]
     [SerializeField] private bool startOnPlay = true;
@@ -54,6 +55,7 @@ public class ArenaWaveManager : MonoBehaviour
     public int CurrentWave => currentWave;
     public int AliveEnemyCount => aliveEnemies.Count;
     public int EnemiesRemainingToSpawn => enemiesRemainingToSpawn;
+    public int TotalEnemiesRemaining => aliveEnemies.Count + enemiesRemainingToSpawn;
 
     private void Awake()
     {
@@ -62,12 +64,21 @@ public class ArenaWaveManager : MonoBehaviour
 
     private void Start()
     {
-        MovePlayerToArenaSpawn();
+        if (movePlayerToSpawnOnStart)
+        {
+            MovePlayerToArenaSpawn();
+        }
+
         InitializeArenaSystems();
         UpdateUI();
 
         if (startOnPlay)
         {
+            if (Time.timeScale == 0f)
+            {
+                Time.timeScale = 1f;
+            }
+
             StartArena();
         }
     }
@@ -105,6 +116,21 @@ public class ArenaWaveManager : MonoBehaviour
         UpdateUI();
     }
 
+    public List<Transform> GetAliveEnemyTransforms()
+    {
+        List<Transform> enemyTransforms = new List<Transform>();
+
+        foreach (ArenaEnemyTracker tracker in aliveEnemies)
+        {
+            if (tracker != null)
+            {
+                enemyTransforms.Add(tracker.transform);
+            }
+        }
+
+        return enemyTransforms;
+    }
+
     private IEnumerator ArenaLoop()
     {
         while (runActive)
@@ -139,7 +165,8 @@ public class ArenaWaveManager : MonoBehaviour
 
             if (lootManager != null)
             {
-                lootManager.SpawnLootForCompletedWave(currentWave);
+                bool nextWaveIsOverheat = overheatManager != null && overheatManager.IsOverheatWave(currentWave + 1);
+                lootManager.SpawnLootForCompletedWave(currentWave, nextWaveIsOverheat);
             }
         }
     }
@@ -183,6 +210,8 @@ public class ArenaWaveManager : MonoBehaviour
         }
 
         GameObject enemyInstance = Instantiate(prefab, spawnPosition, Quaternion.identity);
+        ConfigureArenaEnemy(enemyInstance);
+
         ArenaEnemyTracker tracker = enemyInstance.GetComponent<ArenaEnemyTracker>();
 
         if (tracker == null)
@@ -192,6 +221,30 @@ public class ArenaWaveManager : MonoBehaviour
 
         tracker.Initialize(this);
         aliveEnemies.Add(tracker);
+    }
+
+    private void ConfigureArenaEnemy(GameObject enemyInstance)
+    {
+        Enemy enemy = enemyInstance.GetComponent<Enemy>();
+
+        if (enemy != null)
+        {
+            enemy.DestroyOnBuildingContact = false;
+        }
+
+        if (enemyInstance.GetComponent<ArenaEnemyBuildingBlocker>() == null)
+        {
+            enemyInstance.AddComponent<ArenaEnemyBuildingBlocker>();
+        }
+
+        ArenaEnemyHeightLock heightLock = enemyInstance.GetComponent<ArenaEnemyHeightLock>();
+
+        if (heightLock == null)
+        {
+            heightLock = enemyInstance.AddComponent<ArenaEnemyHeightLock>();
+        }
+
+        heightLock.Initialize(player != null ? player.transform : null, spawnHeightOffset);
     }
 
     private int GetEnemyCountForWave(int waveNumber)

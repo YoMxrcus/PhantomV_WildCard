@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     private GameObject SnakeShellGameObject;
     public GameObject HitboxGameObject;
     public GameObject SpawnerRef;
+    public bool DestroyOnBuildingContact = true;
     
 
     private void Start()
@@ -49,7 +50,12 @@ public class Enemy : MonoBehaviour
 
 
             case "Building":
-                DestroyEnemy(); return;
+                if (DestroyOnBuildingContact)
+                {
+                    DestroyEnemy();
+                }
+
+                return;
         }
 
   

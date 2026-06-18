@@ -15,7 +15,7 @@ public class LootBox : MonoBehaviour
     public GameObject LootLight;
 
     public GameObject[] LootIMAGES;
-    public Texture PistolAmmoIMAGE, AssaultAmmoIMAGE, ShotgunAmmoIMAGE, StimIMAGE, GrenadeIMAGE, EmptyIMAGE, BandageIMAGE;
+    public Texture PistolAmmoIMAGE, AssaultAmmoIMAGE, ShotgunAmmoIMAGE, StimIMAGE, GrenadeIMAGE, EmptyIMAGE, BandageIMAGE, CondensorIMAGE;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     private void Awake()
@@ -51,7 +51,7 @@ public class LootBox : MonoBehaviour
 
             for (int i = 0; i < LootCount; i++)
             {
-                CurrentLoot.Add(LootNames[Random.Range(0, 6)]);
+                CurrentLoot.Add(LootNames[Random.Range(0, LootNames.Count)]);
                 Debug.Log(CurrentLoot);
             }
 
@@ -99,6 +99,10 @@ public class LootBox : MonoBehaviour
 
                 case "Bandage":
                     SetLootImage(i, BandageIMAGE);
+                    continue;
+
+                case "Condensor":
+                    SetLootImage(i, CondensorIMAGE);
                     continue;
             }
 
@@ -166,5 +170,15 @@ public class LootBox : MonoBehaviour
         {
             rawImage.texture = texture;
         }
+    }
+
+    public void SetLootPool(List<string> lootNames)
+    {
+        if (lootNames == null || lootNames.Count == 0)
+        {
+            return;
+        }
+
+        LootNames = new List<string>(lootNames);
     }
 }

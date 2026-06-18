@@ -313,6 +313,8 @@ public class ThirdPersonController : MonoBehaviour
         arenaCondensorStacks = 0;
         arenaCondensorStackTimeRemaining = 0f;
         arenaHeatDamageAccumulator = 0f;
+        condensorActive = false;
+        condensorHealth = 0;
 
         if (clearHeat)
         {
@@ -338,6 +340,12 @@ public class ThirdPersonController : MonoBehaviour
             {
                 arenaCondensorStacks = 0;
                 arenaCondensorStackTimeRemaining = 0f;
+                condensorActive = false;
+                condensorHealth = 0;
+            }
+            else
+            {
+                condensorHealth = Mathf.RoundToInt(arenaCondensorStackTimeRemaining);
             }
         }
 
@@ -1752,6 +1760,14 @@ public class ThirdPersonController : MonoBehaviour
 
                 case "Bandage":
                     bandages += 2;
+                    currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
+                    currentLootBox.GetComponent<LootBox>().ResetImages();
+                    currentLootBox.GetComponent<LootBox>().AssignImages();
+                    UpdateUI();
+                    break;
+
+                case "Condensor":
+                    condensors++;
                     currentLootBox.GetComponent<LootBox>().CurrentLoot.RemoveAt(0);
                     currentLootBox.GetComponent<LootBox>().ResetImages();
                     currentLootBox.GetComponent<LootBox>().AssignImages();
