@@ -39031,6 +39031,7 @@ MonoBehaviour:
   main: {fileID: 0}
   credits: {fileID: 0}
   help: {fileID: 0}
+  settings: {fileID: 0}
   buttonSounds: {fileID: 0}
   click1: {fileID: 0}
   click2: {fileID: 0}
@@ -42599,6 +42600,79 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1148738450
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 8291cfe52e099e540938c1af415564c1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 88.381
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8291cfe52e099e540938c1af415564c1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 88.381
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8291cfe52e099e540938c1af415564c1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 88.381
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8291cfe52e099e540938c1af415564c1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -46.735832
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8291cfe52e099e540938c1af415564c1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.0999966
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8291cfe52e099e540938c1af415564c1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -64.713646
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8291cfe52e099e540938c1af415564c1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8291cfe52e099e540938c1af415564c1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8291cfe52e099e540938c1af415564c1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8291cfe52e099e540938c1af415564c1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8291cfe52e099e540938c1af415564c1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8291cfe52e099e540938c1af415564c1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8291cfe52e099e540938c1af415564c1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8291cfe52e099e540938c1af415564c1, type: 3}
+      propertyPath: m_Name
+      value: ZombieRIGGEDver2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 8291cfe52e099e540938c1af415564c1, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 4ec94fefe0409d344a72638a005f0796, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8291cfe52e099e540938c1af415564c1, type: 3}
 --- !u!1 &1149211829
 GameObject:
   m_ObjectHideFlags: 0
@@ -103212,6 +103286,14 @@ MonoBehaviour:
   HeatDecrement: 0
   health: 100
   healthSlider: {fileID: 0}
+  arenaHeatOverride: 0
+  arenaOverheatActive: 0
+  arenaHeatPerSecond: 5
+  arenaCondensorCoolingPerStack: 3
+  arenaCondensorStackDuration: 8
+  arenaHeatDamageThreshold: 90
+  arenaHeatDamagePerSecond: 12
+  arenaCondensorStacks: 0
   aiming: 0
   PuzzleManager: {fileID: 786459185}
   PasswordManager: {fileID: 1295044474}
@@ -103302,11 +103384,23 @@ MonoBehaviour:
   looting2: {fileID: 0}
   generatorStart: {fileID: 0}
   generatorStop: {fileID: 0}
+  tickingSound: {fileID: 0}
   PlayerAnimator: {fileID: 0}
   heartBeatAnimator: {fileID: 0}
   targetImageLine: {fileID: 0}
   heartBeatText: {fileID: 0}
   DeathPanel: {fileID: 0}
+  UICanvasGroup: {fileID: 0}
+  HeatWarningCanvasGroup: {fileID: 0}
+  pistolBG: {fileID: 0}
+  rifleBG: {fileID: 0}
+  shotgunBG: {fileID: 0}
+  reloadButton: {fileID: 0}
+  shotGunRack: {fileID: 0}
+  sprintColor: {fileID: 0}
+  healthWarning: {fileID: 0}
+  GodMode: 0
+  GodModeNotice: {fileID: 0}
 --- !u!114 &1720478194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145122,3 +145216,4 @@ SceneRoots:
   - {fileID: 2293711360142692398}
   - {fileID: 747534485}
   - {fileID: 3631987030982850263}
+  - {fileID: 1148738450}
