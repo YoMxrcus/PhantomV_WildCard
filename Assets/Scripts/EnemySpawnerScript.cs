@@ -7,6 +7,7 @@ public class EnemySpawnerScript : MonoBehaviour
 
     [SerializeField] GameObject EnemyPrefab;
     [SerializeField] GameObject[] Spawners;
+    [SerializeField] float SpawnHeightOffset = 1f;
     [SerializeField] bool PlayerDetect = false;
     public GameObject Player;
     public int SpawnCap;
@@ -29,13 +30,26 @@ public class EnemySpawnerScript : MonoBehaviour
         {
             yield return new WaitForSeconds(3f);
 
-            if (CurrentSpawnAmount < SpawnCap)
+            if (CurrentSpawnAmount < SpawnCap && EnemyPrefab != null && Spawners != null && Spawners.Length > 0)
             {
                 int selectedSpawnNum = Random.Range(0, Spawners.Length);
-                GameObject selectedSpawn = Spawners[selectedSpawnNum].gameObject;
-                GameObject enemyInstance = Instantiate(EnemyPrefab, new Vector3(selectedSpawn.transform.position.x, Player.transform.position.y - .25f, selectedSpawn.transform.position.z), Quaternion.identity);
+                GameObject selectedSpawn = Spawners[selectedSpawnNum];
+                if (selectedSpawn == null)
+                {
+                    continue;
+                }
 
-                enemyInstance.GetComponent<Enemy>().SpawnerRef = gameObject;
+                Vector3 spawnPosition = selectedSpawn.transform.position;
+                spawnPosition.y += SpawnHeightOffset;
+
+                GameObject enemyInstance = Instantiate(EnemyPrefab, spawnPosition, Quaternion.identity);
+
+                Enemy enemy = enemyInstance.GetComponent<Enemy>();
+                if (enemy != null)
+                {
+                    enemy.SpawnerRef = gameObject;
+                }
+
                 CurrentSpawnAmount++;
 
             }

@@ -6,6 +6,9 @@ public class EnemyDetect : MonoBehaviour
 {
     public GameObject enemy;
     public GameObject player;
+    [SerializeField] private bool lockEnemyHeight = true;
+    [SerializeField] private float lockedHeightOffset = 1f;
+
     float speed = 2f;
     public bool canLunge = true;
     public bool canMove = true;
@@ -22,7 +25,14 @@ public class EnemyDetect : MonoBehaviour
     //public bool CancelAnimation = false;
 
     //public Animator GoblinAnim;
-  
+
+    private bool hasLockedHeight;
+    private float lockedWorldY;
+
+    private void Awake()
+    {
+        CacheLockedHeight();
+    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -43,7 +53,11 @@ public class EnemyDetect : MonoBehaviour
                     Invoke("DisallowLunge", .25f);
                     Invoke("AllowLunge", 5f);
                 }
-                enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, player.transform.position, speed * Time.deltaTime);
+                Vector3 targetPosition = player.transform.position;
+                targetPosition.y = GetLockedWorldY();
+
+                enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, targetPosition, speed * Time.deltaTime);
+                ApplyHeightLock();
                 //GoblinAnim.SetBool("Attack", false);
                 //GoblinAnim.SetBool("Walking", true);
 
@@ -162,11 +176,50 @@ public class EnemyDetect : MonoBehaviour
     void StopMovement()
     {
         enemy.transform.position = transform.position;
+        ApplyHeightLock();
     }
 
     void AllowEnemyMovement()
     {
        canMove = true;
 
+    }
+
+    private void CacheLockedHeight()
+    {
+        if (enemy == null)
+        {
+            return;
+        }
+
+        lockedWorldY = enemy.transform.position.y + lockedHeightOffset;
+        hasLockedHeight = true;
+    }
+
+    private float GetLockedWorldY()
+    {
+        if (!lockEnemyHeight)
+        {
+            return player != null ? player.transform.position.y : transform.position.y;
+        }
+
+        if (!hasLockedHeight)
+        {
+            CacheLockedHeight();
+        }
+
+        return hasLockedHeight ? lockedWorldY : transform.position.y;
+    }
+
+    private void ApplyHeightLock()
+    {
+        if (!lockEnemyHeight || enemy == null)
+        {
+            return;
+        }
+
+        Vector3 lockedPosition = enemy.transform.position;
+        lockedPosition.y = GetLockedWorldY();
+        enemy.transform.position = lockedPosition;
     }
 }
