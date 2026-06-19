@@ -27,8 +27,8 @@ public class ArenaWaveManager : MonoBehaviour
 
     [Header("Wave Tuning")]
     [SerializeField] private bool startOnPlay = true;
-    [SerializeField] private int firstWaveEnemyCount = 5;
-    [SerializeField] private int enemiesAddedEachWave = 3;
+    [SerializeField] private int firstWaveEnemyCount = 10;
+    [SerializeField] private int enemiesAddedEachWave = 6;
     [SerializeField] private int maxAliveEnemies = 12;
     [SerializeField] private float timeBetweenSpawns = 1.25f;
     [SerializeField] private float timeBetweenWaves = 5f;
@@ -213,7 +213,7 @@ public class ArenaWaveManager : MonoBehaviour
             spawnPosition.y = player.transform.position.y + spawnHeightOffset;
         }
 
-        if (prefab.GetComponent<ArenaZombieEnemy>() != null && NavMesh.SamplePosition(spawnPosition, out NavMeshHit hit, navMeshSpawnSampleRadius, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(spawnPosition, out NavMeshHit hit, navMeshSpawnSampleRadius, NavMesh.AllAreas))
         {
             spawnPosition = hit.position;
         }
@@ -253,19 +253,17 @@ public class ArenaWaveManager : MonoBehaviour
             enemy.DestroyOnBuildingContact = false;
         }
 
-        if (enemyInstance.GetComponent<ArenaEnemyBuildingBlocker>() == null)
+        if (enemyInstance.GetComponent<ArenaSnakeNavMeshEnemy>() == null)
         {
-            enemyInstance.AddComponent<ArenaEnemyBuildingBlocker>();
+            enemyInstance.AddComponent<ArenaSnakeNavMeshEnemy>();
         }
 
-        ArenaEnemyHeightLock heightLock = enemyInstance.GetComponent<ArenaEnemyHeightLock>();
-
-        if (heightLock == null)
+        if (enemyInstance.GetComponent<ArenaEnemyTracker>() == null)
         {
-            heightLock = enemyInstance.AddComponent<ArenaEnemyHeightLock>();
+            enemyInstance.AddComponent<ArenaEnemyTracker>();
         }
 
-        heightLock.Initialize(player != null ? player.transform : null, spawnHeightOffset);
+        return;
     }
 
     private GameObject GetEnemyPrefabForCurrentWave()

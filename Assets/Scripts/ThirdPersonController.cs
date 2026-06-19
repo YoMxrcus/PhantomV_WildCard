@@ -53,10 +53,12 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField] private float arenaCondensorStackDuration = 8f;
     [SerializeField] private float arenaHeatDamageThreshold = 90f;
     [SerializeField] private float arenaHeatDamagePerSecond = 12f;
+    [SerializeField] private float arenaBuildingCoolingPerSecond = 1f;
     [SerializeField] private int arenaCondensorStacks = 0;
     private float arenaHeatValue = 0f;
     private float arenaCondensorStackTimeRemaining = 0f;
     private float arenaHeatDamageAccumulator = 0f;
+    private int arenaBuildingOverlapCount = 0;
 
     public bool aiming = false;
 
@@ -327,14 +329,14 @@ public class ThirdPersonController : MonoBehaviour
     {
         if (!arenaOverheatActive)
         {
-            arenaHeatValue = Mathf.MoveTowards(arenaHeatValue, 0f, 20f * Time.fixedDeltaTime);
+            arenaHeatValue = Mathf.MoveTowards(arenaHeatValue, 0f, 20f * Time.deltaTime);
             HeaterUp = Mathf.RoundToInt(arenaHeatValue);
             return;
         }
 
         if (arenaCondensorStacks > 0)
         {
-            arenaCondensorStackTimeRemaining -= Time.fixedDeltaTime;
+            arenaCondensorStackTimeRemaining -= Time.deltaTime;
 
             if (arenaCondensorStackTimeRemaining <= 0f)
             {
@@ -350,14 +352,23 @@ public class ThirdPersonController : MonoBehaviour
         }
 
         float coolingPerSecond = arenaCondensorStacks * arenaCondensorCoolingPerStack;
-        arenaHeatValue += (arenaHeatPerSecond - coolingPerSecond) * Time.fixedDeltaTime;
+
+        if (arenaBuildingOverlapCount > 0)
+        {
+            arenaHeatValue = Mathf.MoveTowards(arenaHeatValue, 0f, arenaBuildingCoolingPerSecond * Time.deltaTime);
+            HeaterUp = Mathf.RoundToInt(arenaHeatValue);
+            arenaHeatDamageAccumulator = 0f;
+            return;
+        }
+
+        arenaHeatValue += (arenaHeatPerSecond - coolingPerSecond) * Time.deltaTime;
         arenaHeatValue = Mathf.Clamp(arenaHeatValue, 0f, 120f);
         HeaterUp = Mathf.RoundToInt(arenaHeatValue);
 
         if (arenaHeatValue >= arenaHeatDamageThreshold)
         {
             float dangerPercent = Mathf.InverseLerp(arenaHeatDamageThreshold, 120f, arenaHeatValue);
-            arenaHeatDamageAccumulator += arenaHeatDamagePerSecond * Mathf.Lerp(0.5f, 1.5f, dangerPercent) * Time.fixedDeltaTime;
+            arenaHeatDamageAccumulator += arenaHeatDamagePerSecond * Mathf.Lerp(0.5f, 1.5f, dangerPercent) * Time.deltaTime;
 
             if (arenaHeatDamageAccumulator >= 1f)
             {
@@ -1068,6 +1079,13 @@ public class ThirdPersonController : MonoBehaviour
                 enemyDamage.GetComponent<Enemy>().HitboxGameObject.GetComponent<EnemyDetect>().canMove = false;
                 break;
 
+            case "Building":
+                if (arenaHeatOverride)
+                {
+                    arenaBuildingOverlapCount++;
+                }
+                break;
+
         }
     }
 
@@ -1089,6 +1107,13 @@ public class ThirdPersonController : MonoBehaviour
                 InLootTrigger = false;
                 lootPanel.SetActive(false);
                 InLoot = false;
+                break;
+
+            case "Building":
+                if (arenaHeatOverride)
+                {
+                    arenaBuildingOverlapCount = Mathf.Max(0, arenaBuildingOverlapCount - 1);
+                }
                 break;
 
         }
@@ -1124,7 +1149,10 @@ public class ThirdPersonController : MonoBehaviour
                     if (impact.sqrMagnitude > 0.01f)
                     {
                         GameObject projectileInstance = Instantiate(projectile, transform.position, Quaternion.identity);
-                        projectileInstance.GetComponent<FireBallScript>().targetPos = impact;
+                        FireBallScript script = projectileInstance.GetComponent<FireBallScript>();
+                        script.targetPos = impact;
+                        script.damage = currentDamage;
+                        script.enemyPierceLimit = 1;
                         pistolMag--;
 
                         Debug.Log($"Projectile Direction: {impact}");
@@ -1192,7 +1220,8 @@ public class ThirdPersonController : MonoBehaviour
 
                         FireBallScript script = projectileInstance.GetComponent<FireBallScript>();
                         script.targetPos = spreadDirection;
-                        //script.damage = 30f;
+                        script.damage = currentDamage;
+                        script.enemyPierceLimit = 2;
                     }
 
                     isCocked = false;
@@ -1236,7 +1265,8 @@ public class ThirdPersonController : MonoBehaviour
                         FireBallScript script = projectileInstance.GetComponent<FireBallScript>();
 
                         script.targetPos = finalDirection;
-                        //script.damage = 8f; 
+                        script.damage = currentDamage;
+                        script.enemyPierceLimit = 1;
 
                         //Update timer
                         lastFireTime = Time.time;
@@ -1256,7 +1286,7 @@ public class ThirdPersonController : MonoBehaviour
             Rigidbody rb = grenade.GetComponent<Rigidbody>();
 
 
-            float timeToTarget = 2.5f; //  tweak this for arc shape
+            float timeToTarget = .75f; //  tweak this for arc shape
 
             Vector3 velocity = CalculateLaunchVelocity(throwPoint.position, targetPosition, timeToTarget);
             

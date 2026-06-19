@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerGrenadeDetect : MonoBehaviour
 {
+    [SerializeField, Range(0f, 1f)] private float explosionDelay = 1f;
+
     public AudioSource playerGrenade;
     public AudioClip grenadeBoom;
     [SerializeField] bool PlayerInField = false;
@@ -14,7 +16,7 @@ public class PlayerGrenadeDetect : MonoBehaviour
     void Start()
     {
         Player = GameObject.Find("ThirdPersonTEST");
-        Invoke("BoomCountdown", 4f);
+        Invoke("BoomCountdown", Mathf.Clamp(explosionDelay, 0f, 1f));
     }
 
     // Update is called once per frame

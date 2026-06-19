@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FireBallScript : MonoBehaviour
@@ -6,6 +7,10 @@ public class FireBallScript : MonoBehaviour
     private float speed = 30f;
     public GameObject Player;
     public float initialYPos;
+    public int damage = 20;
+    public int enemyPierceLimit = 1;
+
+    private readonly HashSet<GameObject> damagedEnemyRoots = new HashSet<GameObject>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -53,5 +58,20 @@ public class FireBallScript : MonoBehaviour
 
     }
 
+    public bool TryRegisterEnemyHit(GameObject enemyRoot)
+    {
+        if (enemyRoot == null || damagedEnemyRoots.Contains(enemyRoot))
+        {
+            return false;
+        }
+
+        damagedEnemyRoots.Add(enemyRoot);
+        return true;
+    }
+
+    public bool ShouldDestroyAfterEnemyHit()
+    {
+        return damagedEnemyRoots.Count >= enemyPierceLimit;
+    }
 
 }

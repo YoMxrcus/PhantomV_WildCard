@@ -97,8 +97,24 @@ public class ArenaZombieEnemy : MonoBehaviour
         if (other.CompareTag("projectile"))
         {
             int damage = player != null ? player.currentDamage : 20;
+            FireBallScript projectile = other.gameObject.GetComponent<FireBallScript>();
+
+            if (projectile != null)
+            {
+                if (!projectile.TryRegisterEnemyHit(gameObject))
+                {
+                    return;
+                }
+
+                damage = projectile.damage;
+            }
+
             ApplyDamage(damage);
-            Destroy(other.gameObject);
+
+            if (projectile == null || projectile.ShouldDestroyAfterEnemyHit())
+            {
+                Destroy(other.gameObject);
+            }
         }
     }
 

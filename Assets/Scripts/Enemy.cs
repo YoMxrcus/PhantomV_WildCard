@@ -38,14 +38,30 @@ public class Enemy : MonoBehaviour
             
 
             case "projectile":
-                EnemyHealth -= Player.GetComponent<ThirdPersonController>().currentDamage;
+                FireBallScript projectile = other.gameObject.GetComponent<FireBallScript>();
+                int damage = Player.GetComponent<ThirdPersonController>().currentDamage;
+
+                if (projectile != null)
+                {
+                    if (!projectile.TryRegisterEnemyHit(gameObject))
+                    {
+                        return;
+                    }
+
+                    damage = projectile.damage;
+                }
+
+                EnemyHealth -= damage;
 
                 if (EnemyHealth <= 0)
                 {
                     DestroyEnemy();
                 }
 
-                Destroy(other.gameObject);
+                if (projectile == null || projectile.ShouldDestroyAfterEnemyHit())
+                {
+                    Destroy(other.gameObject);
+                }
                 return;
 
 

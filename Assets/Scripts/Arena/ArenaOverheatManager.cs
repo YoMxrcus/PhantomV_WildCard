@@ -9,7 +9,7 @@ public class ArenaOverheatManager : MonoBehaviour
 
     [Header("Arena Heat Rules")]
     [SerializeField] private int startingHeat = 25;
-    [SerializeField] private float heatPerSecond = 8f;
+    [SerializeField] private float heatPerSecond = 4f;
     [SerializeField] private float condensorCoolingPerStack = 5f;
     [SerializeField] private float condensorStackDuration = 8f;
     [SerializeField] private float damageThreshold = 90f;
