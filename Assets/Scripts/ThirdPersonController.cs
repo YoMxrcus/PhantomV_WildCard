@@ -1473,12 +1473,11 @@ public class ThirdPersonController : MonoBehaviour
         {
             InventorySelects[i].SetActive(false);
         }
-
         InventorySelects[CurrentInvSelect].SetActive(true);
 
         
     }
-   
+
     void ExitAllMinigames()
     {
         UIOpaque();

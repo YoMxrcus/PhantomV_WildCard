@@ -5,7 +5,7 @@ public static class ArenaSetupMenu
 {
     private const string SnakeEnemyPath = "Assets/Prefabs/SNAKEENEMY.prefab";
     private const string LootBoxPath = "Assets/Prefabs/LOOTBOX 1.prefab";
-    private const string CondensorLootImagePath = "Assets/Images/LootImages/CondensorImage.png";
+    private const string CondensorLootImagePath = "Assets/Images/NEWLootImages/condenser.png";
 
     [MenuItem("Tools/PhantomV/Arena/Create Basic Arena Setup")]
     public static void CreateBasicArenaSetup()

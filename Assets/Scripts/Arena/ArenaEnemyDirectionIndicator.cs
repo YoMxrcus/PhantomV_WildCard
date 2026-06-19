@@ -9,11 +9,13 @@ public class ArenaEnemyDirectionIndicator : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private Camera targetCamera;
     [SerializeField] private RectTransform arrow;
+    [SerializeField] private RectTransform visibleEnemyDot;
 
     [Header("Indicator Rules")]
     [SerializeField] private int showWhenEnemiesAtOrBelow = 5;
     [SerializeField] private int hideWhenEnemiesAtOrBelow = 0;
     [SerializeField] private float screenEdgePadding = 70f;
+    [SerializeField] private float dotHeightOffset = 2.2f;
     [SerializeField] private bool pointToNearestEnemy = true;
 
     private Canvas canvas;
@@ -22,7 +24,9 @@ public class ArenaEnemyDirectionIndicator : MonoBehaviour
     {
         ResolveReferences();
         CreateDefaultArrowIfNeeded();
+        CreateDefaultDotIfNeeded();
         SetArrowVisible(false);
+        SetDotVisible(false);
     }
 
     private void LateUpdate()
@@ -32,6 +36,7 @@ public class ArenaEnemyDirectionIndicator : MonoBehaviour
         if (waveManager == null || player == null || targetCamera == null || arrow == null)
         {
             SetArrowVisible(false);
+            SetDotVisible(false);
             return;
         }
 
@@ -40,6 +45,7 @@ public class ArenaEnemyDirectionIndicator : MonoBehaviour
         if (remainingEnemies <= hideWhenEnemiesAtOrBelow || remainingEnemies > showWhenEnemiesAtOrBelow || waveManager.EnemiesRemainingToSpawn > 0)
         {
             SetArrowVisible(false);
+            SetDotVisible(false);
             return;
         }
 
@@ -48,11 +54,21 @@ public class ArenaEnemyDirectionIndicator : MonoBehaviour
         if (target == null)
         {
             SetArrowVisible(false);
+            SetDotVisible(false);
+            return;
+        }
+
+        if (IsTargetVisible(target.position))
+        {
+            UpdateDot(target.position);
+            SetDotVisible(true);
+            SetArrowVisible(false);
             return;
         }
 
         UpdateArrow(target.position);
         SetArrowVisible(true);
+        SetDotVisible(false);
     }
 
     private void ResolveReferences()
@@ -109,6 +125,38 @@ public class ArenaEnemyDirectionIndicator : MonoBehaviour
         arrowText.alignment = TextAlignmentOptions.Center;
         arrowText.color = new Color(1f, 0.2f, 0.1f, 0.9f);
         arrowText.raycastTarget = false;
+    }
+
+    private void CreateDefaultDotIfNeeded()
+    {
+        if (visibleEnemyDot != null)
+        {
+            return;
+        }
+
+        Canvas parentCanvas = canvas;
+
+        if (parentCanvas == null)
+        {
+            GameObject canvasObject = new GameObject("ArenaEnemyIndicatorCanvas");
+            parentCanvas = canvasObject.AddComponent<Canvas>();
+            parentCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvasObject.AddComponent<UnityEngine.UI.CanvasScaler>();
+            canvasObject.AddComponent<UnityEngine.UI.GraphicRaycaster>();
+            canvas = parentCanvas;
+        }
+
+        GameObject dotObject = new GameObject("ArenaVisibleEnemyDot");
+        dotObject.transform.SetParent(parentCanvas.transform, false);
+        visibleEnemyDot = dotObject.AddComponent<RectTransform>();
+        visibleEnemyDot.sizeDelta = new Vector2(24f, 24f);
+
+        TextMeshProUGUI dotText = dotObject.AddComponent<TextMeshProUGUI>();
+        dotText.text = "•";
+        dotText.fontSize = 36f;
+        dotText.alignment = TextAlignmentOptions.Center;
+        dotText.color = new Color(1f, 0.05f, 0.03f, 0.95f);
+        dotText.raycastTarget = false;
     }
 
     private Transform GetIndicatorTarget()
@@ -171,6 +219,24 @@ public class ArenaEnemyDirectionIndicator : MonoBehaviour
         arrow.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 
+    private bool IsTargetVisible(Vector3 targetWorldPosition)
+    {
+        Vector3 viewportPosition = targetCamera.WorldToViewportPoint(targetWorldPosition);
+        return viewportPosition.z > 0f &&
+               viewportPosition.x >= 0f &&
+               viewportPosition.x <= 1f &&
+               viewportPosition.y >= 0f &&
+               viewportPosition.y <= 1f;
+    }
+
+    private void UpdateDot(Vector3 targetWorldPosition)
+    {
+        Vector3 dotWorldPosition = targetWorldPosition + Vector3.up * dotHeightOffset;
+        Vector3 screenPosition = targetCamera.WorldToScreenPoint(dotWorldPosition);
+        visibleEnemyDot.position = screenPosition;
+        visibleEnemyDot.rotation = Quaternion.identity;
+    }
+
     private float GetEdgeDistance(Vector2 direction)
     {
         float horizontalDistance = (Screen.width * 0.5f - screenEdgePadding) / Mathf.Max(Mathf.Abs(direction.x), 0.001f);
@@ -183,6 +249,14 @@ public class ArenaEnemyDirectionIndicator : MonoBehaviour
         if (arrow != null && arrow.gameObject.activeSelf != visible)
         {
             arrow.gameObject.SetActive(visible);
+        }
+    }
+
+    private void SetDotVisible(bool visible)
+    {
+        if (visibleEnemyDot != null && visibleEnemyDot.gameObject.activeSelf != visible)
+        {
+            visibleEnemyDot.gameObject.SetActive(visible);
         }
     }
 }
