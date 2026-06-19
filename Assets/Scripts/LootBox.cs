@@ -12,6 +12,7 @@ public class LootBox : MonoBehaviour
     public GameObject Player;
     public bool IsLooted = false;
     public bool Randomized = false;
+    public bool ForceMaximumLootCount = false;
     public GameObject LootLight;
 
     public GameObject[] LootIMAGES;
@@ -47,7 +48,7 @@ public class LootBox : MonoBehaviour
     public void RandomizeLoot()
     {
        
-            LootCount = Random.Range(1, 5);
+            LootCount = ForceMaximumLootCount ? LootImageSlotCount : Random.Range(1, LootImageSlotCount + 1);
 
             for (int i = 0; i < LootCount; i++)
             {

@@ -736,7 +736,7 @@ public class ThirdPersonController : MonoBehaviour
                         return;
 
                 case 1:
-                    currentDamage = 15;
+                    currentDamage = 40;
                     AssaultRifle();
                     if (CurrentInvSelect == 0 && !InLoot && !isDead)
                     {
@@ -1400,7 +1400,7 @@ public class ThirdPersonController : MonoBehaviour
                 MaxAmmo.text = pistolAmmo.ToString();
 
                 //reloadbutton
-                if (pistolMag == 0 && pistolAmmo != 0)
+                if (CanReloadPistol())
                 {
                     reloadButton.SetActive (true);
                 }
@@ -1418,7 +1418,7 @@ public class ThirdPersonController : MonoBehaviour
                 MaxAmmo.text = assaultAmmo.ToString();
 
                 //reloadbutton
-                if (assaultMag == 0 && assaultAmmo != 0)
+                if (CanReloadAssaultRifle())
                 {
                     reloadButton.SetActive(true);
                 }
@@ -1436,7 +1436,7 @@ public class ThirdPersonController : MonoBehaviour
                 MaxAmmo.text = shotgunAmmo.ToString();
 
                 //reloadbutton
-                if (shotgunMag == 0 && shotgunAmmo != 0)
+                if (CanReloadShotgun())
                 {
                     reloadButton.SetActive(true);
                 }
@@ -1631,56 +1631,61 @@ public class ThirdPersonController : MonoBehaviour
 
     void CheckReload()
     {
-        if (Keyboard.current.rKey.wasPressedThisFrame && pistolMag == 0 && pistolAmmo != 0)
+        if (!Keyboard.current.rKey.wasPressedThisFrame || CurrentInvSelect != 0 || InLoot || InPuzzle)
         {
-            if (pistolAmmo < 15)
-            {
-                pistolMag += pistolAmmo;
-                pistolAmmo = 0;
-                playerSounds.PlayOneShot(pistolReload);
-            }
-
-            else
-            {
-                pistolAmmo -= 15;
-                pistolMag += 15;
-                playerSounds.PlayOneShot(pistolReload);
-            }
+            return;
         }
 
-        if (Keyboard.current.rKey.wasPressedThisFrame && assaultMag == 0 && assaultAmmo != 0)
+        switch (activeGun)
         {
-            if (assaultAmmo < 25)
-            {
-                assaultMag += assaultAmmo;
-                assaultAmmo = 0;
-                playerSounds.PlayOneShot(rifleReload);
-            }
+            case 0:
+                ReloadWeapon(ref pistolMag, ref pistolAmmo, 15, pistolReload);
+                break;
 
-            else
-            {
-                assaultAmmo -= 25;
-                assaultMag += 25;
-                playerSounds.PlayOneShot(rifleReload);
-            }
+            case 1:
+                ReloadWeapon(ref assaultMag, ref assaultAmmo, 25, rifleReload);
+                break;
 
+            case 2:
+                if (isCocked)
+                {
+                    ReloadWeapon(ref shotgunMag, ref shotgunAmmo, 10, shotgunReload);
+                }
+                break;
+        }
+    }
+
+    private bool CanReloadPistol()
+    {
+        return pistolMag < 15 && pistolAmmo > 0;
+    }
+
+    private bool CanReloadAssaultRifle()
+    {
+        return assaultMag < 25 && assaultAmmo > 0;
+    }
+
+    private bool CanReloadShotgun()
+    {
+        return isCocked && shotgunMag < 10 && shotgunAmmo > 0;
+    }
+
+    private void ReloadWeapon(ref int magazineAmmo, ref int reserveAmmo, int magazineCapacity, AudioClip reloadClip)
+    {
+        if (magazineAmmo >= magazineCapacity || reserveAmmo <= 0)
+        {
+            return;
         }
 
-        if (Keyboard.current.rKey.wasPressedThisFrame && shotgunMag == 0 && shotgunAmmo != 0)
-        {
-            if (shotgunAmmo < 10)
-            {
-                shotgunMag += shotgunAmmo;
-                shotgunAmmo = 0;
-                playerSounds.PlayOneShot(shotgunReload);
-            }
+        int ammoNeeded = magazineCapacity - magazineAmmo;
+        int ammoLoaded = Mathf.Min(ammoNeeded, reserveAmmo);
 
-            else
-            {
-                shotgunAmmo -= 10;
-                shotgunMag += 10;
-                playerSounds.PlayOneShot(shotgunReload);
-            }
+        magazineAmmo += ammoLoaded;
+        reserveAmmo -= ammoLoaded;
+
+        if (reloadClip != null)
+        {
+            playerSounds.PlayOneShot(reloadClip);
         }
     }
 

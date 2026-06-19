@@ -83,6 +83,11 @@ void DestroyGrenade()
                 activeEnemies[i].GetComponentInChildren<BanditHealth>().banditHealth -= 75;
             }
 
+            else if (activeEnemies[i].TryGetComponent(out ArenaZombieEnemy arenaZombie))
+            {
+                arenaZombie.ApplyDamage(75);
+            }
+
             else
             {
                 activeEnemies[i].GetComponent<Enemy>().EnemyHealth -= 75;

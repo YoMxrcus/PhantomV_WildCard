@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ArenaWaveManager : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class ArenaWaveManager : MonoBehaviour
 
     [Header("Arena References")]
     [SerializeField] private GameObject[] enemyPrefabs;
+    [SerializeField] private GameObject[] postWaveFiveEnemyPrefabs;
     [SerializeField] private ArenaSpawnPoint[] spawnPoints;
     [SerializeField] private ArenaLootManager lootManager;
     [SerializeField] private ArenaOverheatManager overheatManager;
@@ -31,6 +33,8 @@ public class ArenaWaveManager : MonoBehaviour
     [SerializeField] private float timeBetweenSpawns = 1.25f;
     [SerializeField] private float timeBetweenWaves = 5f;
     [SerializeField] private float spawnHeightOffset = -0.25f;
+    [SerializeField] private int postWaveFiveEnemyStartWave = 1;
+    [SerializeField] private float navMeshSpawnSampleRadius = 6f;
 
     [Header("Optional UI")]
     [SerializeField] private TMP_Text waveText;
@@ -200,13 +204,18 @@ public class ArenaWaveManager : MonoBehaviour
             return;
         }
 
-        GameObject prefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
-        ArenaSpawnPoint spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        GameObject prefab = GetEnemyPrefabForCurrentWave();
+        ArenaSpawnPoint spawnPoint = GetSpawnPointForPrefab(prefab);
         Vector3 spawnPosition = spawnPoint.transform.position;
 
         if (player != null)
         {
             spawnPosition.y = player.transform.position.y + spawnHeightOffset;
+        }
+
+        if (prefab.GetComponent<ArenaZombieEnemy>() != null && NavMesh.SamplePosition(spawnPosition, out NavMeshHit hit, navMeshSpawnSampleRadius, NavMesh.AllAreas))
+        {
+            spawnPosition = hit.position;
         }
 
         GameObject enemyInstance = Instantiate(prefab, spawnPosition, Quaternion.identity);
@@ -225,6 +234,18 @@ public class ArenaWaveManager : MonoBehaviour
 
     private void ConfigureArenaEnemy(GameObject enemyInstance)
     {
+        ArenaZombieEnemy zombieEnemy = enemyInstance.GetComponent<ArenaZombieEnemy>();
+
+        if (zombieEnemy != null)
+        {
+            if (enemyInstance.GetComponent<ArenaEnemyTracker>() == null)
+            {
+                enemyInstance.AddComponent<ArenaEnemyTracker>();
+            }
+
+            return;
+        }
+
         Enemy enemy = enemyInstance.GetComponent<Enemy>();
 
         if (enemy != null)
@@ -245,6 +266,80 @@ public class ArenaWaveManager : MonoBehaviour
         }
 
         heightLock.Initialize(player != null ? player.transform : null, spawnHeightOffset);
+    }
+
+    private GameObject GetEnemyPrefabForCurrentWave()
+    {
+        bool canSpawnPostWaveFiveEnemy = currentWave >= postWaveFiveEnemyStartWave
+            && postWaveFiveEnemyPrefabs != null
+            && postWaveFiveEnemyPrefabs.Length > 0;
+
+        if (!canSpawnPostWaveFiveEnemy)
+        {
+            return enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+        }
+
+        int baseEnemyCount = enemyPrefabs != null ? enemyPrefabs.Length : 0;
+        int postWaveEnemyCount = postWaveFiveEnemyPrefabs.Length;
+        int totalEnemyOptions = baseEnemyCount + postWaveEnemyCount;
+        int selectedIndex = Random.Range(0, totalEnemyOptions);
+
+        if (selectedIndex < baseEnemyCount)
+        {
+            return enemyPrefabs[selectedIndex];
+        }
+
+        return postWaveFiveEnemyPrefabs[selectedIndex - baseEnemyCount];
+    }
+
+    private ArenaSpawnPoint GetSpawnPointForPrefab(GameObject prefab)
+    {
+        ArenaSpawnPoint.SpawnPointType spawnType = GetSpawnTypeForPrefab(prefab);
+        List<ArenaSpawnPoint> matchingSpawnPoints = new List<ArenaSpawnPoint>();
+        List<ArenaSpawnPoint> fallbackSpawnPoints = new List<ArenaSpawnPoint>();
+
+        foreach (ArenaSpawnPoint spawnPoint in spawnPoints)
+        {
+            if (spawnPoint == null)
+            {
+                continue;
+            }
+
+            if (spawnPoint.SpawnType == spawnType)
+            {
+                matchingSpawnPoints.Add(spawnPoint);
+                continue;
+            }
+
+            if (spawnPoint.SpawnType == ArenaSpawnPoint.SpawnPointType.Any)
+            {
+                fallbackSpawnPoints.Add(spawnPoint);
+            }
+        }
+
+        if (matchingSpawnPoints.Count > 0)
+        {
+            return matchingSpawnPoints[Random.Range(0, matchingSpawnPoints.Count)];
+        }
+
+        if (fallbackSpawnPoints.Count > 0)
+        {
+            Debug.LogWarning($"No exact arena spawn points found for {spawnType}. Falling back to Any arena spawn points.");
+            return fallbackSpawnPoints[Random.Range(0, fallbackSpawnPoints.Count)];
+        }
+
+        Debug.LogWarning($"No arena spawn points found for {spawnType}. Falling back to any arena spawn point.");
+        return spawnPoints[Random.Range(0, spawnPoints.Length)];
+    }
+
+    private ArenaSpawnPoint.SpawnPointType GetSpawnTypeForPrefab(GameObject prefab)
+    {
+        if (prefab != null && prefab.GetComponent<ArenaZombieEnemy>() != null)
+        {
+            return ArenaSpawnPoint.SpawnPointType.Zombie;
+        }
+
+        return ArenaSpawnPoint.SpawnPointType.Snake;
     }
 
     private int GetEnemyCountForWave(int waveNumber)

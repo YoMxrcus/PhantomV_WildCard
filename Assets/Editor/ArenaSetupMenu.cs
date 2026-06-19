@@ -4,6 +4,8 @@ using UnityEngine;
 public static class ArenaSetupMenu
 {
     private const string SnakeEnemyPath = "Assets/Prefabs/SNAKEENEMY.prefab";
+    private const string ArenaZombieWalkerPath = "Assets/Prefabs/ArenaZombieWalker.prefab";
+    private const string ArenaZombieRunnerPath = "Assets/Prefabs/ArenaZombieRunner.prefab";
     private const string LootBoxPath = "Assets/Prefabs/LOOTBOX 1.prefab";
     private const string CondensorLootImagePath = "Assets/Images/NEWLootImages/condenser.png";
 
@@ -32,6 +34,8 @@ public static class ArenaSetupMenu
         ArenaOverheatManager overheatManager = CreateOrFindOverheatManager();
         ArenaEnemyDirectionIndicator enemyDirectionIndicator = CreateOrFindEnemyDirectionIndicator();
         GameObject snakeEnemyPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(SnakeEnemyPath);
+        GameObject arenaZombieWalkerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(ArenaZombieWalkerPath);
+        GameObject arenaZombieRunnerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(ArenaZombieRunnerPath);
 
         SerializedObject serializedManager = new SerializedObject(manager);
         SetObjectReference(serializedManager, "playerSpawnPoint", playerSpawn);
@@ -47,6 +51,15 @@ public static class ArenaSetupMenu
         else
         {
             Debug.LogWarning($"Could not find default enemy prefab at {SnakeEnemyPath}. Assign an enemy prefab to ArenaWaveManager manually.");
+        }
+
+        if (arenaZombieWalkerPrefab != null && arenaZombieRunnerPrefab != null)
+        {
+            SetObjectArray(serializedManager, "postWaveFiveEnemyPrefabs", new[] { arenaZombieWalkerPrefab, arenaZombieRunnerPrefab });
+        }
+        else
+        {
+            Debug.LogWarning("Arena zombie prefabs were not found yet. Run Tools > PhantomV > Arena > Create Arena Zombie Prefabs, then run Create Basic Arena Setup again or assign them manually.");
         }
 
         serializedManager.ApplyModifiedProperties();
@@ -80,19 +93,23 @@ public static class ArenaSetupMenu
             Undo.RegisterCreatedObjectUndo(parent, "Create Arena Spawn Points");
         }
 
-        Vector3[] offsets =
+        (string name, Vector3 offset, ArenaSpawnPoint.SpawnPointType spawnType)[] spawnDefinitions =
         {
-            new Vector3(12f, 0f, 0f),
-            new Vector3(-12f, 0f, 0f),
-            new Vector3(0f, 0f, 12f),
-            new Vector3(0f, 0f, -12f)
+            ("ArenaSnakeSpawn_RockPile_1", new Vector3(12f, 0f, 0f), ArenaSpawnPoint.SpawnPointType.Snake),
+            ("ArenaSnakeSpawn_RockPile_2", new Vector3(-12f, 0f, 0f), ArenaSpawnPoint.SpawnPointType.Snake),
+            ("ArenaSnakeSpawn_RockPile_3", new Vector3(0f, 0f, 12f), ArenaSpawnPoint.SpawnPointType.Snake),
+            ("ArenaSnakeSpawn_RockPile_4", new Vector3(0f, 0f, -12f), ArenaSpawnPoint.SpawnPointType.Snake),
+            ("ArenaZombieSpawn_Cryopod_1", new Vector3(16f, 0f, 8f), ArenaSpawnPoint.SpawnPointType.Zombie),
+            ("ArenaZombieSpawn_Cryopod_2", new Vector3(-16f, 0f, 8f), ArenaSpawnPoint.SpawnPointType.Zombie),
+            ("ArenaZombieSpawn_Cryopod_3", new Vector3(16f, 0f, -8f), ArenaSpawnPoint.SpawnPointType.Zombie),
+            ("ArenaZombieSpawn_Cryopod_4", new Vector3(-16f, 0f, -8f), ArenaSpawnPoint.SpawnPointType.Zombie)
         };
 
-        ArenaSpawnPoint[] points = new ArenaSpawnPoint[offsets.Length];
+        ArenaSpawnPoint[] points = new ArenaSpawnPoint[spawnDefinitions.Length];
 
-        for (int i = 0; i < offsets.Length; i++)
+        for (int i = 0; i < spawnDefinitions.Length; i++)
         {
-            Transform marker = CreateOrFindMarker($"ArenaSpawnPoint_{i + 1}", center + offsets[i]);
+            Transform marker = CreateOrFindMarker(spawnDefinitions[i].name, center + spawnDefinitions[i].offset);
             marker.SetParent(parent.transform);
 
             ArenaSpawnPoint spawnPoint = marker.GetComponent<ArenaSpawnPoint>();
@@ -101,6 +118,11 @@ public static class ArenaSetupMenu
             {
                 spawnPoint = Undo.AddComponent<ArenaSpawnPoint>(marker.gameObject);
             }
+
+            SerializedObject serializedSpawnPoint = new SerializedObject(spawnPoint);
+            SetEnum(serializedSpawnPoint, "spawnType", (int)spawnDefinitions[i].spawnType);
+            serializedSpawnPoint.ApplyModifiedProperties();
+            EditorUtility.SetDirty(spawnPoint);
 
             points[i] = spawnPoint;
         }
@@ -275,6 +297,16 @@ public static class ArenaSetupMenu
         for (int i = 0; i < values.Length; i++)
         {
             property.GetArrayElementAtIndex(i).objectReferenceValue = values[i];
+        }
+    }
+
+    private static void SetEnum(SerializedObject serializedObject, string propertyName, int enumValueIndex)
+    {
+        SerializedProperty property = serializedObject.FindProperty(propertyName);
+
+        if (property != null)
+        {
+            property.enumValueIndex = enumValueIndex;
         }
     }
 }

@@ -87,6 +87,7 @@ public class ArenaLootManager : MonoBehaviour
         }
 
         lootBoxScript.SetLootPool(usePreOverheatLoot ? preOverheatLoot : standardArenaLoot);
+        lootBoxScript.ForceMaximumLootCount = true;
 
         if (condensorLootImage != null)
         {
