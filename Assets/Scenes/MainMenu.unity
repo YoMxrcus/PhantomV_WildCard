@@ -805,6 +805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b7cf7a8c44f7343ae89f98e3583f21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
+  ArenaModeUI: ArenaModeUISCENE
   main: {fileID: 442364903}
   credits: {fileID: 1159394252}
   help: {fileID: 1524342313}
@@ -9080,7 +9081,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 104311283}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: ArenaMode
+        m_MethodName: LoadArenaModeUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

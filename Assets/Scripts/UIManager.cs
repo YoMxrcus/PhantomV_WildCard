@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     string LevelTwoIntro = "ComicTwoScene";
     string LevelThreeIntro = "ComicThreeScene";
     string ArenaModeActual = "ArenaLevelDesignDraft";
+    public string ArenaModeUI = "ArenaModeUISCENE";
 
 
     public GameObject main;
@@ -110,6 +111,12 @@ public class UIManager : MonoBehaviour
     public void ArenaMode()
     {
         SceneManager.LoadScene(ArenaModeActual);
+        buttonSounds.PlayOneShot(click1);
+    }
+
+    public void LoadArenaModeUI()
+    {
+        SceneManager.LoadScene(ArenaModeUI);
         buttonSounds.PlayOneShot(click1);
     }
 
