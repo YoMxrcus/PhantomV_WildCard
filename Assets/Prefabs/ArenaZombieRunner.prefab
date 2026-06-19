@@ -1563,6 +1563,7 @@ GameObject:
   - component: {fileID: 6287376387522759319}
   - component: {fileID: 7668930785886219050}
   - component: {fileID: 6714218296695793015}
+  - component: {fileID: -6457894071572720081}
   m_Layer: 2
   m_Name: ArenaZombieRunner
   m_TagString: BanditHitbox
@@ -1709,6 +1710,17 @@ MonoBehaviour:
   attackState: Attack
   hitState: Hit
   dyingState: Dying
+  idleLoopSound: {fileID: 8300000, guid: c0a7df923aca2054b9f746407a62c016, type: 3}
+  walkLoopSound: {fileID: 8300000, guid: 494876df2f19af84c863accbda28c068, type: 3}
+  runLoopSound: {fileID: 8300000, guid: 24e60b6d68ec2a44d9ea4c1ec3e1736d, type: 3}
+  attackSound: {fileID: 8300000, guid: b4f3b2957ac7d014b9e47f18fce3b311, type: 3}
+  hitSound: {fileID: 8300000, guid: 0071c612bb8036e41b504e94dd9b8e28, type: 3}
+  deathSound: {fileID: 8300000, guid: 792e79f20084fd7479a908711e4dc8b5, type: 3}
+  loopAudioSource: {fileID: -6457894071572720081}
+  oneShotAudioSource: {fileID: -6457894071572720081}
+  audioVolume: 0.626
+  audioMinDistance: 2
+  audioMaxDistance: 28
 --- !u!114 &6714218296695793015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1721,6 +1733,103 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82a4f033fea7eb2488e3ccf91957e37c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArenaEnemyTracker
+--- !u!82 &-6457894071572720081
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6128182656072113459}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6600876236134601332
 GameObject:
   m_ObjectHideFlags: 0

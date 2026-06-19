@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class ArenaWaveManager : MonoBehaviour
 {
@@ -40,6 +41,17 @@ public class ArenaWaveManager : MonoBehaviour
     [SerializeField] private TMP_Text waveText;
     [SerializeField] private TMP_Text enemiesText;
     [SerializeField] private TMP_Text stateText;
+    [SerializeField] private TMP_Text overheatNoticeText;
+    [SerializeField] private TMP_Text lootNoticeText;
+    [SerializeField] private float overheatNoticeSeconds = 3f;
+    [SerializeField] private float lootNoticeSeconds = 3f;
+
+    [Header("Optional Notification Audio")]
+    [SerializeField] private AudioClip overheatNoticeSound;
+    [SerializeField] private AudioClip lootNoticeSound;
+    [SerializeField] private AudioSource overheatNoticeAudioSource;
+    [SerializeField] private AudioSource lootNoticeAudioSource;
+    [SerializeField, Range(0f, 1f)] private float notificationVolume = 1f;
 
     [Header("Runtime Debug")]
     [SerializeField] private int inspectorCurrentWave;
@@ -55,6 +67,8 @@ public class ArenaWaveManager : MonoBehaviour
     private int currentWave;
     private int enemiesRemainingToSpawn;
     private bool runActive;
+    private Coroutine overheatNoticeCoroutine;
+    private Coroutine lootNoticeCoroutine;
 
     public int CurrentWave => currentWave;
     public int AliveEnemyCount => aliveEnemies.Count;
@@ -74,6 +88,7 @@ public class ArenaWaveManager : MonoBehaviour
         }
 
         InitializeArenaSystems();
+        InitializeArenaNotifications();
         UpdateUI();
 
         if (startOnPlay)
@@ -111,6 +126,7 @@ public class ArenaWaveManager : MonoBehaviour
             arenaCoroutine = null;
         }
 
+        HideArenaNotifications();
         UpdateUI();
     }
 
@@ -150,6 +166,11 @@ public class ArenaWaveManager : MonoBehaviour
             if (overheatManager != null)
             {
                 overheatManager.BeginWave(currentWave);
+
+                if (overheatManager.IsOverheatActive)
+                {
+                    ShowOverheatNotice();
+                }
             }
             UpdateUI();
             yield return StartCoroutine(SpawnCurrentWave());
@@ -170,7 +191,12 @@ public class ArenaWaveManager : MonoBehaviour
             if (lootManager != null)
             {
                 bool nextWaveIsOverheat = overheatManager != null && overheatManager.IsOverheatWave(currentWave + 1);
-                lootManager.SpawnLootForCompletedWave(currentWave, nextWaveIsOverheat);
+                bool spawnedLoot = lootManager.SpawnLootForCompletedWave(currentWave, nextWaveIsOverheat);
+
+                if (spawnedLoot)
+                {
+                    ShowLootNotice();
+                }
             }
         }
     }
@@ -417,6 +443,191 @@ public class ArenaWaveManager : MonoBehaviour
     private void ClearTrackedEnemies()
     {
         aliveEnemies.Clear();
+    }
+
+    private void InitializeArenaNotifications()
+    {
+        if (overheatNoticeText == null)
+        {
+            overheatNoticeText = CreateNotificationText("ArenaOverheatNoticeText", new Vector2(0f, 130f), new Color(1f, 0.15f, 0.05f, 1f), 42f);
+        }
+
+        if (lootNoticeText == null)
+        {
+            lootNoticeText = CreateNotificationText("ArenaLootNoticeText", new Vector2(0f, 82f), new Color(1f, 0.9f, 0.25f, 1f), 34f);
+        }
+
+        HideNotification(overheatNoticeText);
+        HideNotification(lootNoticeText);
+        InitializeNotificationAudio();
+    }
+
+    private void InitializeNotificationAudio()
+    {
+        overheatNoticeAudioSource = ResolveNotificationAudioSource(overheatNoticeAudioSource, "ArenaOverheatNoticeAudioSource");
+        lootNoticeAudioSource = ResolveNotificationAudioSource(lootNoticeAudioSource, "ArenaLootNoticeAudioSource");
+    }
+
+    private AudioSource ResolveNotificationAudioSource(AudioSource audioSource, string objectName)
+    {
+        if (audioSource != null)
+        {
+            ConfigureNotificationAudioSource(audioSource);
+            return audioSource;
+        }
+
+        GameObject existingObject = GameObject.Find(objectName);
+
+        if (existingObject != null && existingObject.TryGetComponent(out AudioSource existingSource))
+        {
+            ConfigureNotificationAudioSource(existingSource);
+            return existingSource;
+        }
+
+        GameObject audioObject = new GameObject(objectName);
+        AudioSource newSource = audioObject.AddComponent<AudioSource>();
+        ConfigureNotificationAudioSource(newSource);
+        return newSource;
+    }
+
+    private void ConfigureNotificationAudioSource(AudioSource audioSource)
+    {
+        audioSource.playOnAwake = false;
+        audioSource.loop = false;
+        audioSource.spatialBlend = 0f;
+        audioSource.volume = notificationVolume;
+    }
+
+    private TMP_Text CreateNotificationText(string objectName, Vector2 anchoredPosition, Color color, float fontSize)
+    {
+        GameObject existingObject = GameObject.Find(objectName);
+
+        if (existingObject != null && existingObject.TryGetComponent(out TMP_Text existingText))
+        {
+            return existingText;
+        }
+
+        GameObject canvasObject = GameObject.Find("ArenaNotificationCanvas");
+        Canvas canvas = canvasObject != null ? canvasObject.GetComponent<Canvas>() : null;
+
+        if (canvas == null)
+        {
+            canvasObject = new GameObject("ArenaNotificationCanvas");
+            canvas = canvasObject.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvasObject.AddComponent<CanvasScaler>();
+            canvasObject.AddComponent<GraphicRaycaster>();
+        }
+
+        GameObject textObject = new GameObject(objectName);
+        textObject.transform.SetParent(canvas.transform, false);
+
+        TextMeshProUGUI text = textObject.AddComponent<TextMeshProUGUI>();
+        text.alignment = TextAlignmentOptions.Center;
+        text.color = color;
+        text.fontSize = fontSize;
+        text.fontStyle = FontStyles.Bold;
+        text.raycastTarget = false;
+
+        RectTransform rectTransform = text.rectTransform;
+        rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+        rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+        rectTransform.pivot = new Vector2(0.5f, 0.5f);
+        rectTransform.anchoredPosition = anchoredPosition;
+        rectTransform.sizeDelta = new Vector2(900f, 80f);
+
+        return text;
+    }
+
+    private void ShowOverheatNotice()
+    {
+        ShowNotification(overheatNoticeText, "OVERHEAT FIND SHELTER", overheatNoticeSeconds, ref overheatNoticeCoroutine, overheatNoticeSound, overheatNoticeAudioSource);
+    }
+
+    private void ShowLootNotice()
+    {
+        ShowNotification(lootNoticeText, "NEW LOOT AVAILABLE", lootNoticeSeconds, ref lootNoticeCoroutine, lootNoticeSound, lootNoticeAudioSource);
+    }
+
+    private void ShowNotification(TMP_Text targetText, string message, float seconds, ref Coroutine activeCoroutine, AudioClip sound, AudioSource audioSource)
+    {
+        if (targetText == null)
+        {
+            return;
+        }
+
+        if (activeCoroutine != null)
+        {
+            StopCoroutine(activeCoroutine);
+        }
+
+        activeCoroutine = StartCoroutine(NotificationRoutine(targetText, message, seconds, sound, audioSource));
+    }
+
+    private IEnumerator NotificationRoutine(TMP_Text targetText, string message, float seconds, AudioClip sound, AudioSource audioSource)
+    {
+        targetText.text = message;
+        targetText.gameObject.SetActive(true);
+        PlayNotificationSound(sound, audioSource);
+
+        yield return new WaitForSeconds(seconds);
+
+        HideNotification(targetText);
+        StopNotificationSound(audioSource);
+    }
+
+    private void PlayNotificationSound(AudioClip sound, AudioSource audioSource)
+    {
+        if (sound == null || audioSource == null)
+        {
+            return;
+        }
+
+        audioSource.Stop();
+        audioSource.clip = sound;
+        audioSource.volume = notificationVolume;
+        audioSource.Play();
+    }
+
+    private void StopNotificationSound(AudioSource audioSource)
+    {
+        if (audioSource == null || !audioSource.isPlaying)
+        {
+            return;
+        }
+
+        audioSource.Stop();
+    }
+
+    private void HideArenaNotifications()
+    {
+        if (overheatNoticeCoroutine != null)
+        {
+            StopCoroutine(overheatNoticeCoroutine);
+            overheatNoticeCoroutine = null;
+        }
+
+        if (lootNoticeCoroutine != null)
+        {
+            StopCoroutine(lootNoticeCoroutine);
+            lootNoticeCoroutine = null;
+        }
+
+        HideNotification(overheatNoticeText);
+        HideNotification(lootNoticeText);
+        StopNotificationSound(overheatNoticeAudioSource);
+        StopNotificationSound(lootNoticeAudioSource);
+    }
+
+    private void HideNotification(TMP_Text targetText)
+    {
+        if (targetText == null)
+        {
+            return;
+        }
+
+        targetText.text = string.Empty;
+        targetText.gameObject.SetActive(false);
     }
 
     private void UpdateUI()

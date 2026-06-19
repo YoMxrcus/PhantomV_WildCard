@@ -30,6 +30,19 @@ public class ArenaZombieEnemy : MonoBehaviour
     [SerializeField] private string hitState = "Hit";
     [SerializeField] private string dyingState = "Dying";
 
+    [Header("Diegetic Action Audio")]
+    [SerializeField] private AudioClip idleLoopSound;
+    [SerializeField] private AudioClip walkLoopSound;
+    [SerializeField] private AudioClip runLoopSound;
+    [SerializeField] private AudioClip attackSound;
+    [SerializeField] private AudioClip hitSound;
+    [SerializeField] private AudioClip deathSound;
+    [SerializeField] private AudioSource loopAudioSource;
+    [SerializeField] private AudioSource oneShotAudioSource;
+    [SerializeField, Range(0f, 1f)] private float audioVolume = 1f;
+    [SerializeField] private float audioMinDistance = 2f;
+    [SerializeField] private float audioMaxDistance = 28f;
+
     private NavMeshAgent agent;
     private Animator animator;
     private ThirdPersonController player;
@@ -38,6 +51,7 @@ public class ArenaZombieEnemy : MonoBehaviour
     private float nextRetargetTime;
     private bool isDead;
     private string currentAnimationState;
+    private AudioClip currentLoopClip;
 
     public ZombieKind Kind => kind;
     public int CurrentHealth => currentHealth;
@@ -54,6 +68,7 @@ public class ArenaZombieEnemy : MonoBehaviour
 
         currentHealth = maxHealth;
         ConfigureAgent();
+        ConfigureAudioSources();
     }
 
     private void Start()
@@ -134,6 +149,7 @@ public class ArenaZombieEnemy : MonoBehaviour
         }
 
         PlayState(hitState, 0.03f);
+        PlayOneShot(hitSound);
     }
 
     public void SetKind(ZombieKind newKind)
@@ -182,6 +198,7 @@ public class ArenaZombieEnemy : MonoBehaviour
             player.health -= attackDamage;
         }
 
+        PlayOneShot(attackSound);
         nextAttackTime = Time.time + attackCooldown;
     }
 
@@ -203,6 +220,8 @@ public class ArenaZombieEnemy : MonoBehaviour
         }
 
         PlayState(dyingState, 0.05f);
+        StopLoopSound();
+        PlayOneShot(deathSound);
         Destroy(gameObject, destroyAfterDeathSeconds);
     }
 
@@ -275,5 +294,117 @@ public class ArenaZombieEnemy : MonoBehaviour
 
         animator.CrossFade(stateName, transitionDuration);
         currentAnimationState = stateName;
+        UpdateLoopSoundForState(stateName);
+    }
+
+    private void ConfigureAudioSources()
+    {
+        loopAudioSource = ResolveAudioSource(loopAudioSource, "ZombieLoopAudioSource");
+        oneShotAudioSource = ResolveAudioSource(oneShotAudioSource, "ZombieOneShotAudioSource");
+    }
+
+    private AudioSource ResolveAudioSource(AudioSource source, string objectName)
+    {
+        if (source == null)
+        {
+            Transform existingSource = transform.Find(objectName);
+
+            if (existingSource != null)
+            {
+                source = existingSource.GetComponent<AudioSource>();
+            }
+        }
+
+        if (source == null)
+        {
+            GameObject sourceObject = new GameObject(objectName);
+            sourceObject.transform.SetParent(transform, false);
+            source = sourceObject.AddComponent<AudioSource>();
+        }
+
+        ConfigureDiegeticAudioSource(source);
+        return source;
+    }
+
+    private void ConfigureDiegeticAudioSource(AudioSource source)
+    {
+        source.playOnAwake = false;
+        source.spatialBlend = 1f;
+        source.rolloffMode = AudioRolloffMode.Linear;
+        source.minDistance = audioMinDistance;
+        source.maxDistance = audioMaxDistance;
+        source.volume = audioVolume;
+    }
+
+    private void UpdateLoopSoundForState(string stateName)
+    {
+        if (stateName == idleState)
+        {
+            PlayLoopSound(idleLoopSound);
+            return;
+        }
+
+        if (stateName == walkState)
+        {
+            PlayLoopSound(walkLoopSound);
+            return;
+        }
+
+        if (stateName == runState)
+        {
+            PlayLoopSound(runLoopSound);
+            return;
+        }
+
+        StopLoopSound();
+    }
+
+    private void PlayLoopSound(AudioClip clip)
+    {
+        if (loopAudioSource == null)
+        {
+            return;
+        }
+
+        if (clip == null)
+        {
+            StopLoopSound();
+            return;
+        }
+
+        if (currentLoopClip == clip && loopAudioSource.isPlaying)
+        {
+            return;
+        }
+
+        loopAudioSource.Stop();
+        loopAudioSource.clip = clip;
+        loopAudioSource.loop = true;
+        loopAudioSource.volume = audioVolume;
+        loopAudioSource.Play();
+        currentLoopClip = clip;
+    }
+
+    private void StopLoopSound()
+    {
+        if (loopAudioSource == null)
+        {
+            return;
+        }
+
+        loopAudioSource.Stop();
+        currentLoopClip = null;
+    }
+
+    private void PlayOneShot(AudioClip clip)
+    {
+        if (clip == null || oneShotAudioSource == null)
+        {
+            return;
+        }
+
+        oneShotAudioSource.loop = false;
+        oneShotAudioSource.volume = audioVolume;
+        oneShotAudioSource.PlayOneShot(clip);
     }
 }

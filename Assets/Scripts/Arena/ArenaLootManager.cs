@@ -11,8 +11,10 @@ public class ArenaLootManager : MonoBehaviour
     [Header("Wave Rewards")]
     [SerializeField] private bool spawnLootAfterEveryWave = true;
     [SerializeField] private int boxesPerRewardWave = 1;
-    [SerializeField] private int maxActiveLootBoxes = 3;
+    [SerializeField] private int maxActiveLootBoxes = 6;
     [SerializeField] private int firstRewardWave = 1;
+    [SerializeField] private int roundsPerExtraLootBox = 5;
+    [SerializeField] private int maxBoxesPerRewardWave = 6;
     [SerializeField] private float spawnHeightOffset = 0f;
     [SerializeField] private float despawnDelayAfterLooted = 1.5f;
     [SerializeField] private float occupiedSpawnRadius = 1.25f;
@@ -23,6 +25,8 @@ public class ArenaLootManager : MonoBehaviour
 
     [Header("Runtime Debug")]
     [SerializeField] private int inspectorActiveLootBoxes;
+    [SerializeField] private int inspectorLastBoxesRequested;
+    [SerializeField] private int inspectorLastBoxesSpawned;
     [SerializeField] private bool inspectorLastRewardPreparedForOverheat;
 
     private readonly List<GameObject> activeLootBoxes = new List<GameObject>();
@@ -40,7 +44,7 @@ public class ArenaLootManager : MonoBehaviour
         }
     }
 
-    public void SpawnLootForCompletedWave(int completedWave, bool nextWaveIsOverheat = false)
+    public bool SpawnLootForCompletedWave(int completedWave, bool nextWaveIsOverheat = false)
     {
         RemoveMissingOrLootedBoxes();
         inspectorLastRewardPreparedForOverheat = nextWaveIsOverheat;
@@ -48,26 +52,43 @@ public class ArenaLootManager : MonoBehaviour
         if (!spawnLootAfterEveryWave || completedWave < firstRewardWave)
         {
             UpdateInspectorDebug();
-            return;
+            return false;
         }
 
+        int desiredBoxes = GetBoxesForCompletedWave(completedWave);
         int availableSlots = Mathf.Max(0, maxActiveLootBoxes - activeLootBoxes.Count);
-        int boxesToSpawn = Mathf.Min(boxesPerRewardWave, availableSlots);
+        int boxesToSpawn = Mathf.Min(desiredBoxes, availableSlots);
+        int spawnedBoxCount = 0;
+        bool spawnedLoot = false;
 
         for (int i = 0; i < boxesToSpawn; i++)
         {
-            SpawnLootBox(nextWaveIsOverheat);
+            if (SpawnLootBox(nextWaveIsOverheat))
+            {
+                spawnedBoxCount++;
+                spawnedLoot = true;
+            }
         }
 
+        inspectorLastBoxesRequested = desiredBoxes;
+        inspectorLastBoxesSpawned = spawnedBoxCount;
         UpdateInspectorDebug();
+        return spawnedLoot;
     }
 
-    private void SpawnLootBox(bool usePreOverheatLoot)
+    private int GetBoxesForCompletedWave(int completedWave)
+    {
+        int extraBoxes = roundsPerExtraLootBox > 0 ? completedWave / roundsPerExtraLootBox : 0;
+        int boxesForWave = boxesPerRewardWave + extraBoxes;
+        return Mathf.Clamp(boxesForWave, 1, maxBoxesPerRewardWave);
+    }
+
+    private bool SpawnLootBox(bool usePreOverheatLoot)
     {
         if (lootBoxPrefab == null || lootSpawnPoints == null || lootSpawnPoints.Length == 0)
         {
             Debug.LogWarning("ArenaLootManager needs a loot box prefab and at least one loot spawn point.");
-            return;
+            return false;
         }
 
         ArenaLootSpawnPoint spawnPoint = GetRandomOpenSpawnPoint();
@@ -75,6 +96,7 @@ public class ArenaLootManager : MonoBehaviour
         GameObject lootBox = Instantiate(lootBoxPrefab, spawnPosition, spawnPoint.transform.rotation);
         ConfigureArenaLootBox(lootBox, usePreOverheatLoot);
         activeLootBoxes.Add(lootBox);
+        return true;
     }
 
     private void ConfigureArenaLootBox(GameObject lootBox, bool usePreOverheatLoot)
