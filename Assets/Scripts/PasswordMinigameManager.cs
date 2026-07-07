@@ -61,6 +61,8 @@ public class PasswordMinigameManager : MonoBehaviour
     {
         PasswordMinigame.SetActive(true);
 
+        currentPassword = ""; //password bug fixed
+
         for (int i = 0; i < 5; i++)
         {
             currentPassword += comboLetters[Random.Range(0, comboLetters.Length)];

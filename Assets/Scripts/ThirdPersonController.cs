@@ -705,12 +705,15 @@ public class ThirdPersonController : MonoBehaviour
             playerSounds.PlayOneShot(dash);
         }
 
+        /* BUG FIXED - Dash Out Miltiplier caused by this
         else if (Keyboard.current.cKey.isPressed && InPuzzle && !isDead) //POTNETIAL BUG - isPressed VS wasPressedThisFrame
         {
             StartCoroutine(Dash());
             playerSounds.PlayOneShot(dash);
             playerSounds.PlayOneShot(generatorStop);
         }
+
+        */
 
         if (!isDead)
         {
